@@ -14,9 +14,7 @@
 
 ### 2.2 依赖关系
 
-​	动态创建线程，需要确保已经开启了HEAP：ENV的"RT-Thread Kernel -> Memory Management -> Using memory heap object to manage dynamic memory heap."选项已经勾选。
-
-​	即在ENV的"RT-Thread Kernel -> Memory Management -> Using memory heap object to manage dynamic memory heap."选项已经勾选。
+​	动态创建线程，需要确保已经开启了HEAP：ENV的"RT-Thread Kernel -> Memory Management -> Using memory heap object to manage dynamic memory heap."选项已经勾选。​
 
 ​	如果使用了shell组件(finsh shell/msh shell)，那么可以在shell里面输入`list_mem`或者`list_memheap`查看更多Heap的信息。
 
