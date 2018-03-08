@@ -1,0 +1,6 @@
+menu "RT-Thread Sample Configuration"
+
+source "$BSP_DIR/packages/rt-thread-sample/kernel/Kconfig"
+
+endmenu
+
