@@ -1,4 +1,4 @@
-# thread_create sample 
+# 创建动态线程 
 
 ## 1. 介绍
 
@@ -22,7 +22,24 @@
 
 运行结果：
 
-![运行结果](./figura/run.png)
+```bash
+
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.3 build Mar  8 2018
+ 2006 - 2018 Copyright by rt-thread team
+sample_thread_create
+sample_thread_entry
+counter: 0
+counter: 1
+counter: 2
+counter: 3
+counter: 4
+counter: 5
+counter: 6
+```
+
+
 
 ## 4. 深入讲解 
 
