@@ -21,41 +21,12 @@
  * Date           Author       Notes
  * 2018-03-01     Tanek        the first version
  */
-
-#include <stdio.h>
 #include <rtthread.h>
 
-/* the system main thread */
-void sample_thread_entry(void *parameter)
-{
-    int counter = 0;
+int sample(void)
+{    
     rt_kprintf("%s\n", __FUNCTION__);
-    
-    while (1)
-    {
-        rt_kprintf("counter: %d\n", counter++);
-        rt_thread_delay(RT_TICK_PER_SECOND);
-    }
-}
-
-int sample_thread_create(void)
-{
-    rt_thread_t tid;
-    
-    rt_kprintf("%s\n", __FUNCTION__);
-
-    tid = rt_thread_create("sample", sample_thread_entry, RT_NULL,
-                           1024, RT_THREAD_PRIORITY_MAX / 3, 20);
-    
-    if (tid != RT_NULL)
-    {
-        rt_thread_startup(tid);
-    }
-    else
-    {
-        RT_ASSERT(tid != RT_NULL);
-    }
     
     return 0;
 }
-INIT_APP_EXPORT(sample_thread_create);
+INIT_APP_EXPORT(sample);

@@ -1,0 +1,11 @@
+menu "Kernel Samples"
+
+config PKG_USING_SAMPLE_BASIC
+    bool "select basic sample"
+    default n
+
+config PKG_USING_SAMPLE_THREAD_CREAT
+    bool "select thread create sample"
+    default n
+
+endmenu
