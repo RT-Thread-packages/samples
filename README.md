@@ -63,18 +63,19 @@ sample主要用于如下用途：
 | 名称 | 说明 |
 | ---- | ---- |
 | thread_create_delete | 线程的创建和删除 |
+| interrupt | 中断和临界区保护 |
 | semphore | 信号量 |
 | mutex | 互斥量 |
 | mailbox | 邮箱 |
 | event | 事件 |
 | messagequeue | 消息队列 |
-| signal | 信号 |
 | timer | 软件定时器 |
 | heap | 堆的初始化和使用（数组方式） |
 | memheap | 非连续内存堆 |
 | mempool | 内存池 |
 | idlehook | 空闲任务钩子 |
 | producer_consumer | 生产者消费者 |
+| signal | 信号 |
 
 Shell
 
@@ -100,7 +101,10 @@ Shell
 
 | 名称 | 说明 |
 | ---- | ---- |
+| create_mount | 文件系统创建和挂载 |
 | read_write | 文件系统读写 |
+| romfs | ROM文件系统 |
+| ramfs | RAM文件系统 |
 
 网络
 
