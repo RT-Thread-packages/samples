@@ -367,9 +367,6 @@ int mpu6050_hw_init(void)
 {
     rt_uint8_t res;   
 
-    /*hw_i2c_init();    drv_i2c.c中会执行i2c初始化,初始化后需要延时一段时间后再初始化MPU6050*/
-    rt_thread_delay(rt_tick_from_millisecond(100));
-
     mpu6050_i2c_bus = rt_i2c_bus_device_find(MPU6050_I2CBUS_NAME);  /*查找I2C设备*/
 
     if (mpu6050_i2c_bus == RT_NULL) 
