@@ -1,12 +1,19 @@
+# RT-Thread building script for bridge
+
 import os
 from building import *
 
-objs = []
-cwd  = GetCurrentDir()
+cwd = GetCurrentDir()
+src = []
+CPPPATH = [ cwd]
+
+objs = DefineGroup('samples', src, depend = ['PKG_USING_SAMPLES'], CPPPATH = CPPPATH)
 list = os.listdir(cwd)
 
-for item in list:
-    if os.path.isfile(os.path.join(cwd, item, 'SConscript')):
-        objs = objs + SConscript(os.path.join(item, 'SConscript'))
+if GetDepend('PKG_USING_SAMPLES'):
+    for d in list:
+        path = os.path.join(cwd, d)
+        if os.path.isfile(os.path.join(path, 'SConscript')):
+            objs = objs + SConscript(os.path.join(d, 'SConscript'))
 
 Return('objs')

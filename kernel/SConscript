@@ -6,11 +6,67 @@ cwd   = GetCurrentDir()
 group = []
 CPPPATH = []
 
-# add Ethernet drvers.
-if GetDepend('PKG_USING_SAMPLE_THREAD_CREAT'):
-    src += ['thread_create/thread_create.c']
-    CPPPATH += [cwd + '/thread_create']
+# add kernel samples.
+if GetDepend('RT_USING_SAMPLE_LED'):
+    src += ['led/led.c']
+    CPPPATH += [cwd + '/led']
 
-group = DefineGroup('Samples', src, depend = [''], CPPPATH = CPPPATH)
+if GetDepend('RT_USING_SAMPLE_THREAD'):
+    src += ['thread/thread.c']
+    CPPPATH += [cwd + '/thread']
+
+if GetDepend('RT_USING_SAMPLE_INTERRUPT'):
+    src += ['mailbox/mailbox.c']
+    CPPPATH += [cwd + '/mailbox']
+
+if GetDepend('RT_USING_SAMPLE_SEMPHORE'):
+    src += ['semphore/semphore.c']
+    CPPPATH += [cwd + '/semphore']
+
+if GetDepend('RT_USING_SAMPLE_MUTEX'):
+    src += ['mutex/mutex.c']
+    CPPPATH += [cwd + '/mutex']
+
+if GetDepend('RT_USING_SAMPLE_MAILBOX'):
+    src += ['mailbox/mailbox.c']
+    CPPPATH += [cwd + '/mailbox']
+
+if GetDepend('RT_USING_SAMPLE_EVENT'):
+    src += ['event/event.c']
+    CPPPATH += [cwd + '/event']
+
+if GetDepend('RT_USING_SAMPLE_MESSAGEQUEUE'):
+    src += ['msg/msg.c']
+    CPPPATH += [cwd + '/msg']
+
+if GetDepend('RT_USING_SAMPLE_TIMER'):
+    src += ['timer/timer.c']
+    CPPPATH += [cwd + '/timer']
+
+if GetDepend('RT_USING_SAMPLE_HEAP'):
+    src += ['heap/heap.c']
+    CPPPATH += [cwd + '/heap']
+
+if GetDepend('RT_USING_SAMPLE_MEMHEAP'):
+    src += ['memheap/memheap.c']
+    CPPPATH += [cwd + '/memheap']
+
+if GetDepend('RT_USING_SAMPLE_MEMPOOL'):
+    src += ['mempool/mempool.c']
+    CPPPATH += [cwd + '/mempool']
+
+if GetDepend('RT_USING_SAMPLE_IDLEHOOK'):
+    src += ['idlehook/idlehook.c']
+    CPPPATH += [cwd + '/idlehook']
+
+if GetDepend('RT_USING_SAMPLE_PRODUCER_CONSUMER'):
+    src += ['producer_consumer/producer_consumer.c']
+    CPPPATH += [cwd + '/producer_consumer']
+
+if GetDepend('RT_USING_SAMPLE_SIGNAL'):
+    src += ['signal/signal.c']
+    CPPPATH += [cwd + '/signal']
+
+group = DefineGroup('samples', src, depend = [''], CPPPATH = CPPPATH)
 
 Return('group')
