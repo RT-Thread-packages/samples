@@ -38,6 +38,6 @@ samples框架已经搭好，部分例程中加入了一些代码，但未整理�
 
 ### 参考资料 ###
 
-[RT-Thread编程指南](https://www.rt-thread.org/document/site/docs/tools/env/env-user-manual/)
-[RealTouch例程列表](https://www.rt-thread.org/qa/thread-1877-1-1.html)
-[realboard examples](https://github.com/RT-Thread/realboard-lpc4088/tree/master/software/rtthread_examples/examples)
+* [RT-Thread编程指南](https://www.rt-thread.org/document/site/docs/tools/env/env-user-manual/)
+* [RealTouch例程列表](https://www.rt-thread.org/qa/thread-1877-1-1.html)
+* [realboard examples](https://github.com/RT-Thread/realboard-lpc4088/tree/master/software/rtthread_examples/examples)
