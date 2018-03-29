@@ -1,20 +1,8 @@
-# RT-Thread sample #
-
----
+# RT-Thread 示例代码 #
 
 ## 简介 ##
 
 这是RT-Thread使用的典型示例代码，用来展示如何使用RT-Thread。
-
-## 功能说明 ##
-
-RT-Thread示例代码主要用于如下用途：
-
-* 开发者可参考的示例
-* 实验手册可应用的示例，该手册会将 sample 展开讲解，加入更多说明，并且有主线索
-* 合作伙伴基于 sample 来做例程和文档
-* 编程指南中的示例
-* 应用笔记中的示例
 
 ### 目录结构 ###
 
@@ -25,7 +13,7 @@ RT-Thread示例代码主要用于如下用途：
 | filesystem | 文件系统示例目录 |
 | network | 网络示例目录 |
 | driver | 驱动示例目录 |
-| pkginfo | Kconfig 配置文件目录 |
+| docs | 例程手册文档 |
 
 ### 许可证 ###
 
@@ -37,18 +25,9 @@ RT-Thread示例代码主要用于如下用途：
 
     RT-Thread online packages
         miscellaneous packages --->
-            [*] sample package
+            [*] samples package
 
 然后让RT-Thread的包管理器自动更新，或者使用`pkgs --update`命令更新包到BSP中。
-
-## 使用 ##
-
-## 开发 ##
-
-### 模板 ###
-
-* [示例程序](kernel/sample/sample.c)
-* [说明](kernel/sample/README.md)
 
 ### sample列表 ###
 
@@ -124,9 +103,8 @@ Shell
 
 ### 更多sample ###
 
-package sample链接
+package sample 链接
 
-### TODO ###
+### TODO && How ###
 
-* 提出sample需求，完善sample列表
-* 根据模板开发sample列表中的示例程序和说明
+[TODO && How](TODO.md)
