@@ -25,8 +25,6 @@
 #define __DRV_SSD1351_H__
 
 #include "drv_spi.h"
-#include <rthw.h>
-#include <drivers/pin.h>
 
 #define   MAX_COLUMN	127			// 128-1
 #define   MAX_ROW		127			// 128-1
@@ -53,16 +51,18 @@ void ssd1351_clear(void);
 void ssd1351_fill_ram(rt_uint16_t rgb565_color);
 void ssd1351_fill_block(rt_uint8_t col_star, rt_uint8_t col_end, rt_uint8_t row_star, rt_uint8_t row_end, rt_uint16_t rgb565_color);
 void draw_rectangle(rt_uint8_t a, rt_uint8_t b, rt_uint8_t c, rt_uint8_t d, rt_uint8_t e, rt_uint16_t rgb565_color);
-void checker_board();
-void test_rainbow(void);
-void Show_String(unsigned char a, unsigned char *Data_Pointer, rt_uint16_t rgb565_color, unsigned char d, unsigned char e);
-void Show_64k_Pattern(unsigned char *Data_Pointer, unsigned char a, unsigned char b, unsigned char c, unsigned char d);
-void Show_256k_Pattern(unsigned char *Data_Pointer, unsigned char a, unsigned char b, unsigned char c, unsigned char d);
-void Vertical_Scroll(unsigned char a, unsigned char b, unsigned char c);
-void Horizontal_Scroll(unsigned char a, unsigned char b, unsigned char c, unsigned char d, unsigned char e, unsigned char f);
-void Deactivate_Scroll();
-void Fade_In();
-void Fade_Out();
+void show_string(unsigned char a, unsigned char *Data_Pointer, rt_uint16_t rgb565_color, unsigned char d, unsigned char e);
+void show_64k_pattern(unsigned char *Data_Pointer, unsigned char a, unsigned char b, unsigned char c, unsigned char d);
+void show_256k_pattern(unsigned char *Data_Pointer, unsigned char a, unsigned char b, unsigned char c, unsigned char d);
+void vertical_scroll(unsigned char a, unsigned char b, unsigned char c);
+void horizontal_scroll(unsigned char a, unsigned char b, unsigned char c, unsigned char d, unsigned char e, unsigned char f);
 
+void deactivate_scroll(void);
+void fade_in(void);
+void fade_out(void);
+void checker_board(void);
+void test_string(void);
+void test_rainbow(void);
+void test_rectangle(void);
 
 #endif
