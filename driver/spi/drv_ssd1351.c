@@ -22,11 +22,11 @@
  * 2018-01-10     DQL        first implementation.
  */
 
-#include "board.h"
+#include "board.h"          
 #include "drv_ssd1351.h"
 
 #define SPI_BUS_NAME                "spi1"
-#define SPI_SSD1351_DEVICE_NAME     "ssd1351"
+#define SPI_SSD1351_DEVICE_NAME     "spi10"
 #define DC_PIN   96   /* PC6,you can find pin defines in gpio.c */
 /*RES_PIN reset signal input. When the pin is low,
 initialization of the chip is executed.*/
@@ -71,8 +71,8 @@ struct stm32_hw_spi_cs
     rt_uint32_t pin;
 };
 
-static struct rt_spi_device spi_dev_ssd1351; /* config is not initialized */
-static struct stm32_hw_spi_cs  spi_cs;
+static struct rt_spi_device spi_dev_ssd1351; /* SPI设备ssd1351对象 */
+static struct stm32_hw_spi_cs  spi_cs;	/* SPI设备CS片选引脚 */
 
 
 rt_err_t ssd1351_write_cmd(const rt_uint8_t cmd)
@@ -1303,7 +1303,6 @@ void test_string()
 
     ssd1351_fill_block(0,127,0,127,RGB565_BLACK);
     show_string(1,Name,RGB565_NAVY,0,0);
-    show_string(1,Tel,RGB565_DGREEN,0,2*7);
 }
 
 void test_rainbow(void)
