@@ -2,11 +2,13 @@
 
 ## 例程目的 ##
 
-* 学会线程创建 rt_thread_create 和线程删除 rt_thread_delete 接口的使用。
+学会线程创建 rt_thread_create 和线程删除 rt_thread_delete 接口的使用，了解线程的抢占和睡眠机制。
 
-## 例程原理及程序结构 ##
+## 程序结构及例程原理 ##
 
-```{.c}
+### 程序清单 ###
+
+```{.c .numberLines}
 /*
  * 程序清单：线程创建和删除
  *
@@ -118,9 +120,11 @@ INIT_APP_EXPORT(thread_sample_init);
 
 ### 例程设计 ###
 
+该例程创建并运行了两个线程 t1 和 t2, t1 线程优先级低于 t2线程，t1 线程运行后一直打印计数值，t2 线程运行后先睡眠了10个 OS Tick，t2 线程被唤醒后删除了 t1 线程，继续睡眠 10 个 OS Tick，然后退出，被自动删除。
+
 ### 编译调试及观察输出信息 ###
 
-```{.c}
+```{.c .numberLines}
  \ | /
 - RT -     Thread Operating System
  / | \     3.0.3 build Mar  8 2018
@@ -134,26 +138,80 @@ counter: 5
 counter: 6
 ```
 
-## 参考 ##
-
-### 本文所有相关的API ###
-
-#### API列表 ####
-
-<!--
- 列举所有用到的API，别忘记给出API的User Manual出处
--->
-
-#### 核心API详解 ####
+## 本文所有相关核心API详解 ##
 
 <!--
 详细解析所有用到的核心API，理论上应该解释API列表里面所有出现的API，如果精力实在有限，就专注于核心API就好了。
 -->
 
-### 讨论和反馈 ###
+### 创建线程 rt_thread_create() ###
 
-欢迎登陆[RT-Thread开发者社区](https://www.rt-thread.org/qa/forum.php)进行交流
+* 函数原型:
 
-### RT-Thread参考文献 ###
+```{.c .numberLines}
+rt_thread_t rt_thread_create(const char *name,
+                             void (*entry)(void *parameter),
+                             void       *parameter,
+                             rt_uint32_t stack_size,
+                             rt_uint8_t  priority,
+                             rt_uint32_t tick)
+```
 
-### 外部参考文献 ###
+* 入口参数：
+
+|参数            | 描述 |
+---------------|--------------------------------
+|name | 线程的名称；线程名称的最大长度由rtconfig.h中定义的RT_NAME_MAX宏指定，多余部分会被自动截掉。|
+|entry  | 线程入口函数|
+|parameter   | 线程入口函数参数；|
+|stack_size   | 线程栈大小，单位是字节。在大多数系统中需要做栈空间地址对齐（例如ARM体系结构中需要向4字节地址对齐）。|
+|priority   | 线程的优先级。优先级范围根据系统配置情况（rtconfig.h中的RT_THREAD_PRIORITY_MAX宏定义），如果支持的是256级优先级，那么范围是从0 ～ 255，数值越小优先级越高，0代表最高优先级。|
+|tick   | 线程的时间片大小。时间片（tick）的单位是操作系统的时钟节拍。当系统中存在相同优先级线程时，这个参数指定线程一次调度能够运行的最大时间长度。这个时间片运行结束时，调度器自动选择下一个就绪态的同优先级线程进行运行。|
+
+* 函数返回：
+
+创建成功返回线程句柄；否则返回RT_NULL。
+
+### 删除线程 rt_thread_delete() ###
+
+* 函数原型:
+
+```{.c .numberLines}
+rt_err_t rt_thread_delete(rt_thread_t thread);
+```
+
+* 入口参数：
+
+|参数            | 描述 |
+---------------|--------------------------------
+| thread   | 要删除的线程句柄。|
+
+* 函数返回：
+
+返回RT_EOK。
+
+### 线程睡眠 rt_thread_delay() ###
+
+* 函数原型:
+
+```{.c .numberLines}
+rt_err_t rt_thread_delay(rt_tick_t tick);
+```
+
+* 入口参数：
+
+|参数            | 描述 |
+---------------|--------------------------------
+| tick     | 线程睡眠的时间。|
+
+* 函数返回：
+
+返回RT_EOK。
+
+### 应用初始化 INIT_APP_EXPORT() ###
+
+* 函数原型:
+
+```{.c .numberLines}
+INIT_APP_EXPORT()
+```
