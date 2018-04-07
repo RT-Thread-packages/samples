@@ -9,4 +9,4 @@ before_script:
 
 build_bk7231:
   script:
-    - git clone -q https://git.rt-thread.com/document/samples.git ./
+    - git clone https://git.rt-thread.com/document/samples.git ./document/
