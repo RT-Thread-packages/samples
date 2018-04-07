@@ -1,0 +1,12 @@
+before_script:
+  - uname -a
+  - cat /etc/issue
+  - apt-get update
+  - apt-get install -y -qq lib32ncurses5 lib32z1 > /dev/null
+  - echo machine git.rt-thread.com login $CI_REGISTRY_USER password $CI_REGISTRY_PASSWORD >> ~/.netrc
+  - echo machine github.com login $CI_REGISTRY_USER password $CI_REGISTRY_PASSWORD >> ~/.netrc
+  - git config --global http.sslVerify false
+
+build_bk7231:
+  script:
+    - git clone -q https://git.rt-thread.com/document/samples.git ./
