@@ -3,10 +3,13 @@ before_script:
   - cat /etc/issue
   - apt-get update
   - apt-get install -y -qq lib32ncurses5 lib32z1 > /dev/null
+  - apt-get install pandoc
   - echo machine git.rt-thread.com login $CI_REGISTRY_USER password $CI_REGISTRY_PASSWORD >> ~/.netrc
   - echo machine github.com login $CI_REGISTRY_USER password $CI_REGISTRY_PASSWORD >> ~/.netrc
   - git config --global http.sslVerify false
 
 build_bk7231:
   script:
-    - git clone https://git.rt-thread.com/document/samples.git ./document/
+    - git clone https://git.rt-thread.com/document/samples.git ./document/samples
+    - cd ./document/samples/docs
+    - make
