@@ -16,4 +16,5 @@ before_script:
 
 build_docs:
   script:
+    - cd ./docs
     - make
