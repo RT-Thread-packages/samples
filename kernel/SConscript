@@ -7,10 +7,6 @@ group = []
 CPPPATH = []
 
 # add kernel samples.
-if GetDepend('RT_USING_SAMPLE_LED'):
-    src += ['led/led.c']
-    CPPPATH += [cwd + '/led']
-
 if GetDepend('RT_USING_SAMPLE_THREAD'):
     src += ['thread/thread.c']
     CPPPATH += [cwd + '/thread']
