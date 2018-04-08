@@ -4,6 +4,7 @@ before_script:
   - apt-get update
   - apt-get install -y -qq lib32ncurses5 lib32z1 > /dev/null
   - apt-get install -y pandoc
+  - apt-get install -y make  
   - echo machine git.rt-thread.com login $CI_REGISTRY_USER password $CI_REGISTRY_PASSWORD >> ~/.netrc
   - echo machine github.com login $CI_REGISTRY_USER password $CI_REGISTRY_PASSWORD >> ~/.netrc
   - git config --global http.sslVerify false
