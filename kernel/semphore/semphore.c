@@ -97,8 +97,8 @@ static void rt_thread_entry1(void* parameter)
     /* 删除信号量对象 */
     rt_sem_delete(dynamic_sem);
 }
-/* 线程示例的初始化 */
-int thread_sample_init()
+/* 信号量示例的初始化 */
+int semphore_sample_init()
 {
     rt_err_t result;
 
@@ -128,5 +128,5 @@ int thread_sample_init()
 
     return 0;
 }
-INIT_APP_EXPORT(thread_sample_init);
+INIT_APP_EXPORT(semphore_sample_init);
 
