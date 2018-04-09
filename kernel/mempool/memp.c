@@ -5,11 +5,20 @@
  * 内存块
  */
 #include <rtthread.h>
-#include "tc_comm.h"
 
 static rt_uint8_t *ptr[48];
 static rt_uint8_t mempool[4096];
 static struct rt_mempool mp;
+
+#if RT_THREAD_PRIORITY_MAX == 8
+#define THREAD_PRIORITY        6
+#elif RT_THREAD_PRIORITY_MAX == 32
+#define THREAD_PRIORITY        25
+#elif RT_THREAD_PRIORITY_MAX == 256
+#define THREAD_PRIORITY        200
+#endif
+#define THREAD_STACK_SIZE    512
+#define THREAD_TIMESLICE    5
 
 /* 指向线程控制块的指针 */
 static rt_thread_t tid1 = RT_NULL;
@@ -26,10 +35,10 @@ static void thread1_entry(void* parameter)
         for (i = 0; i < 48; i++)
         {
             /* 申请内存块 */
-            rt_kprintf("allocate No.%d\n", i);
             if (ptr[i] == RT_NULL)
             {
                 ptr[i] = rt_mp_alloc(&mp, RT_WAITING_FOREVER);
+				rt_kprintf("allocate No.%d\n", i);
             }
         }
 
@@ -82,8 +91,6 @@ int mempool_simple_init()
                             THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
     if (tid1 != RT_NULL)
         rt_thread_startup(tid1);
-    else
-        tc_stat(TC_STAT_END | TC_STAT_FAILED);
 
     /* 创建线程2 */
     tid2 = rt_thread_create("t2",
@@ -91,51 +98,8 @@ int mempool_simple_init()
                             THREAD_STACK_SIZE, THREAD_PRIORITY + 1, THREAD_TIMESLICE);
     if (tid2 != RT_NULL)
         rt_thread_startup(tid2);
-    else
-        tc_stat(TC_STAT_END | TC_STAT_FAILED);
-
+    
     return 0;
 }
+INIT_APP_EXPORT(mempool_simple_init);
 
-#ifdef RT_USING_TC
-static void _tc_cleanup()
-{
-    /* 调度器上锁，上锁后，将不再切换到其他线程，仅响应中断 */
-    rt_enter_critical();
-
-    /* 删除线程 */
-    if (tid1 != RT_NULL && tid1->stat != RT_THREAD_CLOSE)
-        rt_thread_delete(tid1);
-    if (tid2 != RT_NULL && tid2->stat != RT_THREAD_CLOSE)
-        rt_thread_delete(tid2);
-
-    /* 执行内存池脱离 */
-    rt_mp_detach(&mp);
-
-    /* 调度器解锁 */
-    rt_exit_critical();
-
-    /* 设置TestCase状态 */
-    tc_done(TC_STAT_PASSED);
-}
-
-int _tc_mempool_simple()
-{
-    /* 设置TestCase清理回调函数 */
-    tc_cleanup(_tc_cleanup);
-    mempool_simple_init();
-
-    /* 返回TestCase运行的最长时间 */
-    return 100;
-}
-/* 输出函数命令到finsh shell中 */
-FINSH_FUNCTION_EXPORT(_tc_mempool_simple, a memory pool example);
-#else
-/* 用户应用入口 */
-int rt_application_init()
-{
-    mempool_simple_init();
-
-    return 0;
-}
-#endif
