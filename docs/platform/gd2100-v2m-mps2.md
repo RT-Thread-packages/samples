@@ -70,6 +70,8 @@ samples 例程
 
 ### 例程切换说明
 ### 方法一：在 env 工具中使用 menuconfig 图形化界面切换例程
+[注 ： env 工具使用手册](https://www.rt-thread.org/document/site/docs/tools/env/env-user-manual/)
+
 在``` rt-thread\bsp\v2m-mps2 ```目录下使用 env 工具的 menuconfig 命令，依次选择：
 
 	RT-Thread online packages  --->
@@ -78,28 +80,26 @@ samples 例程
 				select a sample ([basic] led)  --->                                                                                                    
 				samples version (latest)  --->
 
+![samples_menuconfig](./figures/samples_menuconfig.png)
+
 点击进入 select a sample ([basic] led)   --> 选项即可选择所需要的 samples 例程进行切换
 ![select_sample](./figures/select_sample.png)
 
-### 方法二： 在 rtconfig.h 文件中通过相关宏进行选择
-例如选择 led 例程，可添加如下宏：
+配置保存完成后，退出 menuconfig 需要使用 ``` pkgs --update ```命令手动更新所需要的 packages 。
+![pkgs_update](./figures/pkgs_update.png)
 
-	
-	/* miscellaneous packages */
-	#define PKG_USING_SAMPLES
+如上图所示，操作完成后即可使用``` scons --target=mdk5 -s ```命令重新生成 MDK5 工程，编译运行即可。
+![scons_mdk5](./figures/scons_mdk5.png)
+### 方法二： 直接添加文件到 MDK 工程
 
-	#define RT_USING_SAMPLE_LED
-	#define PKG_USING_SAMPLES_LATEST_VERSION 
+#### 第一步：下载官方[samples 软件包](https://github.com/RT-Thread-packages/samples)获取相关例程代码，或者自己编写测试代码。
+#### 第二步：在 MDK 工程中添加所需要的代码文件，如 thread.c
+点击![mdk_manage](./figures/mdk_manage.png)按钮，打开``` Mangage Project Items ``` 对话框，添加 thread.c 文件。
+![manage_item](./figures/manage_item.png)
 
-#### 说明
-##### ``` #define PKG_USING_SAMPLES ``` 对应于选择了 menuconfig 中的 ```  [*] samples: RT-Thread kernel and components samples ```
+### 第三步：编译运行
 
-##### ``` #define RT_USING_SAMPLE_LED ``` 对应于选择了 menuconfig 中的 ``` select a sample ([basic] led)  ---> ```
-
-##### ``` #define PKG_USING_SAMPLES_LATEST_VERSION ```对应于选择了 menuconfig 中的 ``` samples version (latest)  ---> ```
-
-具体的选项可以参考 env 工具安装目录下 ``` env\packages\packages\misc\samples ``` 中的``` Kconfig ```文件
-
+参考上面[ 仿真运行 ]一节内容。
                	
 # 讨论和反馈
 
