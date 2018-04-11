@@ -48,6 +48,9 @@ static void thread1_entry(void* parameter)
         /* 释放这个内存块 */
         rt_mp_free(block);
         block = RT_NULL;
+		
+		/* 休眠10个OS Tick */
+        rt_thread_delay(10);
     }
 }
 
