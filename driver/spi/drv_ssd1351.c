@@ -81,8 +81,7 @@ rt_err_t ssd1351_write_cmd(const rt_uint8_t cmd)
     
     rt_pin_write(DC_PIN, PIN_LOW);    /* 命令低电平 */
 
-    //len = rt_spi_send(&spi_dev_ssd1351, &cmd, 1);
-    len = rt_spi_transfer(&spi_dev_ssd1351,  &cmd,  RT_NULL,  1);
+    len = rt_spi_send(&spi_dev_ssd1351, &cmd, 1);
 
     if (len != 1)
     {
@@ -102,8 +101,7 @@ rt_err_t ssd1351_write_data(const rt_uint8_t data)
     
     rt_pin_write(DC_PIN, PIN_HIGH);        /* 数据高电平 */
     
-    //len = rt_spi_send(&spi_dev_ssd1351, &data, 1);
-    len = rt_spi_transfer(&spi_dev_ssd1351,  &data,  RT_NULL,  1);
+    len = rt_spi_send(&spi_dev_ssd1351, &data, 1);
     
     if (len != 1)
     {
