@@ -38,7 +38,7 @@ static void thread1_entry(void* parameter)
             if (ptr[i] == RT_NULL)
             {
                 ptr[i] = rt_mp_alloc(&mp, RT_WAITING_FOREVER);
-				rt_kprintf("allocate No.%d\n", i);
+                rt_kprintf("allocate No.%d\n", i);
             }
         }
 
@@ -49,7 +49,7 @@ static void thread1_entry(void* parameter)
         rt_mp_free(block);
         block = RT_NULL;
 		
-		/* 休眠10个OS Tick */
+        /* 休眠10个OS Tick */
         rt_thread_delay(10);
     }
 }
