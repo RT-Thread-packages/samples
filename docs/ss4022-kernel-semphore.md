@@ -112,7 +112,7 @@ static void rt_thread_entry1(void* parameter)
     rt_sem_delete(dynamic_sem);
 }
 /* 线程示例的初始化 */
-int thread_sample_init()
+int semphore_sample_init()
 {
     rt_err_t result;
 
@@ -142,14 +142,14 @@ int thread_sample_init()
 
     return 0;
 }
-INIT_APP_EXPORT(thread_sample_init);
+INIT_APP_EXPORT(semphore_sample_init);
 
 
 ```
 
 ### 例程设计 ###
 
-该例程在 thread_sample_init中首先初始化静态信号量,然后创建一个动态信号量.最后创建线程thread1.
+该例程在 semphore_sample_init中首先初始化静态信号量,然后创建一个动态信号量.最后创建线程thread1.
 在线程thread1中进行如下操作:
 1. 试图获取静态信号量,如果获取不到就等待10个OS Tick后返回.
 2. 通过调用 rt_sem_release 释放一次静态信号量.

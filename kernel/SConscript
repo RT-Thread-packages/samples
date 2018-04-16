@@ -48,7 +48,7 @@ if GetDepend('RT_USING_SAMPLE_MEMHEAP'):
     CPPPATH += [cwd + '/memheap']
 
 if GetDepend('RT_USING_SAMPLE_MEMPOOL'):
-    src += ['mempool/mempool.c']
+    src += ['mempool/memp.c']
     CPPPATH += [cwd + '/mempool']
 
 if GetDepend('RT_USING_SAMPLE_IDLEHOOK'):
