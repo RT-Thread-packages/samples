@@ -62,7 +62,7 @@
 	allocate No.45   
 	allocate No.46   
 	allocate No.47   
-	try to release block   <br>
+	try to release block 
 	release block 0   
 	allocate the block mem   
 
