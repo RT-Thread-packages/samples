@@ -90,7 +90,7 @@
 	    }
 	}
 	
-	int mempool_simple_init()
+	int mempool_sample_init()
 	{
 	    int i;
 	    for (i = 0; i < 48; i ++) ptr[i] = RT_NULL;
@@ -114,11 +114,11 @@
 	    
 	    return 0;
 	}
-	INIT_APP_EXPORT(mempool_simple_init);
+	INIT_APP_EXPORT(mempool_sample_init);
 
 ### 例程设计 ###
 
-该例程在``` mempool_simple_init()```中首先初始化静态内存池对象,最后创建启动线程 tid1 和 tid2 ,且线程 tid1 的优先级高于线程 tid2。
+该例程在``` mempool_sample_init()```中首先初始化静态内存池对象,最后创建启动线程 tid1 和 tid2 ,且线程 tid1 的优先级高于线程 tid2。
 
 在线程 tid1 中进行如下操作:
 

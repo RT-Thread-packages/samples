@@ -80,7 +80,7 @@ static void thread2_entry(void *parameter)
     }
 }
 
-int mempool_simple_init()
+int mempool_sample_init()
 {
     int i;
     for (i = 0; i < 48; i ++) ptr[i] = RT_NULL;
@@ -104,5 +104,5 @@ int mempool_simple_init()
     
     return 0;
 }
-INIT_APP_EXPORT(mempool_simple_init);
+INIT_APP_EXPORT(mempool_sample_init);
 
