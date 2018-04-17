@@ -228,7 +228,7 @@ rt_timer_t rt_timer_create(const char* name,
 |time|定时器的超时时间，单位是系统节拍；|
 |flag| 定时器创建时的参数，支持的值包括（可以用“或”关系取多个值）; |
 
-*flag有如下值
+* flag有如下值
 
 ```{.c .numberLines}
 #define RT_TIMER_FLAG_ONE_SHOT          0x0             /**< one shot timer */
