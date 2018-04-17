@@ -1,7 +1,9 @@
-## 定时器timer使用
+# 定时器timer使用 #
 
-> 实验运行结果
+## 介绍 ##
+这个例程展示了如何在RT-Thread里使用定时器。
 
+## 运行结果 ##
 ```
  \ | /
 - RT -     Thread Operating System
