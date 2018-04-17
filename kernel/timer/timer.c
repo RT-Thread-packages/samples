@@ -47,12 +47,12 @@ static void timeout2(void* parameter)
 }
 static void timeout3(void* parameter)
 {
-	static int count = 0;
-	count++;
-	
-	rt_kprintf("[ hard periodic timer3 is timeout] = %d\n", count);
-	
-    if ( count == 2) 
+    static int count = 0;
+    count++;
+    
+    rt_kprintf("[ hard periodic timer3 is timeout] = %d\n", count);
+    
+    if ( count == 2)
         rt_timer_delete(timer1);
 }
  
@@ -68,6 +68,7 @@ static void timeout5(void* parameter)
 {
     static int count = 0;
     count++;
+    
     rt_kprintf("[ static timer5  one shot is timeout] = %d\n", count);
 }
 
@@ -98,11 +99,11 @@ int timer_sample_init(void)
     if (timer2 != RT_NULL) rt_timer_start(timer2);
 	
     /* create timer3 */
-    timer3 = rt_timer_create("timer3",
-						timeout3,
-						RT_NULL,
-						3000,		/* 定时时间：3s*/
-						RT_TIMER_FLAG_HARD_TIMER|RT_TIMER_FLAG_PERIODIC);	/* 硬件定时器 周期性定时*/
+    timer3 = rt_timer_create("timer3",  
+                        timeout3,   
+                        RT_NULL,    
+                        3000,   /* 定时时间：3s*/
+                        RT_TIMER_FLAG_HARD_TIMER|RT_TIMER_FLAG_PERIODIC);   /* 硬件定时器 周期性定时*/
 	
     /* start timer3 */
     if (timer3 != RT_NULL) rt_timer_start(timer3);
@@ -115,11 +116,11 @@ int timer_sample_init(void)
                     1000,               /* 定时长度，以OS Tick为单位，即10个OS Tick */
                     RT_TIMER_FLAG_PERIODIC);    /* 周期性定时器 */
 					
-    rt_timer_init(&timer5, "timer5",	/* 定时器名字是 timer2 */
-					timeout5,			/* 超时时回调的处理函数 */
-                    RT_NULL,			/* 超时函数的入口参数 */
-                    3000,				/* 定时长度为30个OS Tick */
-                    RT_TIMER_FLAG_ONE_SHOT);	/* 单次定时器 */
+    rt_timer_init(&timer5,  "timer5",   /* 定时器名字是 timer2 */
+                    timeout5,           /* 超时时回调的处理函数 */
+                    RT_NULL,            /* 超时函数的入口参数 */
+                    3000,               /* 定时长度为30个OS Tick */
+                    RT_TIMER_FLAG_ONE_SHOT);    /* 单次定时器 */
 
     /* start timer */
     rt_timer_start(&timer4);
