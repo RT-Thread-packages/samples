@@ -30,8 +30,8 @@ static struct rt_timer timer5;
 
 static void timeout1(void* parameter)
 {
-	static int count = 0;
-	count ++;
+    static int count = 0;
+    count ++;
 	
 	rt_kprintf("[ soft periodic timer1 is timeout] = %d\n", count);
 }
@@ -82,32 +82,32 @@ int timer_sample_init(void)
 							RT_NULL,
 							1000,		/* 定时时间：1s*/
 							RT_TIMER_FLAG_PERIODIC|RT_TIMER_FLAG_SOFT_TIMER);	/* 软件定时器 周期性定时*/
+
+    /* start timer1 */
+    if (timer1 != RT_NULL) rt_timer_start(timer1);
    
-   /* start timer1 */
-   if (timer1 != RT_NULL) rt_timer_start(timer1);
-   
-   /* create timer2 */
-   timer2 = rt_timer_create("timer2",
+    /* create timer2 */
+    timer2 = rt_timer_create("timer2",
 						timeout2,		/* 定时器超时调用的函数 */
 						RT_NULL, 
 						2000,			/* 定时时间：2s*/
 						RT_TIMER_FLAG_SOFT_TIMER|RT_TIMER_FLAG_ONE_SHOT);	/* 软件定时器 单次定时*/
 
-	/* start timer2 */
-	if (timer2 != RT_NULL) rt_timer_start(timer2);
+    /* start timer2 */
+    if (timer2 != RT_NULL) rt_timer_start(timer2);
 	
-	/* create timer3 */
-	timer3 = rt_timer_create("timer3",
+    /* create timer3 */
+    timer3 = rt_timer_create("timer3",
 						timeout3,
 						RT_NULL,
 						3000,		/* 定时时间：3s*/
 						RT_TIMER_FLAG_HARD_TIMER|RT_TIMER_FLAG_PERIODIC);	/* 硬件定时器 周期性定时*/
-						
-	/* start timer3 */
-	if (timer3 != RT_NULL) rt_timer_start(timer3);
+	
+    /* start timer3 */
+    if (timer3 != RT_NULL) rt_timer_start(timer3);
 	
 	
-	/*静态定时器创建*/
+    /*静态定时器创建*/
 	rt_timer_init(&timer4, "timer4",	/* 定时器名字是 timer1 */
 					timeout4,			/* 超时时回调的处理函数 */
 					RT_NULL,			/* 超时函数的入口参数 */
