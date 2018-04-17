@@ -40,10 +40,10 @@ static void timeout1(void* parameter)
 
 static void timeout2(void* parameter)
 {
-	static int count = 0;
-	count++;
-	
-	rt_kprintf("[ soft one shot timer2 is timeout] = %d\n", count);
+    static int count = 0;
+    count++;
+    
+    rt_kprintf("[ soft one shot timer2 is timeout] = %d\n", count);
 }
 static void timeout3(void* parameter)
 {
