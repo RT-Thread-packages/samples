@@ -85,7 +85,7 @@ int timer_sample_init(void)
 {
 	rt_kprintf("[--------start--timer_sample_init-----]\r\n");
 	
-	//动态定时器创建
+	/* 动态定时器创建 */
 
 	/* create time1 */
 	timer1 = rt_timer_create("timer1", 
@@ -118,7 +118,7 @@ int timer_sample_init(void)
         if (timer3 != RT_NULL) rt_timer_start(timer3);
 	
 	
-	//静态定时器创建
+	/*静态定时器创建*/
 	
 	rt_timer_init(&timer4, "timer4",    /* 定时器名字是 timer1 */
                     timeout4,               /* 超时时回调的处理函数 */
