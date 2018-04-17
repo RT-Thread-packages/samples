@@ -1,91 +1,130 @@
 /*
- * ç¨‹åºæ¸…å•ï¼šåŠ¨æ€å®šæ—¶å™¨ä¾‹ç¨‹
+ *³ÌĞòÇåµ¥£º¶¯Ì¬¶¨Ê±Æ÷Àı³ÌºÍ¾²Ì¬¶¨Ê±Æ÷Àı³Ì
  *
- * è¿™ä¸ªä¾‹ç¨‹ä¼šåˆ›å»ºä¸¤ä¸ªåŠ¨æ€å®šæ—¶å™¨å¯¹è±¡ï¼Œä¸€ä¸ªæ˜¯å•æ¬¡å®šæ—¶ï¼Œä¸€ä¸ªæ˜¯å‘¨æœŸæ€§çš„å®šæ—¶
+ *¶¯Ì¬¶¨Ê±Æ÷Àı³Ì
+ * 	´´½¨3¸ö¶¨Ê±Æ÷
+ *		Èí¼ş¶¨Ê±Æ÷ÖÜÆÚĞÔ¶¨Ê±
+ *		Èí¼ş¶¨Ê±Æ÷µ¥´Î  ¶¨Ê±
+ *		Ó²¼ş¶¨Ê±Æ÷ÖÜÆÚĞÔ¶¨Ê±
+ *
+ *		timer1: 1s
+ *		timer2:	2s
+ *		timer3: 3s(6sºótimeout3ÖĞÒÆ³ıtimer1)
+ *
+ *¾²Ì¬¶¨Ê±Æ÷Àı³Ì
+ *  ´´½¨2¸ö¶¨Ê±Æ÷ 
+ *		µ¥´Î  ¶¨Ê± timer4 1s
+ *		ÖÜÆÚĞÔ¶¨Ê± timer5 2s
  */
-#include <rtthread.h>
-#include "tc_comm.h"
 
-/* å®šæ—¶å™¨çš„æ§åˆ¶å— */
+#include <rtthread.h>
+
+/* ¶¨Ê±Æ÷¿ØÖÆ¿é */
 static rt_timer_t timer1;
 static rt_timer_t timer2;
+static rt_timer_t timer3;
 
-/* å®šæ—¶å™¨1è¶…æ—¶å‡½æ•° */
+/* ¶¨Ê±Æ÷¿ØÖÆ¿é */
+static struct rt_timer timer4;
+static struct rt_timer timer5;
+
 static void timeout1(void* parameter)
 {
-    rt_kprintf("periodic timer is timeout\n");
+	static int count = 0;
+	count ++;
+	
+	rt_kprintf("[ soft periodic timer1 is timeout] = %d\n", count);
 }
 
-/* å®šæ—¶å™¨2è¶…æ—¶å‡½æ•° */
 static void timeout2(void* parameter)
 {
-    rt_kprintf("one shot timer is timeout\n");
+	static int count = 0;
+	count++;
+	
+	rt_kprintf("[ soft one shot timer2 is timeout] = %d\n", count);
 }
-
-void timer_create_init()
+static void timeout3(void* parameter)
 {
-    /* åˆ›å»ºå®šæ—¶å™¨1 */
-    timer1 = rt_timer_create("timer1",  /* å®šæ—¶å™¨åå­—æ˜¯ timer1 */
-        timeout1, /* è¶…æ—¶æ—¶å›è°ƒçš„å¤„ç†å‡½æ•° */
-        RT_NULL, /* è¶…æ—¶å‡½æ•°çš„å…¥å£å‚æ•° */
-        10, /* å®šæ—¶é•¿åº¦ï¼Œä»¥OS Tickä¸ºå•ä½ï¼Œå³10ä¸ªOS Tick */
-        RT_TIMER_FLAG_PERIODIC); /* å‘¨æœŸæ€§å®šæ—¶å™¨ */
-    /* å¯åŠ¨å®šæ—¶å™¨ */
-    if (timer1 != RT_NULL)
-        rt_timer_start(timer1);
-    else
-        tc_stat(TC_STAT_END | TC_STAT_FAILED);
-
-    /* åˆ›å»ºå®šæ—¶å™¨2 */
-    timer2 = rt_timer_create("timer2",   /* å®šæ—¶å™¨åå­—æ˜¯ timer2 */
-        timeout2, /* è¶…æ—¶æ—¶å›è°ƒçš„å¤„ç†å‡½æ•° */
-        RT_NULL, /* è¶…æ—¶å‡½æ•°çš„å…¥å£å‚æ•° */
-        30, /* å®šæ—¶é•¿åº¦ä¸º30ä¸ªOS Tick */
-        RT_TIMER_FLAG_ONE_SHOT); /* å•æ¬¡å®šæ—¶å™¨ */
-
-    /* å¯åŠ¨å®šæ—¶å™¨ */
-    if (timer2 != RT_NULL)
-        rt_timer_start(timer2);
-    else
-        tc_stat(TC_STAT_END | TC_STAT_FAILED);
+	static int count = 0;
+	count++;
+	
+	rt_kprintf("[ hard periodic timer3 is timeout] = %d\n", count);
+	
+	if ( count == 2) 
+		rt_timer_delete(timer1);
 }
-
-#ifdef RT_USING_TC
-static void _tc_cleanup()
+ 
+static void timeout4(void* parameter)
 {
-    /* è°ƒåº¦å™¨ä¸Šé”ï¼Œä¸Šé”åï¼Œå°†ä¸å†åˆ‡æ¢åˆ°å…¶ä»–çº¿ç¨‹ï¼Œä»…å“åº”ä¸­æ–­ */
-    rt_enter_critical();
-
-    /* åˆ é™¤å®šæ—¶å™¨å¯¹è±¡ */
-    rt_timer_delete(timer1);
-    rt_timer_delete(timer2);
-
-    /* è°ƒåº¦å™¨è§£é” */
-    rt_exit_critical();
-
-    /* è®¾ç½®TestCaseçŠ¶æ€ */
-    tc_done(TC_STAT_PASSED);
+	static int count = 0;
+	count++;
+	
+	rt_kprintf("[ static timer4  periodic is timeout] = %d\n", count);
 }
 
-int _tc_timer_create()
+static void timeout5(void* parameter)
 {
-    /* è®¾ç½®TestCaseæ¸…ç†å›è°ƒå‡½æ•° */
-    tc_cleanup(_tc_cleanup);
-
-    /* æ‰§è¡Œå®šæ—¶å™¨ä¾‹ç¨‹ */
-    timer_create_init();
-
-    /* è¿”å›TestCaseè¿è¡Œçš„æœ€é•¿æ—¶é—´ */
-    return 100;
+	static int count = 0;
+	count++;
+	
+	rt_kprintf("[ static timer5  one shot is timeout] = %d\n", count);
 }
-/* è¾“å‡ºå‡½æ•°å‘½ä»¤åˆ°finsh shellä¸­ */
-FINSH_FUNCTION_EXPORT(_tc_timer_create, a dynamic timer example);
-#else
-/* ç”¨æˆ·åº”ç”¨å…¥å£ */
-int rt_application_init()
+
+int timer_sample_init(void)
 {
-    timer_create_init();
+	rt_kprintf("[--------start--timer_sample_init-----]\r\n");
+	
+	/*¶¯Ì¬¶¨Ê±Æ÷´´½¨*/
 
-    return 0;
+	/* create time1 */
+	timer1 = rt_timer_create("timer1",
+							timeout1,	/* ¶¨Ê±Æ÷³¬Ê±µ÷ÓÃµÄº¯Êı */
+							RT_NULL,
+							1000,		/* ¶¨Ê±Ê±¼ä£º1s*/
+							RT_TIMER_FLAG_PERIODIC|RT_TIMER_FLAG_SOFT_TIMER);	/* Èí¼ş¶¨Ê±Æ÷ ÖÜÆÚĞÔ¶¨Ê±*/
+   
+   /* start timer1 */
+   if (timer1 != RT_NULL) rt_timer_start(timer1);
+   
+   /* create timer2 */
+   timer2 = rt_timer_create("timer2",
+						timeout2,		/* ¶¨Ê±Æ÷³¬Ê±µ÷ÓÃµÄº¯Êı */
+						RT_NULL, 
+						2000,			/* ¶¨Ê±Ê±¼ä£º2s*/
+						RT_TIMER_FLAG_SOFT_TIMER|RT_TIMER_FLAG_ONE_SHOT);	/* Èí¼ş¶¨Ê±Æ÷ µ¥´Î¶¨Ê±*/
+
+	/* start timer2 */
+	if (timer2 != RT_NULL) rt_timer_start(timer2);
+	
+	/* create timer3 */
+	timer3 = rt_timer_create("timer3",
+						timeout3,
+						RT_NULL,
+						3000,		/* ¶¨Ê±Ê±¼ä£º3s*/
+						RT_TIMER_FLAG_HARD_TIMER|RT_TIMER_FLAG_PERIODIC);	/* Ó²¼ş¶¨Ê±Æ÷ ÖÜÆÚĞÔ¶¨Ê±*/
+						
+	/* start timer3 */
+	if (timer3 != RT_NULL) rt_timer_start(timer3);
+	
+	
+	/*¾²Ì¬¶¨Ê±Æ÷´´½¨*/
+	rt_timer_init(&timer4, "timer4",	/* ¶¨Ê±Æ÷Ãû×ÖÊÇ timer1 */
+					timeout4,			/* ³¬Ê±Ê±»Øµ÷µÄ´¦Àíº¯Êı */
+					RT_NULL,			/* ³¬Ê±º¯ÊıµÄÈë¿Ú²ÎÊı */
+					1000,				/* ¶¨Ê±³¤¶È£¬ÒÔOS TickÎªµ¥Î»£¬¼´10¸öOS Tick */
+					RT_TIMER_FLAG_PERIODIC);	/* ÖÜÆÚĞÔ¶¨Ê±Æ÷ */
+					
+    rt_timer_init(&timer5, "timer5",	/* ¶¨Ê±Æ÷Ãû×ÖÊÇ timer2 */
+					timeout5,			/* ³¬Ê±Ê±»Øµ÷µÄ´¦Àíº¯Êı */
+                    RT_NULL,			/* ³¬Ê±º¯ÊıµÄÈë¿Ú²ÎÊı */
+                    3000,				/* ¶¨Ê±³¤¶ÈÎª30¸öOS Tick */
+                    RT_TIMER_FLAG_ONE_SHOT);	/* µ¥´Î¶¨Ê±Æ÷ */
+
+	/* start timer */
+	rt_timer_start(&timer4);
+	rt_timer_start(&timer5);
+
+	
+	return 0;
 }
-#endif
+INIT_APP_EXPORT(timer_sample_init);
