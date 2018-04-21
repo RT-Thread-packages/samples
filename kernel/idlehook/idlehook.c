@@ -63,8 +63,22 @@ void cpu_usage_get(rt_uint8_t *major, rt_uint8_t *minor)
     *minor = cpu_usage_minor;
 }
 
-void cpu_usage_init()
+long cpu_usage(void)
+{
+    rt_uint8_t major, minor;
+	
+	cpu_usage_get(&major, &minor);
+	rt_kprintf("cpu usage: %d.%d\n", major, minor);
+
+    return 0;
+}
+FINSH_FUNCTION_EXPORT(cpu_usage, show cpu usage);
+MSH_CMD_EXPORT(cpu_usage, show cpu usage);
+
+int cpu_usage_init()
 {
     /* set idle thread hook */
     rt_thread_idle_sethook(cpu_usage_idle_hook);
+	return 0;
 }
+INIT_APP_EXPORT(cpu_usage_init);
