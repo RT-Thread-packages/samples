@@ -4,7 +4,8 @@ before_script:
   - apt-get update
   - apt-get install -y -qq lib32ncurses5 lib32z1 > /dev/null
   - apt-get install -y pandoc
-  - apt-get install -y make  
+  - apt-get install -y make
+  - apt-get install -y python-pip
   - apt-get install -y texlive-xetex
   - apt-get install -y texlive-latex-recommended # main packages
   - apt-get install -y texlive-latex-extra # package titlesec
