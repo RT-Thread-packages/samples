@@ -1,15 +1,15 @@
-# 空闲任务钩子的使用 #
+# 空闲线程钩子的使用 #
 
 ## 例程目的 ##
 
-学会设置空闲任务钩子。
+学会设置空闲线程钩子。
 
 ## 程序结构及例程原理 ##
 
 ### 程序清单 ###
 
 ```{.c .numberLines}
-    #include <rtthread.h>
+#include <rtthread.h>
 #include <rthw.h>
 
 #define CPU_USAGE_CALC_TICK    10
@@ -78,8 +78,8 @@ long cpu_usage(void)
 {
     rt_uint8_t major, minor;
 	
-	cpu_usage_get(&major, &minor);
-	rt_kprintf("cpu usage: %d.%d\n", major, minor);
+    cpu_usage_get(&major, &minor);
+    rt_kprintf("cpu usage: %d.%d%\n", major, minor);
 
     return 0;
 }
@@ -90,7 +90,8 @@ int cpu_usage_init()
 {
     /* set idle thread hook */
     rt_thread_idle_sethook(cpu_usage_idle_hook);
-	return 0;
+	
+    return 0;
 }
 INIT_APP_EXPORT(cpu_usage_init);
 
@@ -138,11 +139,11 @@ INIT_APP_EXPORT(cpu_usage_init);
 输入```cpu_usage()```命令，可以获取CPU使用率，输出如下：
 
 	finsh >cpu_usage() 
-	cpu usage: 0.0 
+	cpu usage: 0.0% 
 	        0, 0x00000000 
 	finsh > 
 	finsh >cpu_usage()
-	cpu usage: 0.2  
+	cpu usage: 0.2%  
 	        0, 0x00000000
 
 
@@ -150,7 +151,7 @@ INIT_APP_EXPORT(cpu_usage_init);
 
 ## 本文相关核心API ##
 
-### 初始化内存池 rt_mp_init() ###
+### 设置空闲线程钩子 rt_thread_idle_sethook() ###
 
 * 函数原型:
 
