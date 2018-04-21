@@ -1,0 +1,33 @@
+site_name: RT-Thread例程手册 (基于STM32F103平台)
+site_author: RT-Thread社区
+theme: 'material'
+site_dir: platform
+docs_dir: platform
+
+extra_css: []
+extra_javascript: []
+extra_templates: []
+
+# Options
+extra:
+  feature:
+    tabs: true
+    
+markdown_extensions:
+  - codehilite
+  - admonition
+  - meta
+      
+pages:
+
+#- 主页: 'index.md'
+
+- V2M-MPS2开发环境搭建: 'stm32f103.md'
+- 跑马灯: '../ss4000-basic-led.md'
+- 线程: '../ss4020-kernel-thread.md'
+- 信号量: '../ss4022-kernel-semphore.md'
+- 互斥量: '../ss4023-kernel-mutex.md'
+- 邮箱: '../ss4024-kernel-mailbox.md'
+- 事件: '../ss4025-kernel-event.md'
+- 内存池的使用: '../ss4030-kernel-mempool.md'
+- 定时器: '../ss4026-kernel-timer.md'

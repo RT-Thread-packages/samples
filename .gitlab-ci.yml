@@ -16,5 +16,12 @@ before_script:
 
 build_docs:
   script:
-    - cd ./docs
-    - make
+    - git clone -q https://git.rt-thread.com/document/mkdocs-pandoc.git mkdocs-pandoc
+    - cd mkdocs-pandoc && python setup.py install && cd $CI_PROJECT_DIR
+    - pip install 'Markdown==2.6.7'
+    - cd docs
+    - make clean && make
+  artifacts:
+    paths:
+    - docs/build/
+  retry: 2

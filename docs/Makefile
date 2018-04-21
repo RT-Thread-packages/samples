@@ -13,29 +13,41 @@
 # make clean            Get rid of all generated files
 #
 # ============================================================================
-
-SOURCES = $(shell find . -name 'ss*.md' | sort)
 LATEX_FLAGS = --toc --latex-engine=xelatex
+EXTRA_FLAGS = -f markdown+grid_tables+table_captions
+MANUAL_DIR = platform
+MANUAL_POSTFIX = manual
+PANDOC = pandoc
+MKDOCS2PANDOC = mkdocs2pandoc
+MANUAL_TEMPLATE = template/manual.tex
+ARTICLE_TEMPLATE = template/article.tex
+CHAPTERS = chapters
+PREFACE = preface
+BUILD_DIR = build
 
-all:$(patsubst %.md,%.pdf,$(wildcard *.md)) \
-	$(patsubst platform/%.md,platform/%.pdf,$(wildcard platform/*.md)) \
-	$(patsubst platform/%.md,platform/%-book.pdf,$(wildcard platform/*.md))
+all:$(patsubst %.md,$(BUILD_DIR)/%.pdf,$(wildcard *.md)) \
+	$(patsubst $(MANUAL_DIR)/%.md,$(BUILD_DIR)/%-$(MANUAL_DIR).pdf,$(wildcard $(MANUAL_DIR)/*.md)) \
+	$(patsubst $(MANUAL_DIR)/%.md,$(BUILD_DIR)/%-$(MANUAL_POSTFIX).pdf,$(wildcard $(MANUAL_DIR)/*.md))
 
-%-book.pdf: %-book.yml %.md $(SOURCES)
-	pandoc $(LATEX_FLAGS) --template=template/manual.tex -o $@ $^
-	mv $@ pdf/$@
+$(BUILD_DIR)/%-$(MANUAL_POSTFIX).pdf: $(MANUAL_DIR)/%.yml
+	$(MKDOCS2PANDOC) -f $^ > $(BUILD_DIR)/$(CHAPTERS).pd
+	$(PANDOC) --chapters -o $(PREFACE).tex $(PREFACE).md
+	$(PANDOC) $(LATEX_FLAGS) $(EXTRA_FLAGS) --template=$(MANUAL_TEMPLATE) -o $@ $(BUILD_DIR)/$(CHAPTERS).pd
+
+$(BUILD_DIR)/%-$(MANUAL_DIR).pdf: $(MANUAL_DIR)/%.md
+	$(MKDOCS2PANDOC) -c $^ > $(BUILD_DIR)/$(CHAPTERS).pd
+	$(PANDOC) $(LATEX_FLAGS) $(EXTRA_FLAGS) --template=$(ARTICLE_TEMPLATE) -o $@ $(BUILD_DIR)/$(CHAPTERS).pd
 
 # Generalized rule: how to build a .pdf from each .md
-%.pdf: %.md
-	pandoc $(LATEX_FLAGS) --template=template/article.tex -o $@ $<
-	mv $@ pdf/$@
+$(BUILD_DIR)/%.pdf: %.md
+	$(MKDOCS2PANDOC) -c $^ > $(BUILD_DIR)/$(CHAPTERS).pd
+	$(PANDOC) $(LATEX_FLAGS) $(EXTRA_FLAGS) --template=$(ARTICLE_TEMPLATE) -o $@ $(BUILD_DIR)/$(CHAPTERS).pd
 
 # Generalized rule: how to build a .tex from each .md
-%.tex: %.md
-	pandoc $(LATEX_FLAGS) -o $@ $<
-	mv $@ pdf/$@
+$(BUILD_DIR)/%.tex: %.md
+	$(PANDOC) $(LATEX_FLAGS) -o $@ $<
 
 clean:
-	rm -f *.aux *.log *.nav *.out *.snm *.toc *.vrb *.tex *.pdf pdf/*.tex pdf/*.pdf pdf/platform/*.tex pdf/platform/*.pdf || true
+	rm -f $(BUILD_DIR)/* $(MAUNUL_DIR)/*.pdf *.aux *.log *.nav *.out *.snm *.toc *.vrb *.tex *.pdf *.pd  || true
 
 .PHONY: all clean
