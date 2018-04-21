@@ -67,8 +67,8 @@ long cpu_usage(void)
 {
     rt_uint8_t major, minor;
 	
-	cpu_usage_get(&major, &minor);
-	rt_kprintf("cpu usage: %d.%d\n", major, minor);
+    cpu_usage_get(&major, &minor);
+    rt_kprintf("cpu usage: %d.%d%\n", major, minor);
 
     return 0;
 }
@@ -79,6 +79,6 @@ int cpu_usage_init()
 {
     /* set idle thread hook */
     rt_thread_idle_sethook(cpu_usage_idle_hook);
-	return 0;
+    return 0;
 }
 INIT_APP_EXPORT(cpu_usage_init);
