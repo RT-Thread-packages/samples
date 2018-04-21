@@ -6,6 +6,7 @@ before_script:
   - apt-get install -y pandoc
   - apt-get install -y make
   - apt-get install -y python-pip
+  - pip install mkdocs
   - apt-get install -y texlive-xetex
   - apt-get install -y texlive-latex-recommended # main packages
   - apt-get install -y texlive-latex-extra # package titlesec
