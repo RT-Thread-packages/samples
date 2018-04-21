@@ -79,6 +79,7 @@ int cpu_usage_init()
 {
     /* set idle thread hook */
     rt_thread_idle_sethook(cpu_usage_idle_hook);
+	
     return 0;
 }
 INIT_APP_EXPORT(cpu_usage_init);
