@@ -9,15 +9,37 @@
 ### 程序清单 ###
 
 ```{.c .numberLines}
+/*
+ * 程序清单：空闲任务钩子例程
+ *
+ * 这个程序设置了一个空闲函数钩子用于计算CPU使用率，并创建一个线程循环打印CPU使用率
+ * 通过修改CPU使用率打印线程中的休眠tick时间可以看到不同的CPU使用率
+ */
 #include <rtthread.h>
 #include <rthw.h>
+
+#if RT_THREAD_PRIORITY_MAX == 8
+#define THREAD_PRIORITY        6
+#elif RT_THREAD_PRIORITY_MAX == 32
+#define THREAD_PRIORITY        25
+#elif RT_THREAD_PRIORITY_MAX == 256
+#define THREAD_PRIORITY        200
+#endif
+#define THREAD_STACK_SIZE    512
+#define THREAD_TIMESLICE    5
+
+/* 指向线程控制块的指针 */
+static rt_thread_t tid = RT_NULL;
 
 #define CPU_USAGE_CALC_TICK    10
 #define CPU_USAGE_LOOP        100
 
 static rt_uint8_t  cpu_usage_major = 0, cpu_usage_minor= 0;
-static rt_uint32_t total_count = 0;
 
+/* 记录CPU使用率为0时的总count数 */
+static rt_uint32_t total_count = 0;		
+
+/* 空闲任务钩子函数 */
 static void cpu_usage_idle_hook()
 {
     rt_tick_t tick;
@@ -26,7 +48,7 @@ static void cpu_usage_idle_hook()
 
     if (total_count == 0)
     {
-        /* get total count */
+        /* 获取 total_count */
         rt_enter_critical();
         tick = rt_tick_get();
         while(rt_tick_get() - tick < CPU_USAGE_CALC_TICK)
@@ -39,7 +61,7 @@ static void cpu_usage_idle_hook()
     }
 
     count = 0;
-    /* get CPU usage */
+    /* 计算CPU使用率 */
     tick = rt_tick_get();
     while (rt_tick_get() - tick < CPU_USAGE_CALC_TICK)
     {
@@ -48,7 +70,7 @@ static void cpu_usage_idle_hook()
         while (loop < CPU_USAGE_LOOP) loop ++;
     }
 
-    /* calculate major and minor */
+    /* 计算整数百分比整数部分和小数部分 */
     if (count < total_count)
     {
         count = total_count - count;
@@ -59,7 +81,7 @@ static void cpu_usage_idle_hook()
     {
         total_count = count;
 
-        /* no CPU usage */
+        /* CPU使用率为0 */
         cpu_usage_major = 0;
         cpu_usage_minor = 0;
     }
@@ -74,80 +96,78 @@ void cpu_usage_get(rt_uint8_t *major, rt_uint8_t *minor)
     *minor = cpu_usage_minor;
 }
 
-long cpu_usage(void)
+/* CPU使用率打印线程入口 */
+static void thread_entry(void *parameter)
 {
     rt_uint8_t major, minor;
-	
-    cpu_usage_get(&major, &minor);
-    rt_kprintf("cpu usage: %d.%d%\n", major, minor);
 
-    return 0;
+    while(1)
+    {
+        cpu_usage_get(&major, &minor);
+        rt_kprintf("cpu usage: %d.%d%\n", major, minor);
+
+        /* 休眠50个OS Tick */
+		/* 手动修改此处休眠 tick 时间，可以模拟实现不同的CPU使用率 */
+        rt_thread_delay(50);
+    }
 }
-FINSH_FUNCTION_EXPORT(cpu_usage, show cpu usage);
-MSH_CMD_EXPORT(cpu_usage, show cpu usage);
 
 int cpu_usage_init()
 {
-    /* set idle thread hook */
+    /* 设置空闲线程钩子 */
     rt_thread_idle_sethook(cpu_usage_idle_hook);
 	
+    /* 创建线程 */
+    tid = rt_thread_create("thread",
+                            thread_entry, RT_NULL, /* 线程入口是thread_entry, 入口参数是RT_NULL */
+                            THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
+    if (tid != RT_NULL)
+        rt_thread_startup(tid);
     return 0;
 }
 INIT_APP_EXPORT(cpu_usage_init);
+
 
 ```
 
 ### 例程设计 ###
 
-该例程在 `cpu_usage_init()` 中通过调用```rt_thread_idle_sethook()```设置了一个空闲任务钩子函数```cpu_usage_idle_hook()```。   
-```cpu_usage_idle_hook()```函数统计CPU的使用率，当在控制台输入命令```cpu_usage()```时通过```cpu_usage()```函数将CPU使用率以百分比形式打印出来。
- 
+该例程在 `cpu_usage_init()` 中通过调用```rt_thread_idle_sethook()```设置了一个空闲任务钩子函数```cpu_usage_idle_hook()```用来计算CPU的使用率。
+同时创建了一个线程```thread```来循环输出打印CPU使用率，可通过设置```thread```线程中的休眠```tick```时间来实现模拟不同的CPU使用率。
 
 
 ### 编译调试及观察输出信息 ###
 
-仿真运行后，输入键盘```Tab```键，得到下面输出，可以看到新增命令```cpu_usage```:
+仿真运行后，控制台一直循环输出打印CPU使用率:
 
-	\ | /
+		\ | /
 	- RT -     Thread Operating System
 	 / | \     3.0.3 build Apr 21 2018
 	 2006 - 2018 Copyright by rt-thread team
-	finsh >
-	--function:
-	cpu_usage        -- show cpu usage
-	pinMode          -- set hardware pin mode
-	pinWrite         -- write value to hardware pin
-	pinRead          -- read status from hardware pin
-	hello            -- say hello world
-	version          -- show RT-Thread version information
-	list_thread      -- list thread
-	list_sem         -- list semaphone in system
-	list_event       -- list event in system
-	list_mutex       -- list mutex in system
-	list_mailbox     -- list mail box in system
-	list_msgqueue    -- list message queue in system
-	list_memheap     -- list memory heap in system
-	list_mempool     -- list memory pool in system
-	list_timer       -- list timer in system
-	list_device      -- list device in system
-	list             -- list all symbol in system
-	msh              -- use module shell
-	--variable:
-	dummy            -- dummy variable for finsh
-	finsh >
+	finsh >cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.2%
+	cpu usage: 0.0%
+	cpu usage: 0.2%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.2%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.2%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.2%
+	cpu usage: 0.2%
+	cpu usage: 0.0%
+	...
 	
-输入```cpu_usage()```命令，可以获取CPU使用率，输出如下：
-
-	finsh >cpu_usage() 
-	cpu usage: 0.0% 
-	        0, 0x00000000 
-	finsh > 
-	finsh >cpu_usage()
-	cpu usage: 0.2%  
-	        0, 0x00000000
-
-
-
 
 ## 本文相关核心API ##
 
