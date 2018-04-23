@@ -77,7 +77,7 @@ void consumer_thread_entry(void* parameter)
         /* 临界区，上锁进行操作 */
         rt_sem_take(&sem_lock, RT_WAITING_FOREVER);
         sum += array[get%MAXSEM];
-        rt_kprintf("the consumer[%d] get a number: %d\n", no, array[get%MAXSEM] );
+        rt_kprintf("the consumer[%d] get a number: %d\n", (get%MAXSEM), array[get%MAXSEM] );
         get++;
         rt_sem_release(&sem_lock);
 
