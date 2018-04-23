@@ -4,7 +4,16 @@
  * 这个例子中将创建两个线程用于实现生产者消费者问题
  */
 #include <rtthread.h>
-#include "tc_comm.h"
+
+#if RT_THREAD_PRIORITY_MAX == 8
+#define THREAD_PRIORITY        6
+#elif RT_THREAD_PRIORITY_MAX == 32
+#define THREAD_PRIORITY        25
+#elif RT_THREAD_PRIORITY_MAX == 256
+#define THREAD_PRIORITY        200
+#endif
+#define THREAD_STACK_SIZE    512
+#define THREAD_TIMESLICE    5
 
 /* 定义最大5个元素能够被产生 */
 #define MAXSEM 5
@@ -99,8 +108,6 @@ int semaphore_producer_consumer_init()
                                     THREAD_STACK_SIZE, THREAD_PRIORITY - 1, THREAD_TIMESLICE);
     if (producer_tid != RT_NULL)
         rt_thread_startup(producer_tid);
-    else
-        tc_stat(TC_STAT_END | TC_STAT_FAILED);
 
     /* 创建线程2 */
     consumer_tid = rt_thread_create("consumer",
@@ -108,52 +115,8 @@ int semaphore_producer_consumer_init()
                                     THREAD_STACK_SIZE, THREAD_PRIORITY + 1, THREAD_TIMESLICE);
     if (consumer_tid != RT_NULL)
         rt_thread_startup(consumer_tid);
-    else
-        tc_stat(TC_STAT_END | TC_STAT_FAILED);
 
     return 0;
 }
+INIT_APP_EXPORT(semaphore_producer_consumer_init);
 
-#ifdef RT_USING_TC
-static void _tc_cleanup()
-{
-    /* 调度器上锁，上锁后，将不再切换到其他线程，仅响应中断 */
-    rt_enter_critical();
-
-    rt_sem_detach(&sem_lock);
-    rt_sem_detach(&sem_empty);
-    rt_sem_detach(&sem_full);
-
-    /* 删除线程 */
-    if (producer_tid != RT_NULL && producer_tid->stat != RT_THREAD_CLOSE)
-        rt_thread_delete(producer_tid);
-    if (consumer_tid != RT_NULL && consumer_tid->stat != RT_THREAD_CLOSE)
-        rt_thread_delete(consumer_tid);
-
-    /* 调度器解锁 */
-    rt_exit_critical();
-
-    /* 设置TestCase状态 */
-    tc_done(TC_STAT_PASSED);
-}
-
-int _tc_semaphore_producer_consumer()
-{
-    /* 设置TestCase清理回调函数 */
-    tc_cleanup(_tc_cleanup);
-    semaphore_producer_consumer_init();
-
-    /* 返回TestCase运行的最长时间 */
-    return 100;
-}
-/* 输出函数命令到finsh shell中 */
-FINSH_FUNCTION_EXPORT(_tc_semaphore_producer_consumer, producer and consumer example);
-#else
-/* 用户应用入口 */
-int rt_application_init()
-{
-    semaphore_producer_consumer_init();
-
-    return 0;
-}
-#endif
