@@ -1,5 +1,24 @@
+/*
+ * 程序清单：空闲任务钩子例程
+ *
+ * 这个程序会创建一个静态的内存池对象，2个动态线程。两个线程会试图分别从内存池中获得
+ * 内存块
+ */
 #include <rtthread.h>
 #include <rthw.h>
+
+#if RT_THREAD_PRIORITY_MAX == 8
+#define THREAD_PRIORITY        6
+#elif RT_THREAD_PRIORITY_MAX == 32
+#define THREAD_PRIORITY        25
+#elif RT_THREAD_PRIORITY_MAX == 256
+#define THREAD_PRIORITY        200
+#endif
+#define THREAD_STACK_SIZE    512
+#define THREAD_TIMESLICE    5
+
+/* 指向线程控制块的指针 */
+static rt_thread_t tid = RT_NULL;
 
 #define CPU_USAGE_CALC_TICK    10
 #define CPU_USAGE_LOOP        100
@@ -7,6 +26,7 @@
 static rt_uint8_t  cpu_usage_major = 0, cpu_usage_minor= 0;
 static rt_uint32_t total_count = 0;
 
+/* 空闲任务钩子函数 */
 static void cpu_usage_idle_hook()
 {
     rt_tick_t tick;
@@ -28,7 +48,7 @@ static void cpu_usage_idle_hook()
     }
 
     count = 0;
-    /* get CPU usage */
+    /* 计算CPU使用率 */
     tick = rt_tick_get();
     while (rt_tick_get() - tick < CPU_USAGE_CALC_TICK)
     {
@@ -37,7 +57,7 @@ static void cpu_usage_idle_hook()
         while (loop < CPU_USAGE_LOOP) loop ++;
     }
 
-    /* calculate major and minor */
+    /* 计算整数百分比整数部分和小数部分 */
     if (count < total_count)
     {
         count = total_count - count;
@@ -48,7 +68,7 @@ static void cpu_usage_idle_hook()
     {
         total_count = count;
 
-        /* no CPU usage */
+        /* CPU使用率为0 */
         cpu_usage_major = 0;
         cpu_usage_minor = 0;
     }
@@ -63,23 +83,32 @@ void cpu_usage_get(rt_uint8_t *major, rt_uint8_t *minor)
     *minor = cpu_usage_minor;
 }
 
-long cpu_usage(void)
+/* CPU使用率打印线程入口 */
+static void thread_entry(void *parameter)
 {
     rt_uint8_t major, minor;
-	
-    cpu_usage_get(&major, &minor);
-    rt_kprintf("cpu usage: %d.%d%\n", major, minor);
 
-    return 0;
+    while(1)
+    {
+        cpu_usage_get(&major, &minor);
+        rt_kprintf("cpu usage: %d.%d%\n", major, minor);
+
+        /* 休眠50个OS Tick */
+        rt_thread_delay(50);
+    }
 }
-FINSH_FUNCTION_EXPORT(cpu_usage, show cpu usage);
-MSH_CMD_EXPORT(cpu_usage, show cpu usage);
 
 int cpu_usage_init()
 {
-    /* set idle thread hook */
+    /* 设置空闲线程钩子 */
     rt_thread_idle_sethook(cpu_usage_idle_hook);
 	
+	/* 创建线程 */
+    tid = rt_thread_create("thread",
+                            thread_entry, RT_NULL, /* 线程入口是thread_entry, 入口参数是RT_NULL */
+                            THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
+    if (tid != RT_NULL)
+        rt_thread_startup(tid);
     return 0;
 }
 INIT_APP_EXPORT(cpu_usage_init);
