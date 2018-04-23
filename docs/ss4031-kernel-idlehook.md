@@ -1,7 +1,18 @@
+# 空闲线程钩子的使用 #
+
+## 例程目的 ##
+
+学会设置空闲线程钩子。
+
+## 程序结构及例程原理 ##
+
+### 程序清单 ###
+
+```{.c .numberLines}
 /*
  * 程序清单：空闲任务钩子例程
  *
- * 这个程序设置了一个空闲任务钩子用于计算CPU使用率，并创建一个线程循环打印CPU使用率
+ * 这个程序设置了一个空闲函数钩子用于计算CPU使用率，并创建一个线程循环打印CPU使用率
  * 通过修改CPU使用率打印线程中的休眠tick时间可以看到不同的CPU使用率
  */
 #include <rtthread.h>
@@ -115,3 +126,68 @@ int cpu_usage_init()
     return 0;
 }
 INIT_APP_EXPORT(cpu_usage_init);
+
+
+```
+
+### 例程设计 ###
+
+该例程在 `cpu_usage_init()` 中通过调用```rt_thread_idle_sethook()```设置了一个空闲任务钩子函数```cpu_usage_idle_hook()```用来计算CPU的使用率。
+同时创建了一个线程```thread```来循环输出打印CPU使用率，可通过设置```thread```线程中的休眠```tick```时间来实现模拟不同的CPU使用率。
+
+
+### 编译调试及观察输出信息 ###
+
+仿真运行后，控制台一直循环输出打印CPU使用率:
+
+		\ | /
+	- RT -     Thread Operating System
+	 / | \     3.0.3 build Apr 21 2018
+	 2006 - 2018 Copyright by rt-thread team
+	finsh >cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.2%
+	cpu usage: 0.0%
+	cpu usage: 0.2%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.2%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.2%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.0%
+	cpu usage: 0.2%
+	cpu usage: 0.2%
+	cpu usage: 0.0%
+	...
+	
+
+## 本文相关核心API ##
+
+### 设置空闲线程钩子 rt_thread_idle_sethook() ###
+
+* 函数原型:
+
+```{.c}
+    void rt_thread_idle_sethook(void (*hook)(void));
+```
+
+设置空闲线程运行时执行的钩子函数。   
+当空闲线程运行时会自动执行设置的钩子函数，由于空闲线程具有系统的最低优先级，所以只有在空闲的时候才会执行此钩子函数。空闲线程是一个线程状态永远为就绪态的线程，因此设置的钩子函数必须保证空闲线程在任何时刻都不会处于挂起状态，例如```rt_thread_delay()``` ， ```rt_sem_take()``` 等可能会导致线程挂起的函数都不能使用。   
+
+* 入口参数：
+
+|参数            | 描述 |
+---------------|--------------------------------
+|hook|设置的钩子函数；|
+
+* 函数返回：
+
+无
