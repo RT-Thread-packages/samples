@@ -1,7 +1,7 @@
 /*
  * 程序清单：空闲任务钩子例程
  *
- * 这个程序设置了一个空闲函数钩子用于计算CPU使用率，并创建一个线程循环打印CPU使用率
+ * 这个程序设置了一个空闲任务钩子用于计算CPU使用率，并创建一个线程循环打印CPU使用率
  * 通过修改CPU使用率打印线程中的休眠tick时间可以看到不同的CPU使用率
  */
 #include <rtthread.h>
@@ -96,7 +96,7 @@ static void thread_entry(void *parameter)
         rt_kprintf("cpu usage: %d.%d%\n", major, minor);
 
         /* 休眠50个OS Tick */
-		/* 手动修改此处休眠 tick 时间，可以模拟实现不同的CPU使用率 */
+        /* 手动修改此处休眠 tick 时间，可以模拟实现不同的CPU使用率 */
         rt_thread_delay(50);
     }
 }

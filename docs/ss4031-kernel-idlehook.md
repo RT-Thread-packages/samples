@@ -107,7 +107,7 @@ static void thread_entry(void *parameter)
         rt_kprintf("cpu usage: %d.%d%\n", major, minor);
 
         /* 休眠50个OS Tick */
-		/* 手动修改此处休眠 tick 时间，可以模拟实现不同的CPU使用率 */
+        /* 手动修改此处休眠 tick 时间，可以模拟实现不同的CPU使用率 */
         rt_thread_delay(50);
     }
 }
