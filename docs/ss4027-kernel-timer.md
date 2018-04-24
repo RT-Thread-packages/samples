@@ -144,23 +144,18 @@ INIT_APP_EXPORT(timer_sample_init);
 ```
 
 ### 例程设计 ###
+
 该例程在 timer_sample_init 中动态创建三个定时器timer1,timer2,timer3,并启动定时器,初始化静态定时器timer4,timer5,并启动定时器。
 
-### timer1 ###
-* 软件定时器1s周期性定时.
-### timer2 ###
-* 软件定时器2s单次定时.
-### timer3 ###
-* 硬件定时器3s周期性定时，经过6s移除timer1
-### timer4 ###
-* 静态周期性定时器定时
-### timer5 ###
-* 静态单次定时器定时
-
+* timer1 软件定时器1s周期性定时；
+* timer2 软件定时器2s单次定时；
+* timer3 硬件定时器3s周期性定时，经过6s移除timer1；
+* timer4 静态周期性定时器定时；
+* timer5 静态单次定时器定时。
 
 ### 编译调试及观察输出信息 ###
 
-```
+```{.c}
   \ | /
 - RT -     Thread Operating System
  / | \     3.0.3 build Apr 16 2018
@@ -203,8 +198,8 @@ INIT_APP_EXPORT(timer_sample_init);
 [ static timer4  periodic is timeout] = 21
 [ static timer4  periodic is timeout] = 22
 [ static timer4  periodic is timeout] = 23
-
 ``` 
+
 ## 本文相关核心API ##
 
 ### 当动态创建一个定时器时，可使用下面的函数接口 ###
@@ -261,7 +256,6 @@ rt_err_t rt_timer_start(rt_timer_t timer);
 ---------------|--------------------------------
 |timer  | 定时器句柄，指向要启动的定时器控制块。|
 
-
 * 函数返回：
 
 如果timer已经处于激活状态，则返回-RT_ERROR；否则返回RT_EOK。
@@ -283,7 +277,6 @@ rt_err_t rt_timer_delete(rt_timer_t timer);
 * 函数返回：
 
 返回RT_EOK （如果参数timer句柄是一个RT_NULL，将会导致一个ASSERT断言）
-
 
 ### 停止定时器 ###
 
@@ -358,7 +351,7 @@ void rt_timer_init(rt_timer_t timer,
 |time|定时器的超时时间，单位是系统节拍；|
 |flag| 定时器创建时的参数，支持的值包括（可以用“或”关系取多个值）; |
 
-* flag 
+* flag
 
 ```{.c}
 #define RT_TIMER_FLAG_ONE_SHOT      0x0     /* 单次定时     */
@@ -392,5 +385,3 @@ rt_err_t rt_timer_detach(rt_timer_t timer);
 * 函数返回：
 
 返回RT_EOK。
-
-
