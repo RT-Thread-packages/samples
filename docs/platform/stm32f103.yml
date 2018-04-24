@@ -30,4 +30,5 @@ pages:
 - 邮箱: '../ss4024-kernel-mailbox.md'
 - 事件: '../ss4025-kernel-event.md'
 - 内存池的使用: '../ss4030-kernel-mempool.md'
-- 定时器: '../ss4026-kernel-timer.md'
+- 定时器: '../ss4027-kernel-timer.md'
+- 空闲钩子函数: '../ss4031-kernel-idlehook.md'
