@@ -8,7 +8,7 @@
 
 ### 程序清单 ###
 
-```{.c .numberLines}
+```{.c}
     #include <rtthread.h>
     
     /* 邮箱控制块 */

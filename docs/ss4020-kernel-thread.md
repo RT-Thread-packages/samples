@@ -8,7 +8,7 @@
 
 ### 程序清单 ###
 
-```{.c .numberLines}
+```{.c}
     /*
      * 程序清单：线程创建和删除
      *
@@ -148,7 +148,7 @@ counter: 6
 
 * 函数原型:
 
-```{.c .numberLines}
+```{.c}
     rt_thread_t rt_thread_create(const char *name,
                              void (*entry)(void *parameter),
                              void       *parameter,
@@ -212,6 +212,6 @@ counter: 6
 
 * 函数原型:
 
-```{.c .numberLines}
+```{.c}
     INIT_APP_EXPORT()
 ```

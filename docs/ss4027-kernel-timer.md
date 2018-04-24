@@ -8,7 +8,7 @@
 
 ### 程序清单 ###
 
-```{.c .numberLines}
+```{.c}
 /*
  *程序清单：动态定时器例程和静态定时器例程
  *
@@ -211,7 +211,7 @@ INIT_APP_EXPORT(timer_sample_init);
 
 * 函数原型:
 
-```{.c .numberLines}
+```{.c}
 rt_timer_t rt_timer_create(const char* name, 
                         void (*timeout)(void* parameter), 
                         void* parameter, 
@@ -230,7 +230,7 @@ rt_timer_t rt_timer_create(const char* name,
 
 * flag有如下值
 
-```{.c .numberLines}
+```{.c}
 #define RT_TIMER_FLAG_ONE_SHOT          0x0             /**< one shot timer */
 #define RT_TIMER_FLAG_PERIODIC          0x2             /**< periodic timer */
 
@@ -251,7 +251,7 @@ rt_timer_t rt_timer_create(const char* name,
 
 当定时器被创建或者初始化以后，并不会被立即启动，必须在调用启动定时器函数接口后，才开始工作，启动定时器函数接口如下
 
-```{.c .numberLines}
+```{.c}
 rt_err_t rt_timer_start(rt_timer_t timer);
 ```
 
@@ -270,7 +270,7 @@ rt_err_t rt_timer_start(rt_timer_t timer);
 
 系统不再使用特定定时器时，可使用下面的函数接口：
 
-```{.c .numberLines}
+```{.c}
 rt_err_t rt_timer_delete(rt_timer_t timer);
 ```
 
@@ -289,7 +289,7 @@ rt_err_t rt_timer_delete(rt_timer_t timer);
 
 启动定时器以后，若想使它停止，可以使用下面的函数接口
 
-```{.c .numberLines}
+```{.c}
 rt_err_t rt_timer_stop(rt_timer_t timer);
 ```
 
@@ -307,7 +307,7 @@ rt_err_t rt_timer_stop(rt_timer_t timer);
 
 除了上述提供的一些编程接口，RT_thread也额外提供了定时器控制函数接口，以获取或设置更多定时器的信息。控制定时器函数接口如下：
 
-```{.c .numberLines}
+```{.c}
 rt_err_t rt_timer_control(rt_timer_t timer, rt_uint8_t cmd, void* arg);
 ```
 
@@ -323,7 +323,7 @@ rt_err_t rt_timer_control(rt_timer_t timer, rt_uint8_t cmd, void* arg);
 
 * cmd
 
-```{.c .numberLines}
+```{.c}
 #define RT_TIMER_CTRL_SET_TIME      0x0     /* 设置定时器超时时间       */
 #define RT_TIMER_CTRL_GET_TIME      0x1     /* 获得定时器超时时间       */
 #define RT_TIMER_CTRL_SET_ONESHOT   0x2     /* 设置定时器为单一超时型   */
@@ -338,7 +338,7 @@ rt_err_t rt_timer_control(rt_timer_t timer, rt_uint8_t cmd, void* arg);
 
 当选择静态创建定时器时，可利用rt_timer_init接口来初始化该定时器，函数接口如下：
 
-```{.c .numberLines}
+```{.c}
 void rt_timer_init(rt_timer_t timer,
                 const char* name, void (*timeout)(void* parameter), 
                 void* parameter,
@@ -360,7 +360,7 @@ void rt_timer_init(rt_timer_t timer,
 
 * flag 
 
-```{.c .numberLines}
+```{.c}
 #define RT_TIMER_FLAG_ONE_SHOT      0x0     /* 单次定时     */
 #define RT_TIMER_FLAG_PERIODIC      0x2     /* 周期定时     */
 #define RT_TIMER_FLAG_HARD_TIMER    0x0     /* 硬件定时器   */
@@ -377,7 +377,7 @@ void rt_timer_init(rt_timer_t timer,
 
 当一个静态定时器不需要再使用时，可以使用下面的函数接口：
 
-```{.c .numberLines}
+```{.c}
 rt_err_t rt_timer_detach(rt_timer_t timer);
 ```
 
