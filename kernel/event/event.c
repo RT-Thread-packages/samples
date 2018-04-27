@@ -28,7 +28,7 @@ static void thread1_entry(void *param)
                               RT_EVENT_FLAG_AND | RT_EVENT_FLAG_CLEAR,
                               RT_WAITING_FOREVER, &e) == RT_EOK)
             {
-                rt_kprintf("\nthread1: AND recv event 0x%x\n", e);
+                rt_kprintf("thread1: AND recv event 0x%x\n", e);
             }
         }
         for (i = 0; i < 10; i++)
@@ -38,7 +38,7 @@ static void thread1_entry(void *param)
                               RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR,
                               RT_WAITING_FOREVER, &e) == RT_EOK)
             {
-                rt_kprintf("\nthread1: OR recv event 0x%x\n", e);
+                rt_kprintf("thread1: OR recv event 0x%x\n", e);
             }
         }
         while (1)
@@ -56,15 +56,15 @@ static void thread2_entry(void *param)
     {
         for (i = 0; i < 10; i++)
         {
-            rt_kprintf("\nthread2: send event1\n");
+            rt_kprintf("thread2: send event1\n");
             rt_event_send(&event, EVENT1);                     /* 发送事件(EVENT1)*/
             rt_thread_delay(rt_tick_from_millisecond(2000));
-            rt_kprintf("\nthread2: send event2\n");
+            rt_kprintf("thread2: send event2\n");
             rt_event_send(&event, EVENT2);                     /* 发送事件(EVENT2)*/
             rt_thread_delay(rt_tick_from_millisecond(2000));
         }
         rt_thread_delay(rt_tick_from_millisecond(500));
-        rt_kprintf("\nthread2: detach event\n");
+        rt_kprintf("thread2: detach event\n");
         rt_event_detach(&event);                               /* 脱离事件对象*/
         while (1)
         {
@@ -74,26 +74,26 @@ static void thread2_entry(void *param)
 }
 
 /* 事件示例的初始化 */
-int event_sample_init()
+int event_simple_init()
 {
-	rt_thread_t tid = RT_NULL;
+    rt_thread_t tid = RT_NULL;
     /* 初始化事件对象 */
     rt_event_init(&event, "event", RT_IPC_FLAG_FIFO);
 
     /* 创建线程1 */
     tid = rt_thread_create("thread1",
-                            thread1_entry, RT_NULL, /* 线程入口是thread1_entry, 入口参数是RT_NULL */
-                            1024, 5, 10);
+                           thread1_entry, RT_NULL, /* 线程入口是thread1_entry, 入口参数是RT_NULL */
+                           1024, 5, 10);
     if (tid != RT_NULL)
         rt_thread_startup(tid);
 
     /* 创建线程2 */
     tid = rt_thread_create("thread2",
-                            thread2_entry, RT_NULL, /* 线程入口是thread2_entry, 入口参数是RT_NULL */
-                            1024, 5, 10);
+                           thread2_entry, RT_NULL, /* 线程入口是thread2_entry, 入口参数是RT_NULL */
+                           1024, 5, 10);
     if (tid != RT_NULL)
         rt_thread_startup(tid);
 
     return 0;
 }
-INIT_APP_EXPORT(event_sample_init);
+INIT_APP_EXPORT(event_simple_init);
