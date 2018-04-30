@@ -176,7 +176,7 @@ thread1: get a mail from mailbox, the content:over
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mb_init(rt_mailbox_t mb, const char* name, void* msgpool,rt_size_t size, rt_uint8_t flag)
 ```
 对一个静态的邮箱进行初始化.
@@ -190,7 +190,7 @@ rt_err_t rt_mb_init(rt_mailbox_t mb, const char* name, void* msgpool,rt_size_t s
 |size|邮箱容量；|
 |flag|邮箱标志，它可以取如下数值：|
 
-```
+```{.c}
 #define RT_IPC_FLAG_FIFO 0x00 /* IPC参数采用FIFO方式*/
 #define RT_IPC_FLAG_PRIO 0x01 /* IPC参数采用优先级方式*/
 ```
@@ -204,7 +204,7 @@ rt_err_t rt_mb_init(rt_mailbox_t mb, const char* name, void* msgpool,rt_size_t s
 
 * 函数原型:
 
-```
+```{.c}
 rt_mailbox_t rt_mb_create (const char* name, rt_size_t size, rt_uint8_t flag);
 ```
 创建一个动态的邮箱.
@@ -216,7 +216,7 @@ rt_mailbox_t rt_mb_create (const char* name, rt_size_t size, rt_uint8_t flag);
 |size|邮箱容量；|
 |flag|邮箱标志，它可以取如下数值：|
 
-```
+```{.c}
 #define RT_IPC_FLAG_FIFO 0x00 /* IPC参数采用FIFO方式*/
 #define RT_IPC_FLAG_PRIO 0x01 /* IPC参数采用优先级方式*/
 ```
@@ -230,7 +230,7 @@ rt_mailbox_t rt_mb_create (const char* name, rt_size_t size, rt_uint8_t flag);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mb_delete (rt_mailbox_t mb);
 ```
 可以删除动态邮箱,会释放系统资源.
@@ -248,7 +248,7 @@ rt_err_t rt_mb_delete (rt_mailbox_t mb);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mb_detach(rt_mailbox_t mb);
 ```
 邮箱对象从内核对象管理器中脱离掉,但是不释放系统资源.
@@ -266,7 +266,7 @@ rt_err_t rt_mb_detach(rt_mailbox_t mb);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mb_recv (rt_mailbox_t mb, rt_uint32_t* value, rt_int32_t timeout);
 ```
 接收邮件时，接收者需指定接收邮件的邮箱句柄，并指定接收到的邮件存放位置以及最多能够等待的超时时间。
@@ -286,7 +286,7 @@ rt_err_t rt_mb_recv (rt_mailbox_t mb, rt_uint32_t* value, rt_int32_t timeout);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mb_send (rt_mailbox_t mb, rt_uint32_t value);
 ```
 发送的邮件可以是32位任意格式的数据，一个整型值或者一个指向缓冲区的指针。当邮箱中的邮件已经满时，发送邮件的线程或者中断程序会收到-RT_EFULL 的返回值。
@@ -305,7 +305,7 @@ rt_err_t rt_mb_send (rt_mailbox_t mb, rt_uint32_t value);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mb_send_wait (rt_mailbox_t mb, rt_uint32_t value, rt_int32_t timeout);
 ```
 rt_mb_send_wait与rt_mb_send的区别在于，如果邮箱已经满了，那么发送线程将根据设定的timeout参数等待邮箱中因为收取邮件而空出空间。如果设置的超时时间到达依然没有空出空间，这时发送线程将被唤醒返回错误码。

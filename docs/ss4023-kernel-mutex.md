@@ -226,16 +226,19 @@ thread1 take a dynamic mutex, done.
 ```
 
 由输出信息可知,thread2率先获取了静态互斥量,thread1这个时候想要获取静态互斥量,等待10个tick期间没有成功获取,所以返回.再次获取静态互斥量,这次是永久等待,直到thread2释放静态互斥量.(之后的动态互斥量的操作一样,不在赘述.)
+
 ## 本文相关核心API ##
 
 ### 初始化互斥量 rt_mutex_init() ###
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mutex_init (rt_mutex_t mutex, const char* name, rt_uint8_t flag);
 ```
+
 对一个静态的互斥量进行初始化.
+
 * 入口参数：
 
 |参数            | 描述 |
@@ -243,7 +246,8 @@ rt_err_t rt_mutex_init (rt_mutex_t mutex, const char* name, rt_uint8_t flag);
 |mutex|互斥量对象的句柄，它由用户提供，并指向互斥量对象的内存块；|
 |name  | 互斥量名称；|
 |flag| 互斥量标志，可以取如下类型的数值：|
-```
+
+```{.c}
 #define RT_IPC_FLAG_FIFO 0x00 /* IPC参数采用FIFO方式*/
 #define RT_IPC_FLAG_PRIO 0x01 /* IPC参数采用优先级方式*/
 ```
@@ -256,7 +260,7 @@ rt_err_t rt_mutex_init (rt_mutex_t mutex, const char* name, rt_uint8_t flag);
 
 * 函数原型:
 
-```
+```{.c}
 rt_mutex_t rt_mutex_create (const char* name, rt_uint8_t flag);
 ```
 创建一个动态的互斥量.
@@ -267,11 +271,10 @@ rt_mutex_t rt_mutex_create (const char* name, rt_uint8_t flag);
 |name  | 互斥量名称；|
 |flag|互斥量标志，取值可以使用如下类型：|
 
-```
+```{.c}
 #define RT_IPC_FLAG_FIFO 0x00 /* IPC参数采用FIFO方式*/
 #define RT_IPC_FLAG_PRIO 0x01 /* IPC参数采用优先级方式*/
 ```
-
 
 * 函数返回：
 
@@ -281,7 +284,7 @@ rt_mutex_t rt_mutex_create (const char* name, rt_uint8_t flag);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mutex_delete (rt_mutex_t mutex);
 ```
 可以删除动态互斥量,会释放系统资源.
@@ -299,7 +302,7 @@ rt_err_t rt_mutex_delete (rt_mutex_t mutex);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mutex_detach (rt_mutex_t mutex);
 ```
 互斥量对象从内核对象管理器中脱离掉,但是不释放系统资源.
@@ -317,7 +320,7 @@ rt_err_t rt_mutex_detach (rt_mutex_t mutex);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mutex_take (rt_mutex_t mutex, rt_int32_t time);
 ```
 如果互斥量没有被其他线程控制，那么申请该互斥量的线程将成功获得该互斥量。如果
@@ -339,7 +342,7 @@ rt_err_t rt_mutex_take (rt_mutex_t mutex, rt_int32_t time);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_mutex_release(rt_mutex_t mutex);
 ```
 使用该函数接口时，只有已经拥有互斥量控制权的线程才能释放它，每释放一次该互斥

@@ -177,9 +177,10 @@ thread2: detach event
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_event_init(rt_event_t event, const char* name, rt_uint8_t flag);
 ```
+
 对一个静态的事件进行初始化.
 * 入口参数：
 
@@ -188,7 +189,8 @@ rt_err_t rt_event_init(rt_event_t event, const char* name, rt_uint8_t flag);
 |event|事件对象的句柄，它由用户提供，并指向事件对象的内存块；|
 |name  | 事件名称；|
 |flag| 事件标志，可以取如下类型的数值：|
-```
+
+```{.c}
 #define RT_IPC_FLAG_FIFO 0x00 /* IPC参数采用FIFO方式*/
 #define RT_IPC_FLAG_PRIO 0x01 /* IPC参数采用优先级方式*/
 ```
@@ -201,9 +203,10 @@ rt_err_t rt_event_init(rt_event_t event, const char* name, rt_uint8_t flag);
 
 * 函数原型:
 
-```
+```{.c}
 rt_event_t rt_event_create (const char* name, rt_uint8_t flag);
 ```
+
 创建一个动态的事件.
 * 入口参数：
 
@@ -212,7 +215,7 @@ rt_event_t rt_event_create (const char* name, rt_uint8_t flag);
 |name  | 事件名称；|
 |flag|事件的标志，取值可以使用如下类型：|
 
-```
+```{.c}
 #define RT_IPC_FLAG_FIFO 0x00 /* IPC参数采用FIFO方式*/
 #define RT_IPC_FLAG_PRIO 0x01 /* IPC参数采用优先级方式*/
 ```
@@ -226,9 +229,10 @@ rt_event_t rt_event_create (const char* name, rt_uint8_t flag);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_event_delete (rt_event_t event);
 ```
+
 可以删除动态事件,会释放系统资源.
 * 入口参数：
 
@@ -244,10 +248,12 @@ rt_err_t rt_event_delete (rt_event_t event);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_event_detach(rt_event_t event);
 ```
+
 事件对象从内核对象管理器中脱离掉,但是不释放系统资源.
+
 * 入口参数：
 
 |参数            | 描述 |
@@ -262,10 +268,12 @@ rt_err_t rt_event_detach(rt_event_t event);
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_event_recv(rt_event_t event, rt_uint32_t set, rt_uint8_t option,rt_int32_t timeout, rt_uint32_t* recved);
 ```
+
 当用户调用这个接口时，系统首先根据set参数和接收选项来判断它要接收的事件是否发生，如果已经发生，则根据参数option上是否设置有RT_EVENT_FLAG_CLEAR来决定是否重置事件的相应标志位，然后返回（其中recved参数返回收到的事件）； 如果没有发生，则把等待的set和option参数填入线程本身的结构中，然后把线程挂起在此事件对象上，直到其等待的事件满足条件或等待时间超过指定的超时时间。如果超时时间设置为零，则表示当线程要接受的事件没有满足其要求时就不等待，而直接返回-RT_TIMEOUT。
+
 * 入口参数：
 
 |参数            | 描述 |
@@ -284,7 +292,7 @@ rt_err_t rt_event_recv(rt_event_t event, rt_uint32_t set, rt_uint8_t option,rt_i
 
 * 函数原型:
 
-```
+```{.c}
 rt_err_t rt_event_send(rt_event_t event, rt_uint32_t set);
 ```
 使用该函数接口时，通过参数set指定的事件标志来设定event对象的事件标志值，然后
