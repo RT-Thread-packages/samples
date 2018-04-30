@@ -24,7 +24,7 @@ static void thread1_entry(void *parameter)
         /* 从消息队列中接收消息 */
         if (rt_mq_recv(&mq, &buf, sizeof(buf), RT_WAITING_FOREVER) == RT_EOK)
         {
-            rt_kprintf("\nthread1: recv msg from msg queue, the content:%d\n", buf);
+            rt_kprintf("thread1: recv msg from msg queue, the content:%d\n", buf);
             if (buf == 49)
             {
                 break;
@@ -33,7 +33,7 @@ static void thread1_entry(void *parameter)
         /* 延时100ms */
         rt_thread_delay(rt_tick_from_millisecond(100));
     }
-    rt_kprintf("\nthread1: detach mq \n");
+    rt_kprintf("thread1: detach mq \n");
     rt_mq_detach(&mq);
 }
 
@@ -55,11 +55,11 @@ static void thread2_entry(void *parameter)
             {
                 rt_kprintf("rt_mq_urgent ERR\n");
             }
-            rt_kprintf("\nthread2: send urgent message - %d\n", buf);
+            rt_kprintf("thread2: send urgent message - %d\n", buf);
         }
         else if (buf >= 50)/* 发送50次消息之后退出 */
         {
-            rt_kprintf("\nmessage queue stop send, thread2 leave\n");
+            rt_kprintf("message queue stop send, thread2 quit\n");
             break;
         }
         else
@@ -71,7 +71,7 @@ static void thread2_entry(void *parameter)
                 rt_kprintf("rt_mq_send ERR\n");
             }
 
-            rt_kprintf("\nthread2: send message - %d\n", buf);
+            rt_kprintf("thread2: send message - %d\n", buf);
         }
         buf++;
         /* 延时10ms */

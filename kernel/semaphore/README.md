@@ -9,14 +9,10 @@
 ```{.c}
  \ | /
 - RT -     Thread Operating System
- / | \     3.0.3 build Apr  5 2018
+ / | \     3.0.3 build Apr 27 2018
  2006 - 2018 Copyright by rt-thread team
-finsh >
-take semaphore timeout
-
+finsh >take semaphore timeout
 take a staic semaphore, done.
-
 take semaphore timeout
-
 take a dynamic semaphore, done.
 ```
