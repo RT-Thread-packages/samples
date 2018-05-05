@@ -77,13 +77,16 @@ INIT_APP_EXPORT(create_mount_sample_init);
 ```
 
 ### 例程设计 ###
+
 注意:本例程在不改动的情况下正常运行首先要确保 RT_USING_DFS 宏是被打开的,sd0设备是存在的.
 该例程在 create_mount_sample_init中创建启动线程thread1.
 
 在线程thread1中进行如下操作:
+
 1. 首先调用rt_device_find函数,确认sd0设备存在且被注册.
 2. 其次调用mmcsd_wait_cd_changed函数,检测SD卡是否插入.
 3. 最后调用dfs_mount函数,安装SD卡FAT分区1作为根目录.
+
 ### 编译调试及观察输出信息 ###
 
 ```
@@ -103,46 +106,5 @@ File System initialized!
 msh />
 
 ```
-当输出窗口输出 File System initialized! 的时候就说明运行成功了.
-## 本文相关核心API ##
 
-### 文件系统初始化 dfs_mount() ###
-
-* 函数原型:
-
-```
-int dfs_mount(const char* device_name, const char* path, const char* filesystemtype,rt_uint32_t rwflag, const void* data);
-```
-dfs_mount 函数用于把以device_name 为名称的设备挂接到path 路径中。filesystemtype 指定了设备上的文件系统的类型（如elm、rom、nfs 等文件系统).data参数对某些文件系统是有意义的，如nfs，对elm 类型系统则没有意义。
-* 入口参数：
-
-|参数            | 描述 |
----------------|--------------------------------
-|device_name|设备名;|
-|path  | 挂接路径;|
-|filesystemtype| 文件系统的类型;|
-|rwflag|文件系统的标志;|
-|data|文件系统的数据;|
-
-* 函数返回：
-
-装载成功将返回0，否则返回-1。具体的错误需要查看errno。
-
-### 检测sd卡插入 mmcsd_wait_cd_changed() ###
-
-* 函数原型:
-
-```
-int mmcsd_wait_cd_changed(rt_int32_t timeout);
-```
-检测sd卡.
-该函数内部有一个接收邮件的函数.接受的邮件为rt_mmcsd_host结构体的32位地址指针.当接收到的信息card不为空的时候,返回MMCSD_HOST_PLUGED,说明sd卡存在.
-* 入口参数：
-
-|参数            | 描述 |
----------------|--------------------------------
-|timeout  | 最大等待时间|
-
-* 函数返回：
-
-成功返回MMCSD_HOST_PLUGED；否则返回MMCSD_HOST_UNPLUGED 或者 -RT_ETIMEOUT 。
+当输出窗口输出 File System initialized! 的时候就说明运行成功了。

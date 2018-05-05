@@ -19,7 +19,6 @@
  */
 #include <rtthread.h>
 
-
 #define THREAD_PRIORITY			25
 #define THREAD_STACK_SIZE		512
 #define THREAD_TIMESLICE		5
@@ -224,83 +223,3 @@ INIT_APP_EXPORT(signal_sample_init);
 
 
 ``` 
-## 本文相关核心API ##
-
-### 当注册信号时，可使用下面的函数接口 ###
-
-* 函数原型:
-
-```{.c .numberLines}
-rt_sighandler_t rt_signal_install(int signo, rt_sighandler_t handler);
-```
-
-* 入口参数：
-
-|参数            | 描述 |
----------------|--------------------------------
-|signo | 信号; |
-|void (*rt_sighandler_t)(int signo); | 信号注册处理函数（当信号触发时，系统会调用这个函数）;|
-
-* signo 有如下值
-
-```{.c .numberLines}
-signo >= 0 && signo < 32
-```
-
-* 函数返回：
-
-创建成功返回注册过的信号处理函数；失败为SIG_ERR
-
-### let thread handle pended signals ###
-
-```{.c .numberLines}
-void rt_signal_unmask(int signo);
-```
-
-* 入口参数：
-
-|参数            | 描述 |
----------------|--------------------------------
-|signo  | 信号;|
-
-
-* 函数返回：
-
-无。
-
-### 发送信号 ###
-
-发送特定信号时，可使用下面的函数接口：
-
-```{.c .numberLines}
-int rt_thread_kill(rt_thread_t tid, int sig);
-```
-
-* 入口参数：
-
-|参数            | 描述 |
----------------|--------------------------------
-| tid | 线程号|
-|sig  | 信号;|
-
-* 函数返回：
-
-返回RT_EOK
-
-
-### 移除信号 ###
-
-移除注册的信号可通过下面的函数接口。
-
-```{.c .numberLines}
-void rt_thread_free_sig(rt_thread_t tid)；
-```
-从线程中移除注册的信号。
-
-* 入口参数：
-
-|参数            | 描述 |
----------------|--------------------------------
-| tid   | 线程号|
-
-
