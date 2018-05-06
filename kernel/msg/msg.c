@@ -117,3 +117,4 @@ int messagequeue_sample_init()
     return 0;
 }
 INIT_APP_EXPORT(messagequeue_sample_init);
+MSH_CMD_EXPORT(messagequeue_sample_init, messagequeue sample);

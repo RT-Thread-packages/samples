@@ -108,4 +108,4 @@ int mailbox_sample_init()
     return 0;
 }
 INIT_APP_EXPORT(mailbox_sample_init);
-/*@}*/
+MSH_CMD_EXPORT(mailbox_sample_init, mailbox sample);

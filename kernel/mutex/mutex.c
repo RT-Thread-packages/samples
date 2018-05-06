@@ -162,3 +162,4 @@ int mutex_sample_init()
     return 0;
 }
 INIT_APP_EXPORT(mutex_sample_init);
+MSH_CMD_EXPORT(mutex_sample_init, mutex sample);

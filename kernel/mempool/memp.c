@@ -10,15 +10,9 @@ static rt_uint8_t *ptr[48];
 static rt_uint8_t mempool[4096];
 static struct rt_mempool mp;
 
-#if RT_THREAD_PRIORITY_MAX == 8
-#define THREAD_PRIORITY        6
-#elif RT_THREAD_PRIORITY_MAX == 32
-#define THREAD_PRIORITY        25
-#elif RT_THREAD_PRIORITY_MAX == 256
-#define THREAD_PRIORITY        200
-#endif
+#define THREAD_PRIORITY      6
 #define THREAD_STACK_SIZE    512
-#define THREAD_TIMESLICE    5
+#define THREAD_TIMESLICE     5
 
 /* 指向线程控制块的指针 */
 static rt_thread_t tid1 = RT_NULL;
@@ -105,4 +99,4 @@ int mempool_sample_init()
     return 0;
 }
 INIT_APP_EXPORT(mempool_sample_init);
-
+MSH_CMD_EXPORT(mempool_sample_init, mempool sample);

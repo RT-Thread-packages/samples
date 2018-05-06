@@ -1,18 +1,12 @@
 /*
- * 程序清单：删除线程
+ * 程序清单：创建和删除线程
  *
  * 这个例子会创建两个线程，在一个线程中删除另外一个线程。
  */
 #include <rtthread.h>
 
-#if RT_THREAD_PRIORITY_MAX == 8
-#define THREAD_PRIORITY        6
-#elif RT_THREAD_PRIORITY_MAX == 32
-#define THREAD_PRIORITY        25
-#elif RT_THREAD_PRIORITY_MAX == 256
-#define THREAD_PRIORITY        200
-#endif
-#define THREAD_STACK_SIZE    512
+#define THREAD_PRIORITY     6
+#define THREAD_STACK_SIZE   512
 #define THREAD_TIMESLICE    5
 
 /*
@@ -105,3 +99,4 @@ int thread_sample_init()
     return 10 * RT_TICK_PER_SECOND;
 }
 INIT_APP_EXPORT(thread_sample_init);
+MSH_CMD_EXPORT(thread_sample_init, run signal sample);

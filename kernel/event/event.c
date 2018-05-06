@@ -97,3 +97,4 @@ int event_simple_init()
     return 0;
 }
 INIT_APP_EXPORT(event_simple_init);
+MSH_CMD_EXPORT(event_simple_init, event sample);

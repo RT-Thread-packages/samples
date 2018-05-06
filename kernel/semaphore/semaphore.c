@@ -129,4 +129,4 @@ int semphore_sample_init()
     return 0;
 }
 INIT_APP_EXPORT(semphore_sample_init);
-
+MSH_CMD_EXPORT(semphore_sample_init, semphore sample);

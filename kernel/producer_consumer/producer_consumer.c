@@ -5,15 +5,7 @@
  */
 #include <rtthread.h>
 
-#if RT_THREAD_PRIORITY_MAX == 8
 #define THREAD_PRIORITY        6
-#elif RT_THREAD_PRIORITY_MAX == 32
-#define THREAD_PRIORITY        25
-#elif RT_THREAD_PRIORITY_MAX == 256
-#define THREAD_PRIORITY        200
-#endif
-#define THREAD_STACK_SIZE    512
-#define THREAD_TIMESLICE    5
 
 /* 定义最大5个元素能够被产生 */
 #define MAXSEM 5

@@ -1,97 +1,40 @@
+# 信号 #
+
+信号用来通知线程发生了异步事件，又称为软中断信号，线程之间可以互相发送软中断信号。
+
+## 介绍 ##
+
+这个例子会创建两个线程线程1和线程2，每个线程会分别安装信号，然后给这两个线程发送信号，线程收到信号后会执行对应的信号处理函数。
 
 ## 实验现象 ##
 
-```
+```{.c}
  \ | /
 - RT -     Thread Operating System
- / | \     3.0.3 build Apr 20 2018
+ / | \     3.0.4 build May  6 2018
  2006 - 2018 Copyright by rt-thread team
- 
-[------main-------[sig]-------- = 2
-
-[ thread2 count : ]  0
-
-[ thread1 count : ]  0
-
-[ thread2 count : ]  1
-
-[ thread1 count : ]  1
-
-[ thread2 count : ]  2
-[------thread2 send signal to thread1---------[sig]-------- = 7
-
-[ thread1 count : ]  2
-[------thread1 send signal to thread2---------[sig]-------- = 9
-
-[ thread2 count : ]  3
-
-[ thread2 count : ]  4
-
-[ thread1 count : ]  3
-
-[ thread2 count : ]  5
-[------thread2 send signal to thread1---------[sig]-------- = 7
-
-[ thread1 count : ]  4
-
-[ thread2 count : ]  6
-
-[ thread1 count : ]  5
-[------thread1 send signal to thread2---------[sig]-------- = 9
-
-[ thread2 count : ]  7
-
-[ thread2 count : ]  8
-[------thread2 send signal to thread1---------[sig]-------- = 7
-
-[ thread1 count : ]  6
-
-[ thread2 count : ]  9
-
-[ thread1 count : ]  7
-
-[ thread2 count : ]  10
-
-[ thread1 count : ]  8
-[------thread1 send signal to thread2---------[sig]-------- = 9
-
-[ thread2 count : ]  11
-[------thread2 send signal to thread1---------[sig]-------- = 7
-
-[ thread2 count : ]  12
-
-[ thread1 count : ]  9
-
-[ thread2 count : ]  13
-
-[ thread1 count : ]  10
-
-[ thread2 count : ]  14
-[------thread2 send signal to thread1---------[sig]-------- = 7
-
-[ thread1 count : ]  11
-[------thread1 send signal to thread2---------[sig]-------- = 9
-
-[ thread2 count : ]  15
-
-[ thread2 count : ]  16
-
-[ thread1 count : ]  12
-
-[ thread2 count : ]  17
-[------thread2 send signal to thread1---------[sig]-------- = 7
-
-[ thread1 count : ]  13
-
-[ thread2 count : ]  18
-
-[ thread1 count : ]  14
-[------thread1 send signal to thread2---------[sig]-------- = 9
-
-[ thread2 count : ]  19
-
-[ thread2 count : ]  20
-[------thread2 send signal to thread1---------[sig]-------- = 7
-
-[ thread1 count : ]  15
+thread2 count : 0
+thread1 count : 0
+thread1 count : 1
+thread2 count : 1
+thread1 count : 2
+thread1 count : 3
+thread2 count : 2
+thread1 count : 4
+msh >thread2 received signal 11
+thread2 count : 3
+thread1 received signal 10
+thread1 count : 5
+thread1 count : 6
+thread2 count : 4
+thread1 count : 7
+thread1 count : 8
+thread2 count : 5
+thread1 count : 9
+thread1 count : 10
+thread2 count : 6
+thread2 count : 7
+thread2 count : 8
+thread2 count : 9
+thread2 count : 10
 ```
