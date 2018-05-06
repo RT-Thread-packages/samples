@@ -1,41 +1,39 @@
 /*
- * ³ÌĞòÇåµ¥£ºsignal
+ * ç¨‹åºæ¸…å•ï¼šsignal
  *
- * Õâ¸öÀı×Ó»á´´½¨Á½¸öÏß³Ìtid1,tid2¡£
+ * è¿™ä¸ªä¾‹å­ä¼šåˆ›å»ºä¸¤ä¸ªçº¿ç¨‹tid1,tid2ã€‚
  * thread1 send signal to thread2
  * thread2 send signal to thread1
  *
  */
 #include <rtthread.h>
 
-
 #define THREAD_PRIORITY			25
 #define THREAD_STACK_SIZE		512
 #define THREAD_TIMESLICE		5
 
-
 static	rt_thread_t	tid1 = RT_NULL;
 static	rt_thread_t	tid2 = RT_NULL;
 
-/* thread1 ×¢²ásignalĞèÒªµÄĞÅºÅ´¦Àíº¯Êı */
+/* thread1 æ³¨å†Œsignaléœ€è¦çš„ä¿¡å·å¤„ç†å‡½æ•° */
 void thread1_signal_handler(int sig)
 {
-	rt_kprintf("[------thread2 send signal to thread1---------[sig]-------- = %d\n",sig);
+	rt_kprintf("[thread2 send signal to thread1---------[sig]-------- = %d\n",sig);
 } 
 
-/* thread2 ×¢²ásignalĞèÒªµÄĞÅºÅ´¦Àíº¯Êı */
+/* thread2 æ³¨å†Œsignaléœ€è¦çš„ä¿¡å·å¤„ç†å‡½æ•° */
 void thread2_signal_handler(int sig)
 {
-	rt_kprintf("[------thread1 send signal to thread2---------[sig]-------- = %d\n",sig);
+	rt_kprintf("[thread1 send signal to thread2---------[sig]-------- = %d\n",sig);
 } 
 
-/* Ö÷½ø³Ì×¢²ásignalĞèÒªµÄĞÅºÅ´¦Àíº¯Êı */
+/* ä¸»è¿›ç¨‹æ³¨å†Œsignaléœ€è¦çš„ä¿¡å·å¤„ç†å‡½æ•° */
 void handler(int sig)
 {
-	rt_kprintf("[------main-------[sig]-------- = %d\n",sig);
+	rt_kprintf("[main-------[sig]-------- = %d\n",sig);
 } 
 
-/* Ïß³Ì1µÄÈë¿Úº¯Êı */
+/* çº¿ç¨‹1çš„å…¥å£å‡½æ•° */
 static void thread1_entry(void* parameter)
 {	
 	rt_uint32_t count = 0;
@@ -45,7 +43,7 @@ static void thread1_entry(void* parameter)
 	
 	while (1)
 	{
-		/* Ïß³Ì1²ÉÓÃµÍÓÅÏÈ¼¶ÔËĞĞ£¬Ò»Ö±´òÓ¡¼ÆÊıÖµ */
+		/* çº¿ç¨‹1é‡‡ç”¨ä½ä¼˜å…ˆçº§è¿è¡Œï¼Œä¸€ç›´æ‰“å°è®¡æ•°å€¼ */
 		rt_kprintf("\n[ thread1 count : ]  %d\n", count );
 		count ++;
 		
@@ -56,7 +54,7 @@ static void thread1_entry(void* parameter)
 	}
 }
 
-/* Ïß³Ì2µÄÈë¿Úº¯Êı */
+/* çº¿ç¨‹2çš„å…¥å£å‡½æ•° */
 static void thread2_entry(void* parameter)
 {
 	rt_uint32_t Thread2count = 0;
@@ -75,7 +73,7 @@ static void thread2_entry(void* parameter)
 	}
 }
 
-/* signalÊ¾ÀıµÄ³õÊ¼»¯ */
+/* signalç¤ºä¾‹çš„åˆå§‹åŒ– */
 int signal_sample_init()
 {	
 	rt_signal_install(2, handler);
@@ -83,21 +81,21 @@ int signal_sample_init()
 	rt_thread_kill(rt_thread_self(), 2);
 
 	
-	/* ´´½¨Ïß³Ì1 */
-	tid1 = rt_thread_create("t1", /* Ïß³Ì1µÄÃû³ÆÊÇt1 */
-		thread1_entry, RT_NULL,   /* Èë¿ÚÊÇthread1_entry£¬²ÎÊıÊÇRT_NULL */
+	/* åˆ›å»ºçº¿ç¨‹1 */
+	tid1 = rt_thread_create("t1", /* çº¿ç¨‹1çš„åç§°æ˜¯t1 */
+		thread1_entry, RT_NULL,   /* å…¥å£æ˜¯thread1_entryï¼Œå‚æ•°æ˜¯RT_NULL */
 		THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
 	
-	if (tid1 != RT_NULL) /* Èç¹û»ñµÃÏß³Ì¿ØÖÆ¿é£¬Æô¶¯Õâ¸öÏß³Ì */
+	if (tid1 != RT_NULL) /* å¦‚æœè·å¾—çº¿ç¨‹æ§åˆ¶å—ï¼Œå¯åŠ¨è¿™ä¸ªçº¿ç¨‹ */
 		rt_thread_startup(tid1);
 	
 	
-	/* ´´½¨Ïß³Ì2 */
-	tid2 = rt_thread_create("t2", /* Ïß³Ì2µÄÃû³ÆÊÇt2 */
-		thread2_entry, RT_NULL,   /* Èë¿ÚÊÇthread2_entry£¬²ÎÊıÊÇRT_NULL */
+	/* åˆ›å»ºçº¿ç¨‹2 */
+	tid2 = rt_thread_create("t2", /* çº¿ç¨‹2çš„åç§°æ˜¯t2 */
+		thread2_entry, RT_NULL,   /* å…¥å£æ˜¯thread2_entryï¼Œå‚æ•°æ˜¯RT_NULL */
 		THREAD_STACK_SIZE, THREAD_PRIORITY - 1, THREAD_TIMESLICE);
 	
-	if (tid2 != RT_NULL) /* Èç¹û»ñµÃÏß³Ì¿ØÖÆ¿é£¬Æô¶¯Õâ¸öÏß³Ì */	
+	if (tid2 != RT_NULL) /* å¦‚æœè·å¾—çº¿ç¨‹æ§åˆ¶å—ï¼Œå¯åŠ¨è¿™ä¸ªçº¿ç¨‹ */	
 		rt_thread_startup(tid2);
 
 	rt_thread_free_sig(tid1);
@@ -107,4 +105,3 @@ int signal_sample_init()
 	return 0;
 }
 INIT_APP_EXPORT(signal_sample_init);
-

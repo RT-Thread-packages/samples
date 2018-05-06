@@ -4,6 +4,7 @@
 这个例程展示了如何在RT-Thread里使用定时器。
 
 ## 运行结果 ##
+
 ```
  \ | /
 - RT -     Thread Operating System
