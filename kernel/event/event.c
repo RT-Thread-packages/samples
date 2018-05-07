@@ -109,9 +109,10 @@ int event_sample_init(void)
 	
     return 0;
 }
-
-/* 加入到初始化线程中自动运行 */
+/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
+#ifdef RT_SAMPLES_AUTORUN
 INIT_APP_EXPORT(event_sample_init);
+#endif
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(event_sample_init, event sample);
 

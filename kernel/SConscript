@@ -11,13 +11,9 @@ if GetDepend('RT_USING_SAMPLE_THREAD'):
     src += ['thread/thread.c']
     CPPPATH += [cwd + '/thread']
 
-if GetDepend('RT_USING_SAMPLE_INTERRUPT'):
-    src += ['mailbox/mailbox.c']
-    CPPPATH += [cwd + '/mailbox']
-
-if GetDepend('RT_USING_SAMPLE_SEMPHORE'):
-    src += ['semphore/semphore.c']
-    CPPPATH += [cwd + '/semphore']
+if GetDepend('RT_USING_SAMPLE_SEMAPHORE'):
+    src += ['semaphore/semaphore.c']
+    CPPPATH += [cwd + '/semaphore']
 
 if GetDepend('RT_USING_SAMPLE_MUTEX'):
     src += ['mutex/mutex.c']
@@ -42,10 +38,6 @@ if GetDepend('RT_USING_SAMPLE_TIMER'):
 if GetDepend('RT_USING_SAMPLE_HEAP'):
     src += ['heap/heap.c']
     CPPPATH += [cwd + '/heap']
-
-if GetDepend('RT_USING_SAMPLE_MEMHEAP'):
-    src += ['memheap/memheap.c']
-    CPPPATH += [cwd + '/memheap']
 
 if GetDepend('RT_USING_SAMPLE_MEMPOOL'):
     src += ['mempool/memp.c']
