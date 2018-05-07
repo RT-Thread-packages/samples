@@ -1,3 +1,10 @@
+/*
+ * 程序清单：互斥锁例程
+ *
+ * 互斥锁是一种保护共享资源的方法。当一个线程拥有互斥锁的时候，另一个线程若是等待锁，
+ * 则其就会被挂起，从而保证只有一个线程会操作共享数据。
+ *
+ */
 #include <rtthread.h>
 
 /* 互斥量控制块 */
@@ -7,7 +14,7 @@ static rt_mutex_t dynamic_mutex = RT_NULL;
 
 ALIGN(RT_ALIGN_SIZE)
 static char thread1_stack[1024];
-struct rt_thread thread1;
+static struct rt_thread thread1;
 static void rt_thread_entry1(void *parameter)
 {
     rt_err_t result;
@@ -102,7 +109,7 @@ static void rt_thread_entry1(void *parameter)
 
 ALIGN(RT_ALIGN_SIZE)
 static char thread2_stack[1024];
-struct rt_thread thread2;
+static struct rt_thread thread2;
 static void rt_thread_entry2(void *parameter)
 {
     /* 1. static mutex test */
@@ -161,5 +168,7 @@ int mutex_sample_init()
     rt_thread_startup(&thread2);
     return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(mutex_sample_init);
+/* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(mutex_sample_init, mutex sample);

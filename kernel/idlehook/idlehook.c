@@ -1,13 +1,14 @@
 /*
  * 程序清单：空闲任务钩子例程
  *
- * 这个程序设置了一个空闲任务钩子用于计算CPU使用率，并创建一个线程循环打印CPU使用率
+ * 这个例程设置了一个空闲任务钩子用于计算CPU使用率，并创建一个线程循环打印CPU使用率
  * 通过修改CPU使用率打印线程中的休眠tick时间可以看到不同的CPU使用率
  */
+ 
 #include <rtthread.h>
 #include <rthw.h>
 
-#define THREAD_PRIORITY      6
+#define THREAD_PRIORITY      25
 #define THREAD_STACK_SIZE    512
 #define THREAD_TIMESLICE     5
 
@@ -108,4 +109,7 @@ int cpu_usage_init()
         rt_thread_startup(tid);
     return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(cpu_usage_init);
+/* 导出到 msh 命令列表中 */
+MSH_CMD_EXPORT(cpu_usage_init, idle hook sample);

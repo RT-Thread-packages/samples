@@ -1,100 +1,117 @@
 /*
  * 程序清单：事件例程
  *
- * 这个程序会创建2个动态线程及初始化一个静态事件对象
- * 一个线程会以不同的方式接收事件；
- * 一个线程定时发送两个事件 (EVENT1) (EVENT2);
- */
+ * 程序会创建3个动态线程及初始化一个静态事件对象
+ * 一个线程等待于事件对象上以接收事件；
+ * 一个线程定时发送事件 (事件3)
+ * 一个线程定时发送事件 (事件5)
+*/
 #include <rtthread.h>
-
-#define EVENT1 (1 << 3)
-#define EVENT2 (1 << 5)
 
 /* 事件控制块 */
 static struct rt_event event;
+
+ALIGN(RT_ALIGN_SIZE)
+static char thread1_stack[1024];
+static struct rt_thread thread1;
 
 /* 线程1入口函数 */
 static void thread1_entry(void *param)
 {
     rt_uint32_t e;
-    rt_uint8_t i;
 
-    while (1)
+    /* receive first event */
+    if (rt_event_recv(&event, ((1 << 3) | (1 << 5)),
+        RT_EVENT_FLAG_AND | RT_EVENT_FLAG_CLEAR,
+        RT_WAITING_FOREVER, &e) == RT_EOK)
     {
-        for (i = 0; i < 5; i++)
-        {
-            /* “逻辑与”的方式接收事件,满足接收条件之后重置事件的相应标志位.*/
-            if (rt_event_recv(&event, (EVENT1 | EVENT2),
-                              RT_EVENT_FLAG_AND | RT_EVENT_FLAG_CLEAR,
-                              RT_WAITING_FOREVER, &e) == RT_EOK)
-            {
-                rt_kprintf("thread1: AND recv event 0x%x\n", e);
-            }
-        }
-        for (i = 0; i < 10; i++)
-        {
-            /* “逻辑或”的方式接收事件,满足接收条件之后重置事件的相应标志位.*/
-            if (rt_event_recv(&event, (EVENT1 | EVENT2),
-                              RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR,
-                              RT_WAITING_FOREVER, &e) == RT_EOK)
-            {
-                rt_kprintf("thread1: OR recv event 0x%x\n", e);
-            }
-        }
-        while (1)
-        {
-            rt_thread_delay(rt_tick_from_millisecond(500));
-        }
+        rt_kprintf("thread1: AND recv event 0x%x\n", e);
     }
+
+    rt_kprintf("thread1: delay 1s to prepare second event\n");
+    rt_thread_delay(RT_TICK_PER_SECOND);
+
+    /* receive second event */
+    if (rt_event_recv(&event, ((1 << 3) | (1 << 5)),
+        RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR,
+        RT_WAITING_FOREVER, &e) == RT_EOK)
+    {
+        rt_kprintf("thread1: OR recv event 0x%x\n", e);
+    }
+    rt_kprintf("thread1 leave.\n");
 }
 
-/* 线程2入口函数 */
+ALIGN(RT_ALIGN_SIZE)
+static char thread2_stack[1024];
+static struct rt_thread thread2;
+/* 线程2入口 */
 static void thread2_entry(void *param)
 {
-    rt_uint8_t i;
-    while (1)
-    {
-        for (i = 0; i < 10; i++)
-        {
-            rt_kprintf("thread2: send event1\n");
-            rt_event_send(&event, EVENT1);                     /* 发送事件(EVENT1)*/
-            rt_thread_delay(rt_tick_from_millisecond(2000));
-            rt_kprintf("thread2: send event2\n");
-            rt_event_send(&event, EVENT2);                     /* 发送事件(EVENT2)*/
-            rt_thread_delay(rt_tick_from_millisecond(2000));
-        }
-        rt_thread_delay(rt_tick_from_millisecond(500));
-        rt_kprintf("thread2: detach event\n");
-        rt_event_detach(&event);                               /* 脱离事件对象*/
-        while (1)
-        {
-            rt_thread_delay(rt_tick_from_millisecond(500));
-        }
-    }
+    rt_kprintf("thread2: send event1\n");
+    rt_event_send(&event, (1 << 3));
+    rt_kprintf("thread2 leave.\n");
 }
 
-/* 事件示例的初始化 */
-int event_simple_init()
+ALIGN(RT_ALIGN_SIZE)
+static char thread3_stack[1024];
+struct rt_thread thread3;
+/* 线程3入口函数 */
+static void thread3_entry(void *param)
 {
-    rt_thread_t tid = RT_NULL;
+    rt_kprintf("thread3: send event2\n");
+    rt_event_send(&event, (1 << 5));
+
+    rt_thread_delay(20);
+
+    rt_kprintf("thread3: send event2\n");
+    rt_event_send(&event, (1 << 5));
+
+    rt_kprintf("thread3 leave.\n");
+}
+
+int event_sample_init(void)
+{
+    rt_err_t result;
+
     /* 初始化事件对象 */
-    rt_event_init(&event, "event", RT_IPC_FLAG_FIFO);
+    result = rt_event_init(&event, "event", RT_IPC_FLAG_FIFO);
+    if (result != RT_EOK)
+    {
+        rt_kprintf("init event failed.\n");
+        return -1;
+    }
 
-    /* 创建线程1 */
-    tid = rt_thread_create("thread1",
-                           thread1_entry, RT_NULL, /* 线程入口是thread1_entry, 入口参数是RT_NULL */
-                           1024, 5, 10);
-    if (tid != RT_NULL)
-        rt_thread_startup(tid);
+    rt_thread_init(&thread1,
+                   "thread1",
+                   thread1_entry,
+                   RT_NULL,
+                   &thread1_stack[0],
+                   sizeof(thread1_stack), 8, 50);
+    rt_thread_startup(&thread1);
 
-    /* 创建线程2 */
-    tid = rt_thread_create("thread2",
-                           thread2_entry, RT_NULL, /* 线程入口是thread2_entry, 入口参数是RT_NULL */
-                           1024, 5, 10);
-    if (tid != RT_NULL)
-        rt_thread_startup(tid);
 
+    rt_thread_init(&thread2,
+                   "thread2",
+                   thread2_entry,
+                   RT_NULL,
+                   &thread2_stack[0],
+                   sizeof(thread2_stack), 9, 5);
+    rt_thread_startup(&thread2);
+
+
+    rt_thread_init(&thread3,
+                   "thread3",
+                   thread3_entry,
+                   RT_NULL,
+                   &thread3_stack[0],
+                   sizeof(thread3_stack), 10, 5);
+    rt_thread_startup(&thread3);
+	
     return 0;
 }
-INIT_APP_EXPORT(event_simple_init);
-MSH_CMD_EXPORT(event_simple_init, event sample);
+
+/* 加入到初始化线程中自动运行 */
+INIT_APP_EXPORT(event_sample_init);
+/* 导出到 msh 命令列表中 */
+MSH_CMD_EXPORT(event_sample_init, event sample);
+

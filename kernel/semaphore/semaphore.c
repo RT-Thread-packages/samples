@@ -1,4 +1,9 @@
-#include <stdio.h>
+/*
+ * 程序清单：信号量例程
+ *
+ * 该例程创建了一个动态信号量和静态信号量，分别展示了获取信号量超时和获取成功的情况
+ *
+ */
 #include <rtthread.h>
 
 /* 信号量控制块 */
@@ -8,13 +13,14 @@ static rt_sem_t dynamic_sem = RT_NULL;
 
 ALIGN(RT_ALIGN_SIZE)
 static char thread1_stack[1024];
-struct rt_thread thread1;
+static struct rt_thread thread1;
 static void rt_thread_entry1(void* parameter)
 {
     rt_err_t result;
     rt_tick_t tick;
 
-/* 1. staic semaphore demo */
+	/* 1. staic semaphore demo */
+	
     /* 获得当前的OS Tick */
     tick = rt_tick_get();
 
@@ -28,12 +34,12 @@ static void rt_thread_entry1(void* parameter)
             rt_sem_detach(&static_sem);
             return;
         }
-        rt_kprintf("\ntake semaphore timeout\n");
+        rt_kprintf("take semaphore timeout\n");
     }
     else
     {
         /* 因为没有其他地方释放信号量，所以不应该成功持有信号量，否则测试失败 */
-        rt_kprintf("\ntake a static semaphore, failed.\n");
+        rt_kprintf("take a static semaphore, failed.\n");
         rt_sem_detach(&static_sem);
         return;
     }
@@ -46,17 +52,17 @@ static void rt_thread_entry1(void* parameter)
     if (result != RT_EOK)
     {
         /* 不成功则测试失败 */
-        rt_kprintf("\ntake a static semaphore, failed.\n");
+        rt_kprintf("take a static semaphore, failed.\n");
         rt_sem_detach(&static_sem);
         return;
     }
 
-    rt_kprintf("\ntake a staic semaphore, done.\n");
+    rt_kprintf("take a staic semaphore, done.\n");
 
     /* 脱离信号量对象 */
     rt_sem_detach(&static_sem);
 
-/* 2. dynamic semaphore test */
+    /* 2. dynamic semaphore test */
 
     tick = rt_tick_get();
 
@@ -70,12 +76,12 @@ static void rt_thread_entry1(void* parameter)
             rt_sem_delete(dynamic_sem);
             return;
         }
-        rt_kprintf("\ntake semaphore timeout\n");
+        rt_kprintf("take semaphore timeout\n");
     }
     else
     {
         /* 因为没有其他地方释放信号量，所以不应该成功持有信号量，否则测试失败 */
-        rt_kprintf("\ntake a dynamic semaphore, failed.\n");
+        rt_kprintf("take a dynamic semaphore, failed.\n");
         rt_sem_delete(dynamic_sem);
         return;
     }
@@ -88,15 +94,16 @@ static void rt_thread_entry1(void* parameter)
     if (result != RT_EOK)
     {
         /* 不成功则测试失败 */
-        rt_kprintf("\ntake a dynamic semaphore, failed.\n");
+        rt_kprintf("take a dynamic semaphore, failed.\n");
         rt_sem_delete(dynamic_sem);
         return;
     }
 
-    rt_kprintf("\ntake a dynamic semaphore, done.\n");
+    rt_kprintf("take a dynamic semaphore, done.\n");
     /* 删除信号量对象 */
     rt_sem_delete(dynamic_sem);
 }
+
 /* 信号量示例的初始化 */
 int semphore_sample_init()
 {
@@ -106,7 +113,7 @@ int semphore_sample_init()
     result = rt_sem_init(&static_sem, "ssem", 0, RT_IPC_FLAG_FIFO);
     if (result != RT_EOK)
     {
-        rt_kprintf("\ninit dynamic semaphore failed.\n");
+        rt_kprintf("init dynamic semaphore failed.\n");
         return -1;
     }
 
@@ -114,7 +121,7 @@ int semphore_sample_init()
     dynamic_sem = rt_sem_create("dsem", 0, RT_IPC_FLAG_FIFO);
     if (dynamic_sem == RT_NULL)
     {
-        rt_kprintf("\ncreate dynamic semaphore failed.\n");
+        rt_kprintf("create dynamic semaphore failed.\n");
         return -1;
     }
 
@@ -128,5 +135,8 @@ int semphore_sample_init()
 
     return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(semphore_sample_init);
+/* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(semphore_sample_init, semphore sample);
+

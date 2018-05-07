@@ -1,11 +1,11 @@
 /*
- * 程序清单：创建和删除线程
+ * 程序清单：创建和删除线程例程
  *
  * 这个例子会创建两个线程，在一个线程中删除另外一个线程。
  */
 #include <rtthread.h>
 
-#define THREAD_PRIORITY     6
+#define THREAD_PRIORITY     25
 #define THREAD_STACK_SIZE   512
 #define THREAD_TIMESLICE    5
 
@@ -27,6 +27,7 @@ static void thread1_entry(void* parameter)
         count ++;
     }
 }
+
 static void thread1_cleanup(struct rt_thread *tid)
 {
     if (tid != tid1)
@@ -43,7 +44,7 @@ static void thread2_entry(void* parameter)
     /* 线程2拥有较高的优先级，以抢占线程1而获得执行 */
 
     /* 线程2启动后先睡眠10个OS Tick */
-    rt_thread_delay(RT_TICK_PER_SECOND);
+    rt_thread_delay(10);
 
     /*
      * 线程2唤醒后直接删除线程1，删除线程1后，线程1自动脱离就绪线程
@@ -55,7 +56,7 @@ static void thread2_entry(void* parameter)
      * 线程2继续休眠10个OS Tick然后退出，线程2休眠后应切换到idle线程
      * idle线程将执行真正的线程1控制块和线程栈的删除
      */
-    rt_thread_delay(RT_TICK_PER_SECOND);
+    rt_thread_delay(10);
 }
 
 static void thread2_cleanup(struct rt_thread *tid)
@@ -96,7 +97,9 @@ int thread_sample_init()
         rt_thread_startup(tid2);
     }
 
-    return 10 * RT_TICK_PER_SECOND;
+    return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(thread_sample_init);
+/* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(thread_sample_init, run signal sample);

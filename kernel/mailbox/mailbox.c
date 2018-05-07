@@ -17,7 +17,7 @@ static char mb_str3[] = "over";
 
 ALIGN(RT_ALIGN_SIZE)
 static char thread1_stack[1024];
-struct rt_thread thread1;
+static struct rt_thread thread1;
 
 /* 线程1入口 */
 static void thread1_entry(void *parameter)
@@ -45,7 +45,7 @@ static void thread1_entry(void *parameter)
 
 ALIGN(RT_ALIGN_SIZE)
 static char thread2_stack[1024];
-struct rt_thread thread2;
+static struct rt_thread thread2;
 /* 线程2入口 */
 static void thread2_entry(void *parameter)
 {
@@ -107,5 +107,7 @@ int mailbox_sample_init()
     rt_thread_startup(&thread2);
     return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(mailbox_sample_init);
+/* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(mailbox_sample_init, mailbox sample);

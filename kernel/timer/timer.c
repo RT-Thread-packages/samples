@@ -8,11 +8,20 @@
 /* 定时器的控制块 */
 static rt_timer_t timer1;
 static rt_timer_t timer2;
+static int cnt = 0;
 
 /* 定时器1超时函数 */
 static void timeout1(void* parameter)
 {
+	rt_tick_t timeout = 300;
+
     rt_kprintf("periodic timer is timeout\n");
+	
+    /* 运行10次 */
+	if (cnt++ >= 10)  
+    {  
+		rt_timer_control(timer1, RT_TIMER_CTRL_SET_ONESHOT, (void *)&timeout);
+    }
 }
 
 /* 定时器2超时函数 */
@@ -44,5 +53,8 @@ int timer_sample_init(void)
     if (timer2 != RT_NULL) rt_timer_start(timer2);
     return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(timer_sample_init);
+/* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(timer_sample_init, timer sample);
+

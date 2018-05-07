@@ -1,9 +1,9 @@
-#include <rtthread.h>
-#include "tc_comm.h"
-
 /*
- * This is an example for heap malloc
+ * 程序清单：堆内存例程
+ *
+ * 这个程序会演示堆内存的申请和释放操作。
  */
+#include <rtthread.h>
 
 static rt_bool_t mem_check(rt_uint8_t *ptr, rt_uint8_t value, rt_uint32_t len)
 {
@@ -18,9 +18,8 @@ static rt_bool_t mem_check(rt_uint8_t *ptr, rt_uint8_t value, rt_uint32_t len)
     return RT_TRUE;
 }
 
-static void heap_malloc_init()
+int heap_malloc_init(void)
 {
-    rt_uint8_t res = TC_STAT_PASSED;
     rt_uint8_t *ptr1, *ptr2, *ptr3, *ptr4, *ptr5;
 
     ptr1 = rt_malloc(1);
@@ -35,13 +34,13 @@ static void heap_malloc_init()
     memset(ptr4, 4, 127);
 
     if (mem_check(ptr1, 1, 1)   == RT_FALSE)
-        res = TC_STAT_FAILED;
+        rt_kprintf("mem_check 1 failed\n");
     if (mem_check(ptr2, 2, 13)  == RT_FALSE)
-        res = TC_STAT_FAILED;
+        rt_kprintf("mem_check 2 failed\n");
     if (mem_check(ptr3, 3, 31)  == RT_FALSE)
-        res = TC_STAT_FAILED;
+        rt_kprintf("mem_check 3 failed\n");
     if (mem_check(ptr4, 4, 127) == RT_FALSE)
-        res = TC_STAT_FAILED;
+        rt_kprintf("mem_check 4 failed\n");
 
     rt_free(ptr4);
     rt_free(ptr3);
@@ -52,23 +51,11 @@ static void heap_malloc_init()
     {
         rt_free(ptr5);
     }
-
-    tc_done(res);
+		
+	return 0;
 }
+/* 加入到初始化线程中自动运行 */
+INIT_APP_EXPORT(heap_malloc_init);
+/* 导出到 msh 命令列表中 */
+MSH_CMD_EXPORT(heap_malloc_init, heap malloc sample);
 
-#ifdef RT_USING_TC
-int _tc_heap_malloc()
-{
-    heap_malloc_init();
-
-    return 0;
-}
-FINSH_FUNCTION_EXPORT(_tc_heap_malloc, a heap malloc test);
-#else
-int rt_application_init()
-{
-    heap_malloc_init();
-
-    return 0;
-}
-#endif

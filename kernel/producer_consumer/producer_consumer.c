@@ -5,7 +5,9 @@
  */
 #include <rtthread.h>
 
-#define THREAD_PRIORITY        6
+#define THREAD_PRIORITY       6
+#define THREAD_STACK_SIZE     512
+#define THREAD_TIMESLICE      5
 
 /* 定义最大5个元素能够被产生 */
 #define MAXSEM 5
@@ -27,8 +29,8 @@ void producer_thread_entry(void* parameter)
 {
     int cnt = 0;
 
-    /* 运行100次 */
-    while( cnt < 100)
+    /* 运行10次 */
+    while( cnt < 10)
     {
         /* 获取一个空位 */
         rt_sem_take(&sem_empty, RT_WAITING_FOREVER);
@@ -76,8 +78,8 @@ void consumer_thread_entry(void* parameter)
         /* 释放一个空位 */
         rt_sem_release(&sem_empty);
 
-        /* 生产者生产到100个数目，停止，消费者线程相应停止 */
-        if (get == 100) break;
+        /* 生产者生产到10个数目，停止，消费者线程相应停止 */
+        if (get == 10) break;
 
         /* 暂停一小会时间 */
         rt_thread_delay(10);
@@ -110,5 +112,8 @@ int semaphore_producer_consumer_init()
 
     return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(semaphore_producer_consumer_init);
+/* 导出到 msh 命令列表中 */
+MSH_CMD_EXPORT(semaphore_producer_consumer_init, producer_consumer sample);
 

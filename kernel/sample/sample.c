@@ -29,4 +29,5 @@ int sample(void)
     
     return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(sample);

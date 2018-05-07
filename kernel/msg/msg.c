@@ -13,7 +13,7 @@ static rt_uint8_t msg_pool[2048];
 
 ALIGN(RT_ALIGN_SIZE)
 static char thread1_stack[1024];
-struct rt_thread thread1;
+static struct rt_thread thread1;
 /* 线程1入口函数 */
 static void thread1_entry(void *parameter)
 {
@@ -39,7 +39,7 @@ static void thread1_entry(void *parameter)
 
 ALIGN(RT_ALIGN_SIZE)
 static char thread2_stack[1024];
-struct rt_thread thread2;
+static struct rt_thread thread2;
 /* 线程2入口 */
 static void thread2_entry(void *parameter)
 {
@@ -103,7 +103,7 @@ int messagequeue_sample_init()
                    thread1_entry,
                    RT_NULL,
                    &thread1_stack[0],
-                   sizeof(thread1_stack), 10, 50);
+                   sizeof(thread1_stack), 25, 5);
     rt_thread_startup(&thread1);
 
     rt_thread_init(&thread2,
@@ -111,10 +111,12 @@ int messagequeue_sample_init()
                    thread2_entry,
                    RT_NULL,
                    &thread2_stack[0],
-                   sizeof(thread2_stack), 10, 50);
+                   sizeof(thread2_stack), 25, 5);
     rt_thread_startup(&thread2);
 
     return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(messagequeue_sample_init);
+/* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(messagequeue_sample_init, messagequeue sample);

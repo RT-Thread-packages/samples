@@ -1,5 +1,5 @@
 /*
- * 程序清单：信号
+ * 程序清单：信号例程
  *
  * 这个例子会创建两个线程线程1和线程2，每个线程会分别安装信号，然后给这两个线程发送信号。
  *
@@ -9,12 +9,6 @@
 #define THREAD_PRIORITY         25
 #define THREAD_STACK_SIZE       512
 #define THREAD_TIMESLICE        5
-#ifndef SIGUSR1
-#define SIGUSR1                 25
-#endif
-#ifndef SIGUSR2
-#define SIGUSR2                 26
-#endif
 
 /*
  * 为了在一个线程中访问另一个线程的控制块，所以把线程块指针中访问
@@ -37,37 +31,39 @@ void thread2_signal_handler(int sig)
 /* 线程1的入口函数 */
 static void thread1_entry(void* parameter)
 {    
-    rt_uint32_t count = 0;
+    int cnt = 0;
     
     /* 安装信号 */
     rt_signal_install(SIGUSR1, thread1_signal_handler);
     rt_signal_unmask(SIGUSR1);
-    
-    while (count <= 10)
+
+    /* 运行10次 */
+    while (cnt < 10)
     {
         /* 线程1采用低优先级运行，一直打印计数值 */
-        rt_kprintf("thread1 count : %d\n", count);
-        count ++;
-            
-        rt_thread_delay(RT_TICK_PER_SECOND);
+        rt_kprintf("thread1 count : %d\n", cnt);
+
+		cnt++;
+        rt_thread_delay(10);
     }
 }
 
 /* 线程2的入口函数 */
 static void thread2_entry(void* parameter)
 {
-    rt_uint32_t count = 0;
+    int cnt = 0;
     
     /* 安装信号 */
     rt_signal_install(SIGUSR2, thread2_signal_handler);
     rt_signal_unmask(SIGUSR2);
-    
-    while(count <= 10)
+
+    /* 运行10次 */	
+    while(cnt < 10)
     {    
-        rt_kprintf("thread2 count : %d\n", count);
-        count++;
-        
-        rt_thread_delay(RT_TICK_PER_SECOND * 2);
+        rt_kprintf("thread2 count : %d\n", cnt);
+
+		cnt++;        
+        rt_thread_delay(20);
     }
 }
 
@@ -90,7 +86,7 @@ int signal_sample_init()
     if (tid2 != RT_NULL) /* 如果获得线程控制块，启动这个线程 */    
           rt_thread_startup(tid2);
 
-    rt_thread_delay(RT_TICK_PER_SECOND * 5);
+    rt_thread_delay(50);
 
     /* 发送信号 SIGUSR1 给线程1 */
     rt_thread_kill(tid1, SIGUSR1);
@@ -99,6 +95,8 @@ int signal_sample_init()
     
     return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(signal_sample_init);
+/* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(signal_sample_init, signal sample);
 

@@ -10,7 +10,7 @@ static rt_uint8_t *ptr[48];
 static rt_uint8_t mempool[4096];
 static struct rt_mempool mp;
 
-#define THREAD_PRIORITY      6
+#define THREAD_PRIORITY      25
 #define THREAD_STACK_SIZE    512
 #define THREAD_TIMESLICE     5
 
@@ -21,7 +21,7 @@ static rt_thread_t tid2 = RT_NULL;
 /* 线程1入口 */
 static void thread1_entry(void* parameter)
 {
-    int i;
+    int i, count = 0;
     char *block;
 
     while(1)
@@ -42,16 +42,19 @@ static void thread1_entry(void* parameter)
         /* 释放这个内存块 */
         rt_mp_free(block);
         block = RT_NULL;
-		
+        
         /* 休眠10个OS Tick */
         rt_thread_delay(10);
+
+        /* 循环10次后，退出线程1 */
+        if(count++ >= 10) break;
     }
 }
 
 /* 线程2入口，线程2的优先级比线程1低，应该线程1先获得执行。*/
 static void thread2_entry(void *parameter)
 {
-    int i;
+    int i, count = 0;
 
     while(1)
     {
@@ -71,6 +74,9 @@ static void thread2_entry(void *parameter)
 
         /* 休眠10个OS Tick */
         rt_thread_delay(10);
+
+        /* 循环10次后，退出线程2 */
+        if(count++ >= 10) break;
     }
 }
 
@@ -98,5 +104,7 @@ int mempool_sample_init()
     
     return 0;
 }
+/* 加入到初始化线程中自动运行 */
 INIT_APP_EXPORT(mempool_sample_init);
+/* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(mempool_sample_init, mempool sample);
