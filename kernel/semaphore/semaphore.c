@@ -105,7 +105,7 @@ static void rt_thread_entry1(void* parameter)
 }
 
 /* 信号量示例的初始化 */
-int semphore_sample_init()
+int semaphore_sample_init()
 {
     rt_err_t result;
 
@@ -137,8 +137,8 @@ int semphore_sample_init()
 }
 /* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
 #ifdef RT_SAMPLES_AUTORUN
-INIT_APP_EXPORT(semphore_sample_init);
+INIT_APP_EXPORT(semaphore_sample_init);
 #endif
 /* 导出到 msh 命令列表中 */
-MSH_CMD_EXPORT(semphore_sample_init, semphore sample);
+MSH_CMD_EXPORT(semaphore_sample_init, semaphore sample);
 
