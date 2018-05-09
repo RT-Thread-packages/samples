@@ -6,213 +6,26 @@
 
 ## 运行结果 ##
  
-	 \ | /
-	- RT -     Thread Operating System
-	 / | \     3.0.3 build Apr 23 2018
-	 2006 - 2018 Copyright by rt-thread t
-	finsh >the producer generates a numbe
-	the consumer[0] get a number: 1
-	the producer generates a number: 2
-	the consumer[1] get a number: 2
-	the producer generates a number: 3
-	the consumer[2] get a number: 3
-	the producer generates a number: 4
-	the consumer[3] get a number: 4
-	the producer generates a number: 5
-	the consumer[4] get a number: 5
-	the producer generates a number: 6
-	the consumer[0] get a number: 6
-	the producer generates a number: 7
-	the consumer[1] get a number: 7
-	the producer generates a number: 8
-	the consumer[2] get a number: 8
-	the producer generates a number: 9
-	the consumer[3] get a number: 9
-	the producer generates a number: 10
-	the consumer[4] get a number: 10
-	the producer generates a number: 11
-	the consumer[0] get a number: 11
-	the producer generates a number: 12
-	the consumer[1] get a number: 12
-	the producer generates a number: 13
-	the consumer[2] get a number: 13
-	the producer generates a number: 14
-	the consumer[3] get a number: 14
-	the producer generates a number: 15
-	the consumer[4] get a number: 15
-	the producer generates a number: 16
-	the consumer[0] get a number: 16
-	the producer generates a number: 17
-	the consumer[1] get a number: 17
-	the producer generates a number: 18
-	the consumer[2] get a number: 18
-	the producer generates a number: 19
-	the consumer[3] get a number: 19
-	the producer generates a number: 20
-	the consumer[4] get a number: 20
-	the producer generates a number: 21
-	the consumer[0] get a number: 21
-	the producer generates a number: 22
-	the consumer[1] get a number: 22
-	the producer generates a number: 23
-	the consumer[2] get a number: 23
-	the producer generates a number: 24
-	the consumer[3] get a number: 24
-	the producer generates a number: 25
-	the consumer[4] get a number: 25
-	the producer generates a number: 26
-	the consumer[0] get a number: 26
-	the producer generates a number: 27
-	the consumer[1] get a number: 27
-	the producer generates a number: 28
-	the consumer[2] get a number: 28
-	the producer generates a number: 29
-	the consumer[3] get a number: 29
-	the producer generates a number: 30
-	the consumer[4] get a number: 30
-	the producer generates a number: 31
-	the consumer[0] get a number: 31
-	the producer generates a number: 32
-	the consumer[1] get a number: 32
-	the producer generates a number: 33
-	the consumer[2] get a number: 33
-	the producer generates a number: 34
-	the consumer[3] get a number: 34
-	the producer generates a number: 35
-	the consumer[4] get a number: 35
-	the producer generates a number: 36
-	the consumer[0] get a number: 36
-	the producer generates a number: 37
-	the consumer[1] get a number: 37
-	the producer generates a number: 38
-	the consumer[2] get a number: 38
-	the producer generates a number: 39
-	the consumer[3] get a number: 39
-	the producer generates a number: 40
-	the consumer[4] get a number: 40
-	the producer generates a number: 41
-	the consumer[0] get a number: 41
-	the producer generates a number: 42
-	the consumer[1] get a number: 42
-	the producer generates a number: 43
-	the consumer[2] get a number: 43
-	the producer generates a number: 44
-	the consumer[3] get a number: 44
-	the producer generates a number: 45
-	the consumer[4] get a number: 45
-	the producer generates a number: 46
-	the consumer[0] get a number: 46
-	the producer generates a number: 47
-	the consumer[1] get a number: 47
-	the producer generates a number: 48
-	the consumer[2] get a number: 48
-	the producer generates a number: 49
-	the consumer[3] get a number: 49
-	the producer generates a number: 50
-	the consumer[4] get a number: 50
-	the producer generates a number: 51
-	the consumer[0] get a number: 51
-	the producer generates a number: 52
-	the consumer[1] get a number: 52
-	the producer generates a number: 53
-	the consumer[2] get a number: 53
-	the producer generates a number: 54
-	the consumer[3] get a number: 54
-	the producer generates a number: 55
-	the consumer[4] get a number: 55
-	the producer generates a number: 56
-	the consumer[0] get a number: 56
-	the producer generates a number: 57
-	the consumer[1] get a number: 57
-	the producer generates a number: 58
-	the consumer[2] get a number: 58
-	the producer generates a number: 59
-	the consumer[3] get a number: 59
-	the producer generates a number: 60
-	the consumer[4] get a number: 60
-	the producer generates a number: 61
-	the consumer[0] get a number: 61
-	the producer generates a number: 62
-	the consumer[1] get a number: 62
-	the producer generates a number: 63
-	the consumer[2] get a number: 63
-	the producer generates a number: 64
-	the consumer[3] get a number: 64
-	the producer generates a number: 65
-	the consumer[4] get a number: 65
-	the producer generates a number: 66
-	the consumer[0] get a number: 66
-	the producer generates a number: 67
-	the consumer[1] get a number: 67
-	the producer generates a number: 68
-	the consumer[2] get a number: 68
-	the producer generates a number: 69
-	the consumer[3] get a number: 69
-	the producer generates a number: 70
-	the consumer[4] get a number: 70
-	the producer generates a number: 71
-	the consumer[0] get a number: 71
-	the producer generates a number: 72
-	the consumer[1] get a number: 72
-	the producer generates a number: 73
-	the consumer[2] get a number: 73
-	the producer generates a number: 74
-	the consumer[3] get a number: 74
-	the producer generates a number: 75
-	the consumer[4] get a number: 75
-	the producer generates a number: 76
-	the consumer[0] get a number: 76
-	the producer generates a number: 77
-	the consumer[1] get a number: 77
-	the producer generates a number: 78
-	the consumer[2] get a number: 78
-	the producer generates a number: 79
-	the consumer[3] get a number: 79
-	the producer generates a number: 80
-	the consumer[4] get a number: 80
-	the producer generates a number: 81
-	the consumer[0] get a number: 81
-	the producer generates a number: 82
-	the consumer[1] get a number: 82
-	the producer generates a number: 83
-	the consumer[2] get a number: 83
-	the producer generates a number: 84
-	the consumer[3] get a number: 84
-	the producer generates a number: 85
-	the consumer[4] get a number: 85
-	the producer generates a number: 86
-	the consumer[0] get a number: 86
-	the producer generates a number: 87
-	the consumer[1] get a number: 87
-	the producer generates a number: 88
-	the consumer[2] get a number: 88
-	the producer generates a number: 89
-	the consumer[3] get a number: 89
-	the producer generates a number: 90
-	the consumer[4] get a number: 90
-	the producer generates a number: 91
-	the consumer[0] get a number: 91
-	the producer generates a number: 92
-	the consumer[1] get a number: 92
-	the producer generates a number: 93
-	the consumer[2] get a number: 93
-	the producer generates a number: 94
-	the consumer[3] get a number: 94
-	the producer generates a number: 95
-	the consumer[4] get a number: 95
-	the producer generates a number: 96
-	the consumer[0] get a number: 96
-	the producer generates a number: 97
-	the consumer[1] get a number: 97
-	the producer generates a number: 98
-	the consumer[2] get a number: 98
-	the producer generates a number: 99
-	the consumer[3] get a number: 99
-	the producer generates a number: 100
-	the consumer[4] get a number: 100
-	the consumer[0] sum is 5050
-	 the consumer[0] exit!
-	the producer exit!
-
-## 说明 ##
-本例程会创建了两个线程，一个作为生产者，一个作为消费者。生产者线程将```cnt```值每次加1并循环存入```array```数组的5个成员内；消费者线程将生产者中生产的数值打印出来，并累加求和。
+the producer generates a number: 1
+the consumer[0] get a number: 1
+msh >the producer generates a number: 2
+the consumer[1] get a number: 2
+the producer generates a number: 3
+the consumer[2] get a number: 3
+the producer generates a number: 4
+the consumer[3] get a number: 4
+the producer generates a number: 5
+the consumer[4] get a number: 5
+the producer generates a number: 6
+the consumer[0] get a number: 6
+the producer generates a number: 7
+the consumer[1] get a number: 7
+the producer generates a number: 8
+the consumer[2] get a number: 8
+the producer generates a number: 9
+the consumer[3] get a number: 9
+the producer generates a number: 10
+the consumer[4] get a number: 10
+the consumer[0] sum is 55 
+ the consumer[32] exit!
+the producer exit!

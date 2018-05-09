@@ -6,14 +6,9 @@
 
 ## 运行结果 ##
 
-```{.c}
- \ | /
-- RT -     Thread Operating System
- / | \     3.0.3 build Apr 27 2018
- 2006 - 2018 Copyright by rt-thread team
 thread2: send message - 0
 thread1: recv msg from msg queue, the content:0
-finsh >thread2: send message - 1
+thread2: send message - 1
 thread2: send message - 2
 thread2: send message - 3
 thread2: send message - 4
@@ -22,8 +17,8 @@ thread2: send message - 6
 thread2: send message - 7
 thread2: send message - 8
 thread2: send message - 9
-thread1: recv msg from msg queue, the content:1
 thread2: send message - 10
+thread1: recv msg from msg queue, the content:1
 thread2: send message - 11
 thread2: send message - 12
 thread2: send message - 13
@@ -33,8 +28,8 @@ thread2: send message - 16
 thread2: send message - 17
 thread2: send message - 18
 thread2: send message - 19
-thread1: recv msg from msg queue, the content:2
 thread2: send message - 20
+thread1: recv msg from msg queue, the content:2
 thread2: send message - 21
 thread2: send message - 22
 thread2: send message - 23
@@ -44,8 +39,8 @@ thread2: send message - 26
 thread2: send message - 27
 thread2: send message - 28
 thread2: send message - 29
-thread1: recv msg from msg queue, the content:25
 thread2: send message - 30
+thread1: recv msg from msg queue, the content:25
 thread2: send message - 31
 thread2: send message - 32
 thread2: send message - 33
@@ -55,8 +50,8 @@ thread2: send message - 36
 thread2: send message - 37
 thread2: send message - 38
 thread2: send message - 39
-thread1: recv msg from msg queue, the content:3
 thread2: send message - 40
+thread1: recv msg from msg queue, the content:3
 thread2: send message - 41
 thread2: send message - 42
 thread2: send message - 43
@@ -66,8 +61,8 @@ thread2: send message - 46
 thread2: send message - 47
 thread2: send message - 48
 thread2: send message - 49
-thread1: recv msg from msg queue, the content:4
 message queue stop send, thread2 quit
+thread1: recv msg from msg queue, the content:4
 thread1: recv msg from msg queue, the content:5
 thread1: recv msg from msg queue, the content:6
 thread1: recv msg from msg queue, the content:7
@@ -112,5 +107,4 @@ thread1: recv msg from msg queue, the content:46
 thread1: recv msg from msg queue, the content:47
 thread1: recv msg from msg queue, the content:48
 thread1: recv msg from msg queue, the content:49
-thread1: detach mq
-```
+thread1: detach mq 
