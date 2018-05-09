@@ -145,7 +145,7 @@ static void tcpserv(void *parameter)
 }
 
 #ifdef RT_USING_FINSH
-#include <finsh.h>
-/* 输出tcpserv函数到finsh shell中 */
-FINSH_FUNCTION_EXPORT(tcpserv, startup tcp server);
+    #include <finsh.h>
+    /* 输出tcpserv函数到finsh shell中 */
+    FINSH_FUNCTION_EXPORT(tcpserv, startup tcp server);
 #endif

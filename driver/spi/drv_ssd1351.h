@@ -26,9 +26,9 @@
 
 #include "drv_spi.h"
 
-#define   MAX_COLUMN	127			// 128-1
-#define   MAX_ROW		127			// 128-1
-#define	  BRIGHTNESS	100
+#define   MAX_COLUMN    127         // 128-1
+#define   MAX_ROW       127         // 128-1
+#define   BRIGHTNESS    100
 
 #define   RGB565_BLACK     0x0000          //ºÚÉ«
 #define   RGB565_NAVY      0x000F          //ÉîÀ¶É« 

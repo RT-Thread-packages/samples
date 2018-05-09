@@ -25,20 +25,20 @@ struct rt_semaphore sem_lock;
 struct rt_semaphore sem_empty, sem_full;
 
 /* 生成者线程入口 */
-void producer_thread_entry(void* parameter)
+void producer_thread_entry(void *parameter)
 {
     int cnt = 0;
 
     /* 运行10次 */
-    while( cnt < 10)
+    while (cnt < 10)
     {
         /* 获取一个空位 */
         rt_sem_take(&sem_empty, RT_WAITING_FOREVER);
 
         /* 修改array内容，上锁 */
         rt_sem_take(&sem_lock, RT_WAITING_FOREVER);
-        array[set%MAXSEM] = cnt + 1;
-        rt_kprintf("the producer generates a number: %d\n", array[set%MAXSEM]);
+        array[set % MAXSEM] = cnt + 1;
+        rt_kprintf("the producer generates a number: %d\n", array[set % MAXSEM]);
         set++;
         rt_sem_release(&sem_lock);
 
@@ -54,7 +54,7 @@ void producer_thread_entry(void* parameter)
 }
 
 /* 消费者线程入口 */
-void consumer_thread_entry(void* parameter)
+void consumer_thread_entry(void *parameter)
 {
     rt_uint32_t no;
     rt_uint32_t sum;
@@ -63,15 +63,15 @@ void consumer_thread_entry(void* parameter)
     no = (rt_uint32_t)parameter;
 
     sum = 0;
-    while(1)
+    while (1)
     {
         /* 获取一个满位 */
         rt_sem_take(&sem_full, RT_WAITING_FOREVER);
 
         /* 临界区，上锁进行操作 */
         rt_sem_take(&sem_lock, RT_WAITING_FOREVER);
-        sum += array[get%MAXSEM];
-        rt_kprintf("the consumer[%d] get a number: %d\n", (get%MAXSEM), array[get%MAXSEM] );
+        sum += array[get % MAXSEM];
+        rt_kprintf("the consumer[%d] get a number: %d\n", (get % MAXSEM), array[get % MAXSEM]);
         get++;
         rt_sem_release(&sem_lock);
 
@@ -92,9 +92,9 @@ void consumer_thread_entry(void* parameter)
 int semaphore_producer_consumer_init()
 {
     /* 初始化3个信号量 */
-    rt_sem_init(&sem_lock , "lock",     1,      RT_IPC_FLAG_FIFO);
+    rt_sem_init(&sem_lock, "lock",     1,      RT_IPC_FLAG_FIFO);
     rt_sem_init(&sem_empty, "empty",    MAXSEM, RT_IPC_FLAG_FIFO);
-    rt_sem_init(&sem_full , "full",     0,      RT_IPC_FLAG_FIFO);
+    rt_sem_init(&sem_full, "full",     0,      RT_IPC_FLAG_FIFO);
 
     /* 创建线程1 */
     producer_tid = rt_thread_create("producer",
@@ -114,7 +114,7 @@ int semaphore_producer_consumer_init()
 }
 /* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
 #ifdef RT_SAMPLES_AUTORUN
-INIT_APP_EXPORT(semaphore_producer_consumer_init);
+    INIT_APP_EXPORT(semaphore_producer_consumer_init);
 #endif
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(semaphore_producer_consumer_init, producer_consumer sample);

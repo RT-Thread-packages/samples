@@ -117,7 +117,7 @@ void tcpclient(const char *url, int port)
 }
 
 #ifdef RT_USING_FINSH
-#include <finsh.h>
-/* 输出tcpclient函数到finsh shell中 */
-FINSH_FUNCTION_EXPORT(tcpclient, startup tcp client);
+    #include <finsh.h>
+    /* 输出tcpclient函数到finsh shell中 */
+    FINSH_FUNCTION_EXPORT(tcpclient, startup tcp client);
 #endif

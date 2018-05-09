@@ -52,12 +52,12 @@ int heap_malloc_init(void)
     {
         rt_free(ptr5);
     }
-		
-	return 0;
+
+    return 0;
 }
 /* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
 #ifdef RT_SAMPLES_AUTORUN
-INIT_APP_EXPORT(heap_malloc_init);
+    INIT_APP_EXPORT(heap_malloc_init);
 #endif
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(heap_malloc_init, heap malloc sample);

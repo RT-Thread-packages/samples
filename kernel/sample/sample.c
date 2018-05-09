@@ -24,9 +24,9 @@
 #include <rtthread.h>
 
 int sample(void)
-{    
+{
     rt_kprintf("%s\n", __FUNCTION__);
-    
+
     return 0;
 }
 /* 加入到初始化线程中自动运行 */

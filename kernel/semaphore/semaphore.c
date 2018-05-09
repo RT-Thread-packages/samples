@@ -14,13 +14,13 @@ static rt_sem_t dynamic_sem = RT_NULL;
 ALIGN(RT_ALIGN_SIZE)
 static char thread1_stack[1024];
 static struct rt_thread thread1;
-static void rt_thread_entry1(void* parameter)
+static void rt_thread_entry1(void *parameter)
 {
     rt_err_t result;
     rt_tick_t tick;
 
-	/* 1. staic semaphore demo */
-	
+    /* 1. staic semaphore demo */
+
     /* 获得当前的OS Tick */
     tick = rt_tick_get();
 
@@ -130,14 +130,14 @@ int semaphore_sample_init()
                    rt_thread_entry1,
                    RT_NULL,
                    &thread1_stack[0],
-                   sizeof(thread1_stack),11,5);
+                   sizeof(thread1_stack), 11, 5);
     rt_thread_startup(&thread1);
 
     return 0;
 }
 /* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
 #ifdef RT_SAMPLES_AUTORUN
-INIT_APP_EXPORT(semaphore_sample_init);
+    INIT_APP_EXPORT(semaphore_sample_init);
 #endif
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(semaphore_sample_init, semaphore sample);

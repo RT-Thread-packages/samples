@@ -19,12 +19,12 @@ static rt_thread_t tid1 = RT_NULL;
 static rt_thread_t tid2 = RT_NULL;
 
 /* 线程1入口 */
-static void thread1_entry(void* parameter)
+static void thread1_entry(void *parameter)
 {
     int i, count = 0;
     char *block;
 
-    while(1)
+    while (1)
     {
         for (i = 0; i < 48; i++)
         {
@@ -42,12 +42,12 @@ static void thread1_entry(void* parameter)
         /* 释放这个内存块 */
         rt_mp_free(block);
         block = RT_NULL;
-        
+
         /* 休眠10个OS Tick */
         rt_thread_delay(10);
 
         /* 循环10次后，退出线程1 */
-        if(count++ >= 10) break;
+        if (count++ >= 10) break;
     }
 }
 
@@ -56,7 +56,7 @@ static void thread2_entry(void *parameter)
 {
     int i, count = 0;
 
-    while(1)
+    while (1)
     {
         rt_kprintf("try to release block\n");
 
@@ -76,7 +76,7 @@ static void thread2_entry(void *parameter)
         rt_thread_delay(10);
 
         /* 循环10次后，退出线程2 */
-        if(count++ >= 10) break;
+        if (count++ >= 10) break;
     }
 }
 
@@ -101,12 +101,12 @@ int mempool_sample_init()
                             THREAD_STACK_SIZE, THREAD_PRIORITY + 1, THREAD_TIMESLICE);
     if (tid2 != RT_NULL)
         rt_thread_startup(tid2);
-    
+
     return 0;
 }
 /* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
 #ifdef RT_SAMPLES_AUTORUN
-INIT_APP_EXPORT(mempool_sample_init);
+    INIT_APP_EXPORT(mempool_sample_init);
 #endif
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(mempool_sample_init, mempool sample);

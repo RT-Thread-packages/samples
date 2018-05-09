@@ -22,8 +22,8 @@ static void thread1_entry(void *param)
 
     /* receive first event */
     if (rt_event_recv(&event, ((1 << 3) | (1 << 5)),
-        RT_EVENT_FLAG_AND | RT_EVENT_FLAG_CLEAR,
-        RT_WAITING_FOREVER, &e) == RT_EOK)
+                      RT_EVENT_FLAG_AND | RT_EVENT_FLAG_CLEAR,
+                      RT_WAITING_FOREVER, &e) == RT_EOK)
     {
         rt_kprintf("thread1: AND recv event 0x%x\n", e);
     }
@@ -33,8 +33,8 @@ static void thread1_entry(void *param)
 
     /* receive second event */
     if (rt_event_recv(&event, ((1 << 3) | (1 << 5)),
-        RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR,
-        RT_WAITING_FOREVER, &e) == RT_EOK)
+                      RT_EVENT_FLAG_OR | RT_EVENT_FLAG_CLEAR,
+                      RT_WAITING_FOREVER, &e) == RT_EOK)
     {
         rt_kprintf("thread1: OR recv event 0x%x\n", e);
     }
@@ -106,12 +106,12 @@ int event_sample_init(void)
                    &thread3_stack[0],
                    sizeof(thread3_stack), 10, 5);
     rt_thread_startup(&thread3);
-	
+
     return 0;
 }
 /* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
 #ifdef RT_SAMPLES_AUTORUN
-INIT_APP_EXPORT(event_sample_init);
+    INIT_APP_EXPORT(event_sample_init);
 #endif
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(event_sample_init, event sample);

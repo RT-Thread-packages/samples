@@ -27,7 +27,7 @@
 
 void oled_thread_entry(void *parameter)
 {
-    while(1)
+    while (1)
     {
         test_rainbow();
 
@@ -38,21 +38,21 @@ void oled_thread_entry(void *parameter)
 
         rt_thread_delay(200);
         ssd1351_clear();
-        
-        
+
+
     }
 }
 
 int app_init(void)
-{ 
+{
     rt_thread_t tid;
-    
-    tid = rt_thread_create("oled", 
-                            oled_thread_entry,
-                            RT_NULL,
-                            2048,
-                            8,
-                            20);
+
+    tid = rt_thread_create("oled",
+                           oled_thread_entry,
+                           RT_NULL,
+                           2048,
+                           8,
+                           20);
     if (tid == RT_NULL)
     {
         return -RT_ERROR;

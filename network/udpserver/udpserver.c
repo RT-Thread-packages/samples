@@ -82,7 +82,7 @@ static void udpserv(void *paramemter)
 }
 
 #ifdef RT_USING_FINSH
-#include <finsh.h>
-/* 输出udpserv函数到finsh shell中 */
-FINSH_FUNCTION_EXPORT(udpserv, startup udp server);
+    #include <finsh.h>
+    /* 输出udpserv函数到finsh shell中 */
+    FINSH_FUNCTION_EXPORT(udpserv, startup udp server);
 #endif

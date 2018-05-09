@@ -46,7 +46,7 @@ void udpclient(const char *url, int port, int count)
 }
 
 #ifdef RT_USING_FINSH
-#include <finsh.h>
-/* 输出udpclient函数到finsh shell中 */
-FINSH_FUNCTION_EXPORT(udpclient, startup udp client);
+    #include <finsh.h>
+    /* 输出udpclient函数到finsh shell中 */
+    FINSH_FUNCTION_EXPORT(udpclient, startup udp client);
 #endif

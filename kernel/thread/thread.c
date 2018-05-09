@@ -16,7 +16,7 @@
  */
 static rt_thread_t tid1 = RT_NULL, tid2 = RT_NULL;
 /* 线程1的入口函数 */
-static void thread1_entry(void* parameter)
+static void thread1_entry(void *parameter)
 {
     rt_uint32_t count = 0;
 
@@ -39,7 +39,7 @@ static void thread1_cleanup(struct rt_thread *tid)
 }
 
 /* 线程2的入口函数 */
-static void thread2_entry(void* parameter)
+static void thread2_entry(void *parameter)
 {
     /* 线程2拥有较高的优先级，以抢占线程1而获得执行 */
 
@@ -79,8 +79,8 @@ int thread_sample_init()
 {
     /* 创建线程1 */
     tid1 = rt_thread_create("t1", /* 线程1的名称是t1 */
-        thread1_entry, RT_NULL,   /* 入口是thread1_entry，参数是RT_NULL */
-        THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
+                            thread1_entry, RT_NULL,   /* 入口是thread1_entry，参数是RT_NULL */
+                            THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
     if (tid1 != RT_NULL) /* 如果获得线程控制块，启动这个线程 */
     {
         tid1->cleanup = thread1_cleanup;
@@ -89,8 +89,8 @@ int thread_sample_init()
 
     /* 创建线程1 */
     tid2 = rt_thread_create("t2", /* 线程1的名称是t2 */
-        thread2_entry, RT_NULL,   /* 入口是thread2_entry，参数是RT_NULL */
-        THREAD_STACK_SIZE, THREAD_PRIORITY - 1, THREAD_TIMESLICE);
+                            thread2_entry, RT_NULL,   /* 入口是thread2_entry，参数是RT_NULL */
+                            THREAD_STACK_SIZE, THREAD_PRIORITY - 1, THREAD_TIMESLICE);
     if (tid2 != RT_NULL) /* 如果获得线程控制块，启动这个线程 */
     {
         tid2->cleanup = thread2_cleanup;
@@ -101,7 +101,7 @@ int thread_sample_init()
 }
 /* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
 #ifdef RT_SAMPLES_AUTORUN
-INIT_APP_EXPORT(thread_sample_init);
+    INIT_APP_EXPORT(thread_sample_init);
 #endif
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(thread_sample_init, run signal sample);
