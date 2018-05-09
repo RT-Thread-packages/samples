@@ -110,7 +110,7 @@ int cpu_usage_init()
     return 0;
 }
 /* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#ifdef RT_SAMPLES_AUTORUN
+#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
     INIT_APP_EXPORT(cpu_usage_init);
 #endif
 /* 导出到 msh 命令列表中 */
