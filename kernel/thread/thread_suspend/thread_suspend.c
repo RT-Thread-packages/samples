@@ -6,7 +6,10 @@
  * 高优先级线程t2在一定时刻后唤醒并挂起低优先级线程。
  */
 #include <rtthread.h>
-#include "tc_comm.h"
+
+#define THREAD_PRIORITY         25
+#define THREAD_STACK_SIZE       512
+#define THREAD_TIMESLICE        5
 
 /* 指向线程控制块的指针 */
 static rt_thread_t tid1 = RT_NULL;
@@ -38,7 +41,8 @@ static void thread2_entry(void* parameter)
     /* 线程2自动退出 */
 }
 
-int rt_application_init(void)
+/* 挂起线程示例的初始化 */
+int thread_suspend_init(void)
 {
     /* 创建线程1 */
     tid1 = rt_thread_create("t1",
@@ -58,3 +62,9 @@ int rt_application_init(void)
 
     return 0;
 }
+/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
+#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
+	INIT_APP_EXPORT(thread_suspend_init);
+#endif
+/* 导出到 msh 命令列表中 */
+MSH_CMD_EXPORT(thread_suspend_init, thread suspend);

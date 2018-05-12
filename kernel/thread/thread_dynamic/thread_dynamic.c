@@ -30,8 +30,8 @@ static void thread_entry(void* parameter)
     }
 }
 
-/* 用户应用入口 */
-int rt_application_init()
+/* 动态线程线程示例的初始化 */
+int thread_dynamic_init()
 {
     /* 创建线程1 */
     tid1 = rt_thread_create("t1",
@@ -53,3 +53,9 @@ int rt_application_init()
 
     return 0;
 }
+/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
+#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
+	INIT_APP_EXPORT(thread_dynamic_init);
+#endif
+/* 导出到 msh 命令列表中 */
+MSH_CMD_EXPORT(thread_dynamic_init, thread dynamic init);

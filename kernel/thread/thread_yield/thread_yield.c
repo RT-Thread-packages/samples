@@ -4,7 +4,10 @@
  * 接口把处理器相互让给对方进行执行。
  */
 #include <rtthread.h>
-#include "tc_comm.h"
+
+#define THREAD_PRIORITY         25
+#define THREAD_STACK_SIZE       512
+#define THREAD_TIMESLICE        5
 
 /* 指向线程控制块的指针 */
 static rt_thread_t tid1 = RT_NULL;
@@ -39,7 +42,8 @@ static void thread2_entry(void* parameter)
     }
 }
 
-int rt_application_init(void)
+/* 线程让出处理器示例的初始化 */
+int thread_yield_init(void)
 {
     /* 创建线程1 */
     tid1 = rt_thread_create("thread",
@@ -59,3 +63,9 @@ int rt_application_init(void)
 
     return 0;
 }
+/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
+#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
+	INIT_APP_EXPORT(thread_yield_init);
+#endif
+/* 导出到 msh 命令列表中 */
+MSH_CMD_EXPORT(thread_yield_init, thread yield);
