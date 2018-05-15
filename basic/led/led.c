@@ -16,81 +16,7 @@ static struct rt_thread led_thread;
 
 void rt_hw_led_init(void)
 {
-    rt_pin_mode(LED_0_PIN, PIN_MODE_INPUT);
-    rt_pin_mode(LED_1_PIN, PIN_MODE_INPUT);
-}
-
-void rt_hw_led_on(rt_uint32_t n)
-{
-    switch (n)
-    {
-    case 0:
-        rt_pin_write(LED_0_PIN, 1);
-        break;
-    case 1:
-        rt_pin_write(LED_0_PIN, 1);
-        break;
-    default:
-        break;
-    }
-}
-
-void rt_hw_led_off(rt_uint32_t n)
-{
-    switch (n)
-    {
-    case 0:
-        rt_pin_write(LED_0_PIN, 0);
-        break;
-    case 1:
-        rt_pin_write(LED_0_PIN, 0);
-        break;
-    default:
-        break;
-    }
-}
-
-static rt_uint8_t led_inited = 0;
-void led(rt_uint32_t led, rt_uint32_t value)
-{
-    /* init led configuration if it's not inited. */
-    if (!led_inited)
-    {
-        rt_hw_led_init();
-        led_inited = 1;
-    }
-
-    if (led == 0)
-    {
-        /* set led status */
-        switch (value)
-        {
-        case 0:
-            rt_hw_led_off(0);
-            break;
-        case 1:
-            rt_hw_led_on(0);
-            break;
-        default:
-            break;
-        }
-    }
-
-    if (led == 1)
-    {
-        /* set led status */
-        switch (value)
-        {
-        case 0:
-            rt_hw_led_off(1);
-            break;
-        case 1:
-            rt_hw_led_on(1);
-            break;
-        default:
-            break;
-        }
-    }
+    rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
 }
 
 static void led_thread_entry(void *parameter)
@@ -104,13 +30,13 @@ static void led_thread_entry(void *parameter)
         /* led1 on */
         rt_kprintf("led on, count : %d\r\n", count);
         count++;
-        rt_hw_led_on(0);
+        rt_pin_write(LED_PIN, 0);
         rt_thread_delay(RT_TICK_PER_SECOND / 2); /* sleep 0.5 second and switch to other thread */
 
         /* led1 off */
         rt_kprintf("led off\r\n");
 
-        rt_hw_led_off(0);
+        rt_pin_write(LED_PIN, 1);
         rt_thread_delay(RT_TICK_PER_SECOND / 2);
     }
 }
