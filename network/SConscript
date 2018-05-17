@@ -6,7 +6,7 @@ cwd   = GetCurrentDir()
 group = []
 CPPPATH = []
 
-# add kernel samples.
+# add network samples.
 if GetDepend('RT_USING_SAMPLE_TCP_CLIENT'):
     src += ['tcpclient/tcpclient.c']
     CPPPATH += [cwd + '/tcpclient']

@@ -6,7 +6,7 @@ cwd   = GetCurrentDir()
 group = []
 CPPPATH = []
 
-# add kernel samples.
+# add filesystem samples.
 if GetDepend('RT_USING_SAMPLE_OPENFILE'):
     src += ['openfile/openfile.c']
     CPPPATH += [cwd + '/openfile']
