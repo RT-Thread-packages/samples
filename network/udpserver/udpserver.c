@@ -1,11 +1,19 @@
+/*
+* 程序清单：udp 服务端
+ *
+ * 这是一个 udp 服务端的例程
+ * 导出 udpserv 命令到控制终端
+ * 命令调用格式：udpserv
+ * 无参数
+ * 程序功能：作为一个服务端，接收并显示客户端发来的数据 ，接收到 exit 退出程序
+*/
 #include <rtthread.h>
-
 #include <sys/socket.h> /* 使用BSD socket，需要包含socket.h头文件 */
 #include "netdb.h"
 
 #define BUFSZ   1024
 
-static void udpserv(void *paramemter)
+static void udpserv(int argc, char **argv)
 {
     int sock;
     int bytes_read;
@@ -80,9 +88,4 @@ static void udpserv(void *paramemter)
 
     return;
 }
-
-#ifdef RT_USING_FINSH
-    #include <finsh.h>
-    /* 输出udpserv函数到finsh shell中 */
-    FINSH_FUNCTION_EXPORT(udpserv, startup udp server);
-#endif
+MSH_CMD_EXPORT(udpserv, a udp server sample);

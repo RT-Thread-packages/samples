@@ -1,12 +1,20 @@
+/*
+* 程序清单：tcp 服务端
+ *
+ * 这是一个 tcp 服务端的例程
+ * 导出 tcpserv 命令到控制终端
+ * 命令调用格式：tcpserv
+ * 无参数
+ * 程序功能：作为一个服务端，接收并显示客户端发来的数据 ，接收到 exit 退出程序
+*/
 #include <rtthread.h>
-
 #include <sys/socket.h> /* 使用BSD socket，需要包含socket.h头文件 */
 #include "netdb.h"
 
 #define BUFSZ       (1024)
 
 static const char send_data[] = "This is TCP Server from RT-Thread."; /* 发送用到的数据 */
-static void tcpserv(void *parameter)
+static void tcpserv(int argc, char **argv)
 {
     char *recv_data; /* 用于接收的指针，后面会做一次动态分配以请求可用内存 */
     socklen_t sin_size;
@@ -143,9 +151,4 @@ static void tcpserv(void *parameter)
 
     return ;
 }
-
-#ifdef RT_USING_FINSH
-    #include <finsh.h>
-    /* 输出tcpserv函数到finsh shell中 */
-    FINSH_FUNCTION_EXPORT(tcpserv, startup tcp server);
-#endif
+MSH_CMD_EXPORT(tcpserv, a tcp server sample);

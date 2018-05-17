@@ -12,8 +12,11 @@
 /* 测试用的数据和缓冲 */
 static char test_data[120], buffer[120];
 
-/* 文件读写测试 */
-void readwrite(const char *filename)
+ALIGN(RT_ALIGN_SIZE)
+static char file_thread_stack[1024];
+static struct rt_thread file_thread;
+/* 假设文件操作是在一个线程中完成 */
+static void file_thread_entry(void *parameter)
 {
     int fd;
     int index, length;
@@ -116,8 +119,22 @@ void readwrite(const char *filename)
     rt_kprintf("read/write done.\n");
 }
 
-#ifdef RT_USING_FINSH
-    #include <finsh.h>
-    /* 输出函数到finsh shell命令行中 */
-    FINSH_FUNCTION_EXPORT(readwrite, perform file read and write test);
+int readwrite_sample_init(void)
+{
+
+    rt_thread_init(&file_thread,
+                   "file_thread",
+                   file_thread_entry,
+                   RT_NULL,
+                   &file_thread_stack[0],
+                   sizeof(file_thread_stack), 8, 50);
+    rt_thread_startup(&file_thread);
+
+    return 0;
+}
+/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
+#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
+INIT_APP_EXPORT(readwrite_sample_init);
 #endif
+/* 导出到 msh 命令列表中 */
+MSH_CMD_EXPORT(readwrite_sample_init, readwrite sample);
