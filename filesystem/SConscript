@@ -1,0 +1,44 @@
+from building import *
+Import('rtconfig')
+
+src   = []
+cwd   = GetCurrentDir()
+group = []
+CPPPATH = []
+
+# add filesystem samples.
+if GetDepend('RT_USING_SAMPLE_OPENFILE'):
+    src += ['openfile/openfile.c']
+    CPPPATH += [cwd + '/openfile']
+
+if GetDepend('RT_USING_SAMPLE_READWRITE'):
+    src += ['readwrite/readwrite.c']
+    CPPPATH += [cwd + '/readwrite']
+
+if GetDepend('RT_USING_SAMPLE_STAT'):
+    src += ['stat/stat.c']
+    CPPPATH += [cwd + '/stat']
+
+if GetDepend('RT_USING_SAMPLE_RENAME'):
+    src += ['rename/rename.c']
+    CPPPATH += [cwd + '/rename']
+
+if GetDepend('RT_USING_SAMPLE_MKDIR'):
+    src += ['mkdir/mkdir.c']
+    CPPPATH += [cwd + '/mkdir']
+
+if GetDepend('RT_USING_SAMPLE_OPENDIR'):
+    src += ['opendir/opendir.c']
+    CPPPATH += [cwd + '/opendir']
+
+if GetDepend('RT_USING_SAMPLE_READDIR'):
+    src += ['readdir/readdir.c']
+    CPPPATH += [cwd + '/readdir']
+
+if GetDepend('RT_USING_SAMPLE_TELL_SEEK_DIR'):
+    src += ['tell_seek_dir/tell_seek_dir.c']
+    CPPPATH += [cwd + '/tell_seek_dir']
+
+group = DefineGroup('samples', src, depend = [''], CPPPATH = CPPPATH)
+
+Return('group')

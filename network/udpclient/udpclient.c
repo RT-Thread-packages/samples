@@ -1,15 +1,38 @@
+/*
+ * 程序清单：udp 客户端
+ *
+ * 这是一个 udp 客户端的例程
+ * 导出 udpclient 命令到控制终端
+ * 命令调用格式：udpclient URL PORT [COUNT = 10]
+ * URL：服务器地址  PORT：端口号  COUNT：可选参数 默认为 10 
+ * 程序功能：发送 COUNT 条数据到服务远端
+*/
 #include <rtthread.h>
-//#include <lwip/netdb.h> /* 为了解析主机名，需要包含netdb.h头文件 */
-//#include <lwip/sockets.h> /* 使用BSD socket，需要包含sockets.h头文件 */
 #include <sys/socket.h> /* 使用BSD socket，需要包含sockets.h头文件 */
 #include "netdb.h"
 
 const char send_data[] = "This is UDP Client from RT-Thread.\n"; /* 发送用到的数据 */
-void udpclient(const char *url, int port, int count)
+void udpclient(int argc, char **argv)
 {
-    int sock;
+    int sock, port, count;
     struct hostent *host;
     struct sockaddr_in server_addr;
+    const char *url;
+
+    if (argc < 3)
+    {
+        rt_kprintf("Usage: udpclient URL PORT [COUNT = 10]\n");
+        rt_kprintf("Like: tcpclient 192.168.12.44 5000\n");
+        return ;
+    }
+
+    url = argv[1];
+    port = strtoul(argv[2], 0, 10);
+
+    if (argc > 3)
+        count = strtoul(argv[3], 0, 10);
+    else
+        count = 10;
 
     /* 通过函数入口参数url获得host地址（如果是域名，会做域名解析） */
     host = (struct hostent *) gethostbyname(url);
@@ -44,9 +67,5 @@ void udpclient(const char *url, int port, int count)
     /* 关闭这个socket */
     closesocket(sock);
 }
+MSH_CMD_EXPORT(udpclient, a udp client sample);
 
-#ifdef RT_USING_FINSH
-    #include <finsh.h>
-    /* 输出udpclient函数到finsh shell中 */
-    FINSH_FUNCTION_EXPORT(udpclient, startup udp client);
-#endif

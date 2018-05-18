@@ -1,18 +1,38 @@
+/*
+ * 程序清单：tcp 客户端
+ *
+ * 这是一个 tcp 客户端的例程
+ * 导出 tcpclient 命令到控制终端
+ * 命令调用格式：tcpclient URL PORT
+ * URL：服务器地址 PORT:：端口号
+ * 程序功能：接收并显示从服务端发送过来的信息，接收到开头是 'q' 或 'Q' 的信息退出程序
+*/
 #include <rtthread.h>
-
 #include <sys/socket.h> /* 使用BSD socket，需要包含socket.h头文件 */
 #include "netdb.h"
 
 #define BUFSZ   1024
 
 static const char send_data[] = "This is TCP Client from RT-Thread."; /* 发送用到的数据 */
-void tcpclient(const char *url, int port)
+void tcpclient(int argc, char **argv)
 {
     int ret;
     char *recv_data;
     struct hostent *host;
     int sock, bytes_received;
     struct sockaddr_in server_addr;
+    const char *url;
+    int port;
+
+    if (argc < 3)
+    {
+        rt_kprintf("Usage: tcpclient URL PORT\n");
+        rt_kprintf("Like: tcpclient 192.168.12.44 5000\n");
+        return ;
+    }
+
+    url = argv[1];
+    port = strtoul(argv[2], 0, 10);
 
     /* 通过函数入口参数url获得host地址（如果是域名，会做域名解析） */
     host = gethostbyname(url);
@@ -79,7 +99,7 @@ void tcpclient(const char *url, int port)
         /* 有接收到数据，把末端清零 */
         recv_data[bytes_received] = '\0';
 
-        if (strcmp(recv_data, "q") == 0 || strcmp(recv_data, "Q") == 0)
+        if (strncmp(recv_data, "q", 1) == 0 || strncmp(recv_data, "Q", 1) == 0)
         {
             /* 如果是首字母是q或Q，关闭这个连接 */
             closesocket(sock);
@@ -112,12 +132,6 @@ void tcpclient(const char *url, int port)
             rt_kprintf("\n Send warning,send function return 0.\r\n");
         }
     }
-
     return;
 }
-
-#ifdef RT_USING_FINSH
-    #include <finsh.h>
-    /* 输出tcpclient函数到finsh shell中 */
-    FINSH_FUNCTION_EXPORT(tcpclient, startup tcp client);
-#endif
+MSH_CMD_EXPORT(tcpclient, a tcp client sample);
