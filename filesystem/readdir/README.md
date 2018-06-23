@@ -70,6 +70,14 @@ MSH_CMD_EXPORT(readdir_sample_init, readdir sample);
 ## 运行结果 ##
 
 ```
-如果 /web 目录下为空，就没有输出
+msh />ls
+Directory /:
+web                 <DIR>                    
+msh />cd web
+msh /web>echo "hello" hello.txt
+msh /web>cd ..
+msh />readdir_sample_init
+found hello.txt
 ```
 
+在 web 文件夹下创建 hello.txt 文件后，可以通过示例代码来获得文件夹下的内容。 

@@ -57,6 +57,15 @@ MSH_CMD_EXPORT(rename_sample_init, rename sample);
 ## 运行结果 ##
 
 ```
+msh />echo "hello" text.txt
+msh />ls
+Directory /:
+text.txt            5                        
+msh />rename_sample_init
 /text.txt => /text1.txt [ok!]
+msh />ls
+Directory /:
+text1.txt           5  
 ```
 
+我们先使用 echo 命令创建文件 text.txt，接着运行示例代码将其文件名修改为 text1.txt。

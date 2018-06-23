@@ -50,6 +50,9 @@ MSH_CMD_EXPORT(stat_sample_init, show text.txt stat sample);
 ## 运行结果 ##
 
 ```
-text.txt file size = 23
+msh />echo "hello" text.txt
+msh />stat_sample_init
+text.txt file size = 5
 ```
 
+通过 echo 命令创建文件 text.txt 后，可以通过示例代码来获取文件状态信息。
