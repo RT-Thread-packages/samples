@@ -152,6 +152,14 @@ MSH_CMD_EXPORT(readwrite_sample_init, readwrite sample);
 ## 运行结果 ##
 
 ```
+msh />readwrite_sample_init
 read/write done.
+msh />ls
+Directory /:
+test.dat            240
+msh />cat t
+msh />cat test.dat
+123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
 ```
 
+运行示例代码后，可以看到程序分两次向 test.dat 文件中写入了 240 个字符的数据，第二次写入的数据追加在第一次写入的数据之后。

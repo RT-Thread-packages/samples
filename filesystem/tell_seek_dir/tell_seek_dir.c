@@ -26,7 +26,8 @@ static void dir_thread_entry(void *parameter)
     for (dp = readdir(dirp); dp != RT_NULL; dp = readdir(dirp))
     {
         /* 保存第三个目录项的目录指针*/
-        if (i++ == 3)
+        i++;
+        if (i == 3)
             save3 = telldir(dirp);
 
         rt_kprintf("%s\n", dp->d_name);

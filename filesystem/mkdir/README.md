@@ -63,6 +63,10 @@ MSH_CMD_EXPORT(mkdir_sample_init, mkdir sample);
 ## 运行结果 ##
 
 ```
+msh />mkdir_sample_init
 mkdir ok!
+msh />ls
+Directory /:
+web                 <DIR>
 ```
 
