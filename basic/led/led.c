@@ -16,8 +16,8 @@ static struct rt_thread led_thread;
 
 void rt_hw_led_init(void)
 {
-    rt_pin_mode(LED_0_PIN, PIN_MODE_OUTPUT);
-    rt_pin_mode(LED_1_PIN, PIN_MODE_OUTPUT);
+    rt_pin_mode(LED_0_PIN, PIN_MODE_INPUT);
+    rt_pin_mode(LED_1_PIN, PIN_MODE_INPUT);
 }
 
 void rt_hw_led_on(rt_uint32_t n)
