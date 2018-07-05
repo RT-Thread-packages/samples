@@ -66,4 +66,3 @@ int led_sample_init(void)
 #endif
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(led_sample_init, led sample);
-
