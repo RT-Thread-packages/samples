@@ -94,17 +94,3 @@ Shell
 | udpclient | UDP客户端 |
 | udpserver | UDP服务器端 |
 
-调试
-
-| 名称 | 说明 |
-| ---- | ---- |
-| logging | 日志记录 |
-| systemview | systemview分析 |
-
-### 更多sample ###
-
-package sample 链接
-
-### TODO && How ###
-
-[TODO && How](TODO.md)

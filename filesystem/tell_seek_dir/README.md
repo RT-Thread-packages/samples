@@ -33,7 +33,8 @@ static void dir_thread_entry(void *parameter)
     for (dp = readdir(dirp); dp != RT_NULL; dp = readdir(dirp))
     {
         /* 保存第三个目录项的目录指针*/
-        if (i++ == 3)
+        i++;
+        if (i == 3)
             save3 = telldir(dirp);
 
         rt_kprintf("%s\n", dp->d_name);
@@ -79,10 +80,22 @@ MSH_CMD_EXPORT(telldir_sample_init, telldir sample);
 ## 运行结果 ##
 
 ```
-web
-test.dat
-text.txt
-text1.txt
-...
+msh />ls
+Directory /:
+hello_1             <DIR>                    
+hello_2             <DIR>                    
+hello_3             <DIR>                    
+hello_4             <DIR>                    
+hello_5             <DIR>                    
+msh />telldir_sample_init
+hello_1
+hello_2
+hello_3
+hello_4
+hello_5
+hello_3
+hello_4
+hello_5
 ```
 
+可以看到根目录下有5个文件夹，此时运行示例程序。第一次读取根目录时从第一个文件夹开始读取，然后使用 `seekdir` 函数设置了第二次读取的位置为第三个文件夹的位置。因此第二次读取根目录时，系统从第三个文件夹开始读取直到最后一个文件夹。

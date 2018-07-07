@@ -71,6 +71,14 @@ MSH_CMD_EXPORT(openfile_sample_init, open file sample);
 ## 运行结果 ##
 
 ```
+msh />openfile_sample_init
+RT-Thread Programmer!
+msh />ls
+Directory /:                  
+text.txt            23                       
+msh />cat t
+msh />cat text.txt
 RT-Thread Programmer!
 ```
 
+可以看到创建了 text.txt 文件，并在文件中写入了 "RT-Thread Programmer!\n" 字符串。

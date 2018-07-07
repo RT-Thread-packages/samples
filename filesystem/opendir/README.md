@@ -66,6 +66,10 @@ MSH_CMD_EXPORT(opendir_sample_init, open dir sample);
 ## 运行结果 ##
 
 ```
+msh />ls
+Directory /:
+web                 <DIR>                    
+msh />opendir_sample_init
 open directory OK!
 ```
 
