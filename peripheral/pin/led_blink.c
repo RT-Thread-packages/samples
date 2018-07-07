@@ -1,12 +1,3 @@
-# 跑马灯例程 #
-
-## 介绍 ##
-
-这个例程展示了如何在 RT-Thread 里使用 pin 设备控制 LED 灯的亮灭
-
-## 程序清单 ##
-
-```{.c}
 /*
  * 程序清单：跑马灯例程
  *
@@ -75,44 +66,4 @@ int led_sample_init(void)
 #endif
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(led_sample_init, led sample);
-```
 
-## 运行结果 ##
-
-```
-led on, count : 0
-led off
-led on, count : 1
-led off
-led on, count : 2
-led off
-led on, count : 3
-led off
-led on, count : 4
-led off
-led on, count : 5
-led off
-led on, count : 6
-led off
-led on, count : 7
-led off
-led on, count : 8
-led off
-led on, count : 9
-led off
-led on, count : 10
-led off
-led on, count : 11
-led off
-led on, count : 12
-led off
-led on, count : 13
-led off
-led on, count : 14
-led off
-led on, count : 15
-led off
-led on, count : 16
-led off
-...
-```
