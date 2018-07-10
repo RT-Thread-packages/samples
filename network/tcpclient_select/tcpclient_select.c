@@ -29,8 +29,8 @@ void tcpclient_select(int argc, char **argv)
 
     if (argc < 3)
     {
-        rt_kprintf("Usage: tcpclient URL PORT\n");
-        rt_kprintf("Like: tcpclient 192.168.12.44 5000\n");
+        rt_kprintf("Usage: tcpclient_select URL PORT\n");
+        rt_kprintf("Like: tcpclient_select 192.168.12.44 5000\n");
         return ;
     }
 
