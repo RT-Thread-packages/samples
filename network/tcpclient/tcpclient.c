@@ -90,10 +90,13 @@ void tcpclient(int argc, char **argv)
         }
         else if (bytes_received == 0)
         {
-            /* 打印recv函数返回值为0的警告信息 */
-            rt_kprintf("\nReceived warning,recv function return 0.\r\n");
+            /* 默认 recv 为阻塞模式，此时收到0认为连接出错，关闭这个连接 */
+            closesocket(sock);
+            rt_kprintf("\nreceived error,close the socket.\r\n");
 
-            continue;
+            /* 释放接收缓冲 */
+            rt_free(recv_data);
+            break;
         }
 
         /* 有接收到数据，把末端清零 */
