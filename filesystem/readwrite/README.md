@@ -8,7 +8,7 @@
 
 ```{.c}
 /*
- * 代码清单：文件读写
+ * 代码清单：文件读写例子
  *
  * 这个例子演示了如何读写一个文件，特别是写的时候应该如何操作。
  */
@@ -21,11 +21,7 @@
 /* 测试用的数据和缓冲 */
 static char test_data[120], buffer[120];
 
-ALIGN(RT_ALIGN_SIZE)
-static char file_thread_stack[1024];
-static struct rt_thread file_thread;
-/* 假设文件操作是在一个线程中完成 */
-static void file_thread_entry(void *parameter)
+static void readwrite_sample(void *parameter)
 {
     int fd;
     int index, length;
@@ -41,7 +37,7 @@ static void file_thread_entry(void *parameter)
     /* 准备写入数据 */
     for (index = 0; index < sizeof(test_data); index ++)
     {
-        test_data[index] = index + 27;
+        test_data[index] = index + 48;
     }
 
     /* 写入数据 */
@@ -127,39 +123,23 @@ static void file_thread_entry(void *parameter)
     /* 打印结果 */
     rt_kprintf("read/write done.\n");
 }
-
-int readwrite_sample_init(void)
-{
-
-    rt_thread_init(&file_thread,
-                   "file_thread",
-                   file_thread_entry,
-                   RT_NULL,
-                   &file_thread_stack[0],
-                   sizeof(file_thread_stack), 8, 50);
-    rt_thread_startup(&file_thread);
-
-    return 0;
-}
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-INIT_APP_EXPORT(readwrite_sample_init);
-#endif
 /* 导出到 msh 命令列表中 */
-MSH_CMD_EXPORT(readwrite_sample_init, readwrite sample);
+MSH_CMD_EXPORT(readwrite_sample, readwrite sample);
 ```
 
 ## 运行结果 ##
 
 ```
-msh />readwrite_sample_init
+msh />readwrite_sample
 read/write done.
 msh />ls
 Directory /:
+dir_test            <DIR>
+text.txt            23
 test.dat            240
-msh />cat t
 msh />cat test.dat
-123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜ¢£¥₧ƒáíóúñÑªº0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜ¢£¥₧ƒáíóúñÑ
+ªº
 ```
 
 运行示例代码后，可以看到程序分两次向 test.dat 文件中写入了 240 个字符的数据，第二次写入的数据追加在第一次写入的数据之后。
