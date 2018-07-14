@@ -9,21 +9,11 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 
-ALIGN(RT_ALIGN_SIZE)
-static rt_uint8_t led_stack[ 512 ];
-/* 线程的TCB控制块 */
-static struct rt_thread led_thread;
-
-void rt_hw_led_init(void)
-{
-    rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
-}
-
-static void led_thread_entry(void *parameter)
+void led_blink(void)
 {
     unsigned int count = 0;
 
-    rt_hw_led_init();
+    rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
 
     while (1)
     {
@@ -41,29 +31,5 @@ static void led_thread_entry(void *parameter)
     }
 }
 
-int led_sample_init(void)
-{
-    rt_err_t result;
-
-    /* init led thread */
-    result = rt_thread_init(&led_thread,
-                            "led",
-                            led_thread_entry,
-                            RT_NULL,
-                            (rt_uint8_t *)&led_stack[0],
-                            sizeof(led_stack),
-                            20,
-                            5);
-    if (result == RT_EOK)
-    {
-        rt_thread_startup(&led_thread);
-    }
-    return 0;
-}
-	/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(led_sample_init);
-#endif
 /* 导出到 msh 命令列表中 */
-MSH_CMD_EXPORT(led_sample_init, led sample);
-
+MSH_CMD_EXPORT(led_blink, led blink sample);
