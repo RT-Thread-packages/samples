@@ -17,22 +17,18 @@
 #include <rtthread.h>
 #include <dfs_posix.h> /* 当需要使用文件操作时，需要包含这个头文件 */
 
-static void stat_sample(void *parameter)
+static void stat_sample(void)
 {
+		int ret;
     struct stat buf;
-    stat("/text.txt", &buf);
-    rt_kprintf("text.txt file size = %d\n", buf.st_size);
+    ret=stat("/text.txt", &buf);
+		if(ret==0)
+				rt_kprintf("text.txt file size = %d\n", buf.st_size);
+		else
+				rt_kprintf("text.txt file not fonud\n");
 }
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(stat_sample, show text.txt stat sample);
-```
-
-## 运行结果 ##
-
-```
-msh />echo "hello" text.txt
-msh />stat_sample
-text.txt file size = 5
 ```
 
 通过 echo 命令创建文件 text.txt 后，可以通过示例代码来获取文件状态信息。
