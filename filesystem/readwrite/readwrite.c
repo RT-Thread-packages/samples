@@ -12,7 +12,7 @@
 /* 测试用的数据和缓冲 */
 static char test_data[120], buffer[120];
 
-static void readwrite_sample(void *parameter)
+static void readwrite_sample(void)
 {
     int fd;
     int index, length;
@@ -55,7 +55,7 @@ static void readwrite_sample(void *parameter)
     if (length != sizeof(test_data))
     {
         rt_kprintf("append write data failed\n");
-        close(fd);
+        close(fd);			
         return;
     }
     /* 关闭文件 */
