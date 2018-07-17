@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 程序清单：生产者消费者例子
  *
  * 这个例子中将创建两个线程用于实现生产者消费者问题
@@ -115,10 +115,6 @@ int semaphore_producer_consumer_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(semaphore_producer_consumer_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(semaphore_producer_consumer_init, producer_consumer sample);
-

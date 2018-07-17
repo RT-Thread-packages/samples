@@ -73,10 +73,7 @@ int thread_yield_init(void)
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-	INIT_APP_EXPORT(thread_yield_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(thread_yield_init, thread yield);
 ```
@@ -84,42 +81,41 @@ MSH_CMD_EXPORT(thread_yield_init, thread yield);
 ## 运行结果 ##
 
 ```
-thread1: count = 0
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.4 build Jul 17 2018
+ 2006 - 2018 Copyright by rt-thread team
+msh >th
+thread_yield_init
+msh >thread_yield_init
+msh >thread1: count = 0
 thread2: count = 0
 thread1: count = 1
 thread2: count = 1
 thread1: count = 2
 thread2: count = 2
-thread1: count = 3
-thread2: count = 3
-thread1: count = 4
-thread2: count = 4
-thread1: count = 5
-thread2: count = 5
-thread1: count = 6
-thread2: count = 6
-thread1: count = 7
-thread2: count = 7
-thread1: count = 8
-thread2: count = 8
-thread1: count = 9
-thread2: count = 9
-thread1: count = 10
-thread2: count = 10
-thread1: count = 11
-thread2: count = 11
-thread1: count = 12
-thread2: count = 12
-thread1: count = 13
-thread2: count = 13
-thread1: count = 14
-thread2: count = 14
-thread1: count = 15
-thread2: count = 15
-thread1: count = 16
-thread2: count = 16
-thread1thread2: count = 17
-: count = 17
-thread2: count = 18
-thread1: count = 18
+...
+thread2: count = 23
+thread1: count = 24
+thread2: count =thread1: count = 25
+ 25
+thread1: count = 26
+thread2: count = 25
+thread1: count = 27
+thread2: count = 26
+threathread2: count = 27
+d2: count = 27
+thread2: count = 28
+thread1: count = 29
+thread2: count = 29
+...
+thread1: count = 51
+thread2: count = 51
+thread1: cthread2: count = 52
+ount = 52
+thread2: count = 53
+thread1: count = 53
+thread2: count = 54
+thread1: count = 54
+...
 ```

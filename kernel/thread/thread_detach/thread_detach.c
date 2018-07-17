@@ -1,8 +1,8 @@
-/*
- * 程序清单：线程脱离
+﻿/*
+ * 程序清单：静态线程脱离
  *
- * 这个例子会创建两个线程(t1和t2)，在t2中会对t1进行脱离操作；
- * t1脱离后将不在运行，状态也更改为初始状态
+ * 这个例子会初始化两个静态线程(t1和t2)，在t2中会对t1进行脱离操作；
+ * t1脱离后将不再运行，状态也更改为初始状态
  */
 #include <rtthread.h>
 
@@ -81,9 +81,6 @@ int thread_detach_init(void)
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-	INIT_APP_EXPORT(thread_detach_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(thread_detach_init, thread detach);

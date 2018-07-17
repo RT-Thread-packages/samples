@@ -1,7 +1,7 @@
-/*
- * 程序清单：动态线程
+﻿/*
+ * 程序清单：创建动态线程
  *
- * 这个程序会初始化2个动态线程：
+ * 这个程序会创建2个动态线程：
  * 它们拥有共同的入口函数，相同的优先级
  * 但是它们的入口参数不相同
  */
@@ -53,9 +53,6 @@ int thread_dynamic_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-	INIT_APP_EXPORT(thread_dynamic_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(thread_dynamic_init, thread dynamic init);

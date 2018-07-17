@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 程序清单：信号量例程
  *
  * 该例程创建了一个动态信号量和静态信号量，分别展示了获取信号量超时和获取成功的情况
@@ -135,10 +135,7 @@ int semaphore_sample_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(semaphore_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(semaphore_sample_init, semaphore sample);
 

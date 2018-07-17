@@ -106,10 +106,7 @@ int signal_sample_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(signal_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(signal_sample_init, signal sample);
 ```
@@ -117,6 +114,13 @@ MSH_CMD_EXPORT(signal_sample_init, signal sample);
 ## 运行结果 ##
 
 ```
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.4 build Jul 17 2018
+ 2006 - 2018 Copyright by rt-thread team
+msh >si 
+signal_sample_init
+msh >signal_sample_init
 thread2 count : 0
 thread1 count : 0
 thread1 count : 1
@@ -125,7 +129,7 @@ thread1 count : 2
 thread1 count : 3
 thread2 count : 2
 thread1 count : 4
-thread2 received signal 11
+msh >thread2 received signal 11
 thread2 count : 3
 thread1 received signal 10
 thread1 count : 5

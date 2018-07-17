@@ -1,16 +1,15 @@
-# 创建动态线程 #
+# 创建与删除动态线程 #
 
 ## 介绍 ##
 
-程序清单：线程让出处理器
-在这个例子中，将创建两个相同优先级的线程， 它们会通过rt_thread_yield
-接口把处理器相互让给对方进行执行。
+程序清单：创建和删除线程例程
+这个例子会创建两个线程，在一个线程中删除另外一个线程。
 
 ## 程序清单 ##
 
 ```{.c}
-/*
- * 程序清单：创建和删除线程例程
+ /*
+ * 程序清单：创建和删除线程
  *
  * 这个例子会创建两个线程，在一个线程中删除另外一个线程。
  */
@@ -35,7 +34,6 @@ static void thread1_entry(void *parameter)
     {
         /* 线程1采用低优先级运行，一直打印计数值 */
         rt_kprintf("thread count: %d\n", count ++);
-        count ++;
     }
 }
 
@@ -113,54 +111,27 @@ int thread_sample_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-INIT_APP_EXPORT(thread_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
-MSH_CMD_EXPORT(thread_sample_init, run signal sample);
+MSH_CMD_EXPORT(thread_sample_init, run thread sample);
 ```
 
 ## 运行结果 ##
 
 ```
-thread1: count = 0
-thread2: count = 0
-thread1: count = 1
-thread2: count = 1
-thread1: count = 2
-thread2: count = 2
-thread1: count = 3
-thread2: count = 3
-thread1: count = 4
-thread2: count = 4
-thread1: count = 5
-thread2: count = 5
-thread1: count = 6
-thread2: count = 6
-thread1: count = 7
-thread2: count = 7
-thread1: count = 8
-thread2: count = 8
-thread1: count = 9
-thread2: count = 9
-thread1: count = 10
-thread2: count = 10
-thread1: count = 11
-thread2: count = 11
-thread1: count = 12
-thread2: count = 12
-thread1: count = 13
-thread2: count = 13
-thread1: count = 14
-thread2: count = 14
-thread1: count = 15
-thread2: count = 15
-thread1: count = 16
-thread2: count = 16
-thread1thread2: count = 17
-: count = 17
-thread2: count = 18
-thread1: count = 18
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.4 build Jul 17 2018
+ 2006 - 2018 Copyright by rt-thread team
+msh >th
+thread_sample_init
+msh >thread_sample_init
+msh >thread count: 0
+thread count: 1
+thread count: 2
 ...
+thread count: 62
+threathread1 end
+thread2 end
 ```
+线程1计数到一定值之后被线程2删除，计数停止，线程2运行完毕自动被删除。
