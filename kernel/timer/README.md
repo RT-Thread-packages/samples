@@ -73,7 +73,14 @@ MSH_CMD_EXPORT(timer_sample_init, timer sample);
 ## 运行结果 ##
 
 ```
-periodic timer is timeout
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.4 build Jun 14 2018
+ 2006 - 2018 Copyright by rt-thread team
+msh >timer
+timer_static_sample_init
+msh >timer_static_sample_init
+msh >periodic timer is timeout
 periodic timer is timeout
 one shot timer is timeout
 periodic timer is timeout

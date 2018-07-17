@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 程序清单：事件例程
  *
  * 程序会创建3个动态线程及初始化一个静态事件对象
@@ -89,7 +89,6 @@ int event_sample_init(void)
                    sizeof(thread1_stack), 8, 50);
     rt_thread_startup(&thread1);
 
-
     rt_thread_init(&thread2,
                    "thread2",
                    thread2_entry,
@@ -97,7 +96,6 @@ int event_sample_init(void)
                    &thread2_stack[0],
                    sizeof(thread2_stack), 9, 5);
     rt_thread_startup(&thread2);
-
 
     rt_thread_init(&thread3,
                    "thread3",
@@ -109,10 +107,6 @@ int event_sample_init(void)
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(event_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(event_sample_init, event sample);
-

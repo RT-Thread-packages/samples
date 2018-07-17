@@ -1,4 +1,4 @@
-/*
+﻿/*
 * 程序清单：定时器例程
 *
 * 这个例程会创建两个动态定时器对象，一个是单次定时，一个是周期性的定时
@@ -53,10 +53,6 @@ int timer_sample_init(void)
     if (timer2 != RT_NULL) rt_timer_start(timer2);
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(timer_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(timer_sample_init, timer sample);
-

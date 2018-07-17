@@ -4,7 +4,7 @@
 
 这个例子中将创建两个动态线程(t1和t2)
 低优先级线程t1在启动后将一直持续运行；
-高优先级线程t2在一定时刻后唤醒并挂起低优先级线程。
+高优先级线程t2在一定时刻后挂起低优先级线程t1。
 
 ## 程序清单 ##
 
@@ -14,7 +14,7 @@
  *
  * 这个例子中将创建两个动态线程(t1和t2)
  * 低优先级线程t1在启动后将一直持续运行；
- * 高优先级线程t2在一定时刻后唤醒并挂起低优先级线程。
+ * 高优先级线程t2在一定时刻后挂起低优先级线程t1。
  */
 #include <rtthread.h>
 
@@ -73,10 +73,7 @@ int thread_suspend_init(void)
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-	INIT_APP_EXPORT(thread_suspend_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(thread_suspend_init, thread suspend);
 ```
@@ -84,61 +81,19 @@ MSH_CMD_EXPORT(thread_suspend_init, thread suspend);
 ## 运行结果 ##
 
 ```
-thread count: 0
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.4 build Jul 17 2018
+ 2006 - 2018 Copyright by rt-thread team
+msh >th
+thread_suspend_init
+msh >thread_suspend_init
+msh >thread count: 0
 thread count: 1
-thread count: 2
-thread count: 3
-thread count: 4
-thread count: 5
-thread count: 6
-thread count: 7
-thread count: 8
-thread count: 9
-thread count: 10
-thread count: 11
-thread count: 12
-thread count: 13
-thread count: 14
-thread count: 15
-thread count: 16
-thread count: 17
-thread count: 18
-thread count: 19
-thread count: 20
-thread count: 21
-thread count: 22
-thread count: 23
-thread count: 24
-thread count: 25
-thread count: 26
-thread count: 27
-thread count: 28
-thread count: 29
-thread count: 30
-thread count: 31
-thread count: 32
-thread count: 33
-thread count: 34
-thread count: 35
-thread count: 36
-thread count: 37
-thread count: 38
-thread count: 39
-thread count: 40
-thread count: 41
-thread count: 42
-thread count: 43
-thread count: 44
-thread count: 45
-thread count: 46
-thread count: 47
-thread count: 48
-thread count: 49
-thread count: 50
-thread count: 51
-thread count: 52
-thread count: 53
-thread count: 54
-thread count: 55
+...
 thread count: 56
+thread count: 57
+thread c
 ```
+
+线程2将线程1挂起，计数停止。

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 程序清单：内存池例程
  *
  * 这个程序会创建一个静态的内存池对象，2个动态线程。两个线程会试图分别从内存池中获得
@@ -104,9 +104,6 @@ int mempool_sample_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(mempool_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(mempool_sample_init, mempool sample);

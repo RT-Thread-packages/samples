@@ -1,9 +1,9 @@
-/*
+﻿/*
  * 程序清单：挂起线程
  *
  * 这个例子中将创建两个动态线程(t1和t2)
  * 低优先级线程t1在启动后将一直持续运行；
- * 高优先级线程t2在一定时刻后唤醒并挂起低优先级线程。
+ * 高优先级线程t2在一定时刻后挂起低优先级线程t1。
  */
 #include <rtthread.h>
 
@@ -62,9 +62,6 @@ int thread_suspend_init(void)
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-	INIT_APP_EXPORT(thread_suspend_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(thread_suspend_init, thread suspend);

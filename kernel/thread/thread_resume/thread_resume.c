@@ -1,9 +1,9 @@
-/*
+﻿/*
  * 程序清单：唤醒线程
  *
  * 这个例子中将创建两个动态线程(t1和t2)，
  * 低优先级线程t1将挂起自身
- * 高优先级线程t2将在一定时刻后唤醒低优先级线程。
+ * 高优先级线程t2将在一定时刻后唤醒低优先级线程t1。
  */
 #include <rtthread.h>
 
@@ -18,10 +18,10 @@ static rt_thread_t tid2 = RT_NULL;
 static void thread1_entry(void* parameter)
 {
     /* 低优先级线程1开始运行 */
-    rt_kprintf("thread1 startup%d\n");
+    rt_kprintf("thread1 startup\n");
 
     /* 挂起自身 */
-    rt_kprintf("suspend thread self\n");
+    rt_kprintf("suspend thread1 self\n");
     rt_thread_suspend(tid1);
     /* 主动执行线程调度 */
     rt_schedule();
@@ -67,9 +67,6 @@ int thread_resume_init(void)
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-	INIT_APP_EXPORT(thread_resume_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(thread_resume_init, thread resume);

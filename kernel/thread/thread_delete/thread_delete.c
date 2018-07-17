@@ -1,5 +1,5 @@
-/*
- * 程序清单：删除线程
+﻿/*
+ * 程序清单：删除动态线程
  *
  * 这个例子会创建两个线程，在一个线程中删除另外一个线程。
  */
@@ -79,9 +79,6 @@ int thread_delete_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(thread_delete_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(thread_delete_init, thread delete);

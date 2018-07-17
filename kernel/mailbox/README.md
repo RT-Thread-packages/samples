@@ -116,10 +116,7 @@ int mailbox_sample_init()
     rt_thread_startup(&thread2);
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#ifdef RT_SAMPLES_AUTORUN
-    INIT_APP_EXPORT(mailbox_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(mailbox_sample_init, mailbox sample);
 ```
@@ -128,9 +125,16 @@ MSH_CMD_EXPORT(mailbox_sample_init, mailbox sample);
 ## 运行结果 ##
 
 ```
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.4 build Jul 17 2018
+ 2006 - 2018 Copyright by rt-thread team
+msh >mail
+mailbox_sample_init
+msh >mailbox_sample_init
 thread1: try to recv a mail
 thread1: get a mail from mailbox, the content:I'm a mail!
-thread1: try to recv a mail
+msh >thread1: try to recv a mail
 thread1: get a mail from mailbox, the content:this is another mail!
 thread1: try to recv a mail
 thread1: get a mail from mailbox, the content:I'm a mail!

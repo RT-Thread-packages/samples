@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 程序清单：消息队列例程
  *
  * 这个程序会创建2个动态线程，一个线程会从消息队列中收取消息；一个线程会定时给消
@@ -116,9 +116,6 @@ int messagequeue_sample_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(messagequeue_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(messagequeue_sample_init, messagequeue sample);

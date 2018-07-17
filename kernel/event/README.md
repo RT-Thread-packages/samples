@@ -118,10 +118,7 @@ int event_sample_init(void)
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(event_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(event_sample_init, event sample);
 ```
@@ -129,12 +126,19 @@ MSH_CMD_EXPORT(event_sample_init, event sample);
 ## 运行结果 ##
 
 ```
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.4 build Jul 17 2018
+ 2006 - 2018 Copyright by rt-thread team
+msh >ev
+event_sample_init
+msh >event_sample_init
 thread2: send event1
 thread2 leave.
 thread3: send event2
 thread1: AND recv event 0x28
 thread1: delay 1s to prepare second event
-thread3: send event2
+msh >thread3: send event2
 thread3 leave.
 thread1: OR recv event 0x20
 thread1 leave.
