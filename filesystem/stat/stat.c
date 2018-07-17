@@ -12,13 +12,13 @@
 
 static void stat_sample(void)
 {
-		int ret;
+    int ret;
     struct stat buf;
     ret=stat("/text.txt", &buf);
-		if(ret==0)
-				rt_kprintf("text.txt file size = %d\n", buf.st_size);
-		else
-				rt_kprintf("text.txt file not fonud\n");
+    if(ret==0)
+        rt_kprintf("text.txt file size = %d\n", buf.st_size);
+    else
+        rt_kprintf("text.txt file not fonud\n");
 }
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(stat_sample, show text.txt stat sample);
