@@ -9,11 +9,8 @@
 #include <rtthread.h>
 #include <dfs_posix.h> /* 当需要使用文件操作时，需要包含这个头文件 */
 
-ALIGN(RT_ALIGN_SIZE)
-static char dir_thread_stack[1024];
-static struct rt_thread dir_thread;
 /* 假设文件操作是在一个线程中完成 */
-static void telldir_sample(void *parameter)
+static void telldir_sample(void)
 {
     DIR *dirp;
     int save3 = 0;

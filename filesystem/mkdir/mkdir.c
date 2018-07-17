@@ -10,7 +10,7 @@
 #include <rtthread.h>
 #include <dfs_posix.h> /* 当需要使用文件操作时，需要包含这个头文件 */
 
-static void mkdir_sample(void *parameter)
+static void mkdir_sample(void)
 {
     int ret;
 

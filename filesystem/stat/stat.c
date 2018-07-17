@@ -10,11 +10,15 @@
 #include <rtthread.h>
 #include <dfs_posix.h> /* 当需要使用文件操作时，需要包含这个头文件 */
 
-static void stat_sample(void *parameter)
+static void stat_sample(void)
 {
+		int ret;
     struct stat buf;
-    stat("/text.txt", &buf);
-    rt_kprintf("text.txt file size = %d\n", buf.st_size);
+    ret=stat("/text.txt", &buf);
+		if(ret==0)
+				rt_kprintf("text.txt file size = %d\n", buf.st_size);
+		else
+				rt_kprintf("text.txt file not fonud\n");
 }
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(stat_sample, show text.txt stat sample);

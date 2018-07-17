@@ -19,10 +19,9 @@
 #include <rtthread.h>
 #include <dfs_posix.h> /* 当需要使用文件操作时，需要包含这个头文件 */
 
-static void opendir_sample(void *parameter)
+static void opendir_sample(void)
 {
     DIR *dirp;
-
     /* 打开/dir_test 目录*/
     dirp = opendir("/dir_test");
     if (dirp == RT_NULL)
