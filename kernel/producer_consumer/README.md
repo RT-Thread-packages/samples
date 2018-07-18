@@ -121,10 +121,7 @@ int semaphore_producer_consumer_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(semaphore_producer_consumer_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(semaphore_producer_consumer_init, producer_consumer sample);
 ```
@@ -132,6 +129,13 @@ MSH_CMD_EXPORT(semaphore_producer_consumer_init, producer_consumer sample);
 ## 运行结果 ##
 
 ```
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.4 build Jul 17 2018
+ 2006 - 2018 Copyright by rt-thread team
+msh >sem
+semaphore_producer_consumer_init
+msh >semaphore_producer_consumer_init
 the producer generates a number: 1
 the consumer[0] get a number: 1
 msh >the producer generates a number: 2

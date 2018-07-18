@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 程序清单：堆内存例程
  *
  * 这个程序会演示堆内存的申请和释放操作。
@@ -55,10 +55,6 @@ int heap_malloc_init(void)
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(heap_malloc_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(heap_malloc_init, heap malloc sample);
-

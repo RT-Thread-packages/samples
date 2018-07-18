@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 程序清单：空闲任务钩子例程
  *
  * 这个例程设置了一个空闲任务钩子用于计算CPU使用率，并创建一个线程循环打印CPU使用率
@@ -109,9 +109,6 @@ int cpu_usage_init()
         rt_thread_startup(tid);
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(cpu_usage_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(cpu_usage_init, idle hook sample);

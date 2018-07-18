@@ -1,8 +1,9 @@
-/*
- * 程序清单：创建和删除线程例程
+﻿/*
+ * 程序清单：创建和删除线程
  *
  * 这个例子会创建两个线程，在一个线程中删除另外一个线程。
  */
+
 #include <rtthread.h>
 
 #define THREAD_PRIORITY     25
@@ -24,7 +25,6 @@ static void thread1_entry(void *parameter)
     {
         /* 线程1采用低优先级运行，一直打印计数值 */
         rt_kprintf("thread count: %d\n", count ++);
-        count ++;
     }
 }
 
@@ -77,9 +77,6 @@ static void thread2_cleanup(struct rt_thread *tid)
 /* 线程示例的初始化 */
 int thread_sample_init()
 {
-    rt_thread_t init_thread;
-
-    rt_err_t result;
     /* 创建线程1 */
     tid1 = rt_thread_create("t1", /* 线程1的名称是t1 */
                             thread1_entry, RT_NULL,   /* 入口是thread1_entry，参数是RT_NULL */
@@ -102,9 +99,6 @@ int thread_sample_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-INIT_APP_EXPORT(thread_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
-MSH_CMD_EXPORT(thread_sample_init, run signal sample);
+MSH_CMD_EXPORT(thread_sample_init, run thread sample);

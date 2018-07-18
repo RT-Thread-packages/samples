@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 程序清单：信号例程
  *
  * 这个例子会创建两个线程线程1和线程2，每个线程会分别安装信号，然后给这两个线程发送信号。
@@ -95,10 +95,6 @@ int signal_sample_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(signal_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(signal_sample_init, signal sample);
-

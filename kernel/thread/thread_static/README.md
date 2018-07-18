@@ -1,4 +1,4 @@
-# 静态线程 #
+# 初始化静态线程 #
 
 ## 介绍 ##
 
@@ -72,10 +72,7 @@ int thread_static_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-	INIT_APP_EXPORT(thread_static_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(thread_static_init, thread static init);
 ```
@@ -83,7 +80,14 @@ MSH_CMD_EXPORT(thread_static_init, thread static init);
 ## 运行结果 ##
 
 ```
-thread1 count: 0
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.4 build Jul 17 2018
+ 2006 - 2018 Copyright by rt-thread team
+msh >th
+thread_static_init
+msh >thread_static_init
+msh >thread1 count: 0
 thread2 count: 0
 thread1 count: 1
 thread2 count: 1
@@ -91,30 +95,5 @@ thread1 count: 2
 thread2 count: 2
 thread1 count: 3
 thread2 count: 3
-thread1 count: 4
-thread2 count: 4
-thread1 count: 5
-thread2 count: 5
-thread1 count: 6
-thread2 count: 6
-thread1 count: 7
-thread2 count: 7
-thread1 count: 8
-thread2 count: 8
-thread1 count: 9
-thread2 count: 9
-thread1 count: 10
-thread2 count: 10
-thread1 count: 11
-thread2 count: 11
-thread1 count: 12
-thread2 count: 12
-thread1 count: 13
-thread2 count: 13
-thread1 count: 14
-thread2 count: 14
-thread1 count: 15
-thread2 count: 15
-thread1 count: 16
-thread2 count: 16
+...
 ```

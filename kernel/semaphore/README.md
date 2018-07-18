@@ -144,10 +144,7 @@ int semaphore_sample_init()
 
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(semaphore_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(semaphore_sample_init, semaphore sample);
 ```
@@ -155,7 +152,14 @@ MSH_CMD_EXPORT(semaphore_sample_init, semaphore sample);
 ## 运行结果 ##
 
 ```
-take semaphore timeout
+ \ | /
+- RT -     Thread Operating System
+ / | \     3.0.4 build Jul 17 2018
+ 2006 - 2018 Copyright by rt-thread team
+msh >sem
+semaphore_sample_init
+msh >semaphore_sample_init
+msh >take semaphore timeout
 take a staic semaphore, done.
 take semaphore timeout
 take a dynamic semaphore, done.

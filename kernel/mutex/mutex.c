@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 程序清单：互斥锁例程
  *
  * 互斥锁是一种保护共享资源的方法。当一个线程拥有互斥锁的时候，另一个线程若是等待锁，
@@ -168,9 +168,6 @@ int mutex_sample_init()
     rt_thread_startup(&thread2);
     return 0;
 }
-/* 如果设置了RT_SAMPLES_AUTORUN，则加入到初始化线程中自动运行 */
-#if defined (RT_SAMPLES_AUTORUN) && defined(RT_USING_COMPONENTS_INIT)
-    INIT_APP_EXPORT(mutex_sample_init);
-#endif
+
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(mutex_sample_init, mutex sample);
