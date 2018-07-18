@@ -25,6 +25,18 @@ BSP 中已经实现如下驱动：
 
 ## 准备工作
 
+### 获取示例代码
+
+RT-Thread samples 软件包中中已有一份该示例代码 [led_blink.c]()，可以通过 env 配置将示例代码加入到项目中。
+
+```
+ RT-Thread online packages  --->
+     miscellaneous packages  --->
+         samples: RT-Thread kernel and components samples  --->
+             network sample options  --->
+                 [*] [network] tcp client
+```
+
 ### 配置 LED 灯对应的 PIN 号
 
 根据硬件连接情况配置与 LED 灯连接的 PIN 号，有两种配置方式:
@@ -45,85 +57,79 @@ BSP 中已经实现如下驱动：
 #define LED_PIN     xxx
 ```
 
-## 步骤一 编写示例代码
-
-### 创建示例代码文件
-
-创建 led_blink.c 文件，并在文件中加入引用头文件
+### 示例代码文件
 
 ```{.c}
+/*
+ * 程序清单：跑马灯例程
+ *
+ * 跑马灯大概是最简单的例子，就类似于每种编程语言中程序员接触的第一个程序
+ * Hello World一样，所以这个例子就从跑马灯开始。创建一个线程，让它定时地对
+ * LED进行更新（亮或灭）
+ */
+
 #include <rtthread.h>
 #include <rtdevice.h>
-```
 
-### 编写示例函数
+ALIGN(RT_ALIGN_SIZE)
+static rt_uint8_t led_stack[ 512 ];
+/* 线程的TCB控制块 */
+static struct rt_thread led_thread;
 
-编写 led_blink()函数，首先设置 PIN 脚模式
+static void led_thread_entry(void *parameter)
+{
+    unsigned int count = 0;
 
-```{.c}
-rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
-```
 
-PIN 脚模式设置好以后，就可以使用 rt_pin_write() 接口来拉高或者拉低 PIN 脚电平，控制对应灯的亮和灭，通过调整延时的长度来控制闪烁的频率，同时将灯的状态信息从串口打印出来。
+    /* 设置 PIN 脚模式 */
+    rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
 
-```{.c}
     while (1)
     {
-        /* led1 on */
+        /* 点亮 led */
         rt_kprintf("led on, count : %d\r\n", count);
-        count++;
         rt_pin_write(LED_PIN, 0);
-        rt_thread_delay(RT_TICK_PER_SECOND / 2); /* 延时 500 毫秒 */
+        rt_thread_delay(RT_TICK_PER_SECOND / 2); 
 
-        /* led1 off */
+        /* 关灭 led */
         rt_kprintf("led off\r\n");
-
         rt_pin_write(LED_PIN, 1);
         rt_thread_delay(RT_TICK_PER_SECOND / 2);
+
+        count++;
     }
-```
-
-这里的 `rt_thread_delay(RT_TICK_PER_SECOND/2)` 函数的作用是延迟一段时间， 即让 led 线程休眠 50 个 [OS Tick](os_tick.md) （按照 [rtconfig.h](rtconfig.md) 中的配置，1 秒 = RT_TICK_PER_SECOND 个 tick = 100 tick，即在这份代码中延迟时间等于 500ms）。
-
-### 将示例函数导出到 msh 命令列表
-
-通过如下的方式可以将示例函数 led_blink 导出到 msh 命令列表中：
-
-```{.c}
-/* 导出到 msh 命令列表中 */
-MSH_CMD_EXPORT(led_blink, led blink sample);
-```
-
-### 获取示例代码
-
-RT-Thread samples 软件包中中已有一份该示例代码 [led_blink.c]()，可以通过 env 配置将示例代码加入到项目中。
-
-```
- RT-Thread online packages  --->
-     miscellaneous packages  --->
-         samples: RT-Thread kernel and components samples  --->
-             network sample options  --->
-                 [*] [network] tcp client
-```
-
-[获取 samples 软件包示例代码]()
-
-## 步骤二 运行示例代码
-
-### 在 main 函数中运行
-
-一种方式是在 main 程序中调用 led_blink() 函数
-
-```{.c}
-int main(int argc, char **argv)
-{
-    led_blink();
 }
+
+int led_sample_init(void)
+{
+    rt_err_t result;
+
+    /* init led thread */
+    result = rt_thread_init(&led_thread,
+                            "led",
+                            led_thread_entry,
+                            RT_NULL,
+                            (rt_uint8_t *)&led_stack[0],
+                            sizeof(led_stack),
+                            20,
+                            5);
+    if (result == RT_EOK)
+    {
+        rt_thread_startup(&led_thread);
+    }
+    return 0;
+}
+
+/* 导出到 msh 命令列表中 */
+MSH_CMD_EXPORT(led_sample_init, led sample);
+
 ```
 
-### 在 msh shell 中运行
+示例代码中的 `rt_thread_delay(RT_TICK_PER_SECOND/2)` 函数的作用是延迟一段时间， 即让 led 线程休眠 50 个 [OS Tick](os_tick.md) （按照 [rtconfig.h](rtconfig.md) 中的配置，1 秒 = RT_TICK_PER_SECOND 个 tick = 100 tick，即在这份代码中延迟时间等于 500ms）。
 
-另一种方式是通过 [msh shell](shell.md) 运行，在步骤一中已经将 led_blink 命令导出到了 msh 命令列表中，因此系统运行起来后，在 msh 命令行下输入 led_blink 命令即可让示例代码运行。
+## 在 msh shell 中运行示例代码
+
+示例代码中已经将 led_blink 命令导出到了 msh 命令列表中，因此系统运行起来后，在 msh 命令行下输入 led_blink 命令即可让示例代码运行。
 
 ```{.c}
 msh> led_blink
