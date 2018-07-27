@@ -22,15 +22,15 @@ if GetDepend('RT_USING_SAMPLE_UDP_CLIENT'):
 if GetDepend('RT_USING_SAMPLE_UDP_SERVER'):
     src += ['udpserver/udpserver.c']
     CPPPATH += [cwd + '/udpserver']
-    
+
 if GetDepend('RT_USING_SAMPLE_TCP_CLIENT_SELECT'):
     src += ['tcpclient_select/tcpclient_select.c']
     CPPPATH += [cwd + '/tcpclient_select']
-    
+
 if GetDepend('RT_USING_SAMPLE_HTTP_CLIENT'):
     src += ['httpclient/httpclient.c']
     CPPPATH += [cwd + '/httpclient']
-    
+
 group = DefineGroup('samples', src, depend = [''], CPPPATH = CPPPATH)
 
 Return('group')

@@ -93,7 +93,7 @@ int semaphore_producer_consumer_init()
 {
 	set = 0;
 	get = 0;
-	
+
     /* 初始化3个信号量 */
     rt_sem_init(&sem_lock, "lock",     1,      RT_IPC_FLAG_FIFO);
     rt_sem_init(&sem_empty, "empty",    MAXSEM, RT_IPC_FLAG_FIFO);

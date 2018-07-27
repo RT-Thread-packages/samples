@@ -34,13 +34,13 @@
 static struct rt_event event;
 /* 串口设备句柄 */
 static rt_device_t uart_device = RT_NULL;
-    
+
 /* 回调函数 */
 static rt_err_t uart_intput(rt_device_t dev, rt_size_t size)
 {
     /* 发送事件 */
     rt_event_send(&event, UART_RX_EVENT);
-    
+
     return RT_EOK;
 }
 
@@ -87,7 +87,7 @@ rt_err_t uart_open(const char *name)
     /* 查找到设备后将其打开 */
     if (uart_device != RT_NULL)
     {   
-       
+
         res = rt_device_set_rx_indicate(uart_device, uart_intput);
         /* 检查返回值 */
         if (res != RT_EOK)
