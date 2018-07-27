@@ -55,7 +55,7 @@ static void readwrite_sample(void)
     if (length != sizeof(test_data))
     {
         rt_kprintf("append write data failed\n");
-        close(fd);			
+        close(fd);          
         return;
     }
     /* 关闭文件 */
