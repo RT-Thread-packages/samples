@@ -91,7 +91,7 @@ void weather(int argc, char **argv)
         rt_kprintf("No memory for session structure!\n");
         goto __exit;
     }
-    
+
     /* 连接天气网站 */
     result = webclient_connect(session, weather_url);
     if (result < 0)
@@ -122,7 +122,7 @@ void weather(int argc, char **argv)
         rt_kprintf("No memory for data receive buffer!\n");
         goto __exit;
     }
-    
+
     length = webclient_read(session, ptr, BUF_SZ);
     ptr[length] = '\0';
     /* 天气数据解析 */
