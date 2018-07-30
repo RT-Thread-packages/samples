@@ -68,5 +68,9 @@ void udpclient(int argc, char **argv)
     /* 关闭这个socket */
     closesocket(sock);
 }
+#ifdef FINSH_USING_MSH
+#include <finsh.h>
+
 MSH_CMD_EXPORT(udpclient, a udp client sample);
+#endif
 

@@ -138,4 +138,8 @@ void tcpclient(int argc, char **argv)
     }
     return;
 }
+#ifdef FINSH_USING_MSH
+#include <finsh.h>
+
 MSH_CMD_EXPORT(tcpclient, a tcp client sample);
+#endif

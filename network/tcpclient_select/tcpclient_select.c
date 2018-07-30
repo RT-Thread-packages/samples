@@ -160,4 +160,8 @@ void tcpclient_select(int argc, char **argv)
     }
     return;
 }
+#ifdef FINSH_USING_MSH
+#include <finsh.h>
+
 MSH_CMD_EXPORT(tcpclient_select, a tcp client sample by select api);
+#endif

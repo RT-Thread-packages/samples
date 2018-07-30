@@ -152,4 +152,8 @@ static void tcpserv(int argc, char **argv)
 
     return ;
 }
+#ifdef FINSH_USING_MSH
+#include <finsh.h>
+
 MSH_CMD_EXPORT(tcpserv, a tcp server sample);
+#endif
