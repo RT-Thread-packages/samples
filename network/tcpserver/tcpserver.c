@@ -9,7 +9,8 @@
 */
 #include <rtthread.h>
 #include <sys/socket.h> /* 使用BSD socket，需要包含socket.h头文件 */
-#include "netdb.h"
+#include <netdb.h>
+#include <string.h>
 
 #define BUFSZ       (1024)
 
