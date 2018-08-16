@@ -123,7 +123,7 @@ MSH_CMD_EXPORT(led_sample_init, led sample);
 
 ```
 
-示例代码中的 `rt_thread_delay(RT_TICK_PER_SECOND/2)` 函数的作用是延迟一段时间， 即让 led 线程休眠 50 个 [OS Tick](os_tick.md) （按照 [rtconfig.h](rtconfig.md) 中的配置，1 秒 = RT_TICK_PER_SECOND 个 tick = 100 tick，即在这份代码中延迟时间等于 500ms）。
+示例代码中的 `rt_thread_delay(rt_tick_from_millisecond(500))` 函数的作用是延迟 500ms，也相当于让出 CPU 500ms。
 
 ## 在 msh shell 中运行示例代码
 
