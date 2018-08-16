@@ -17,22 +17,20 @@ static struct rt_thread led_thread;
 static void led_thread_entry(void *parameter)
 {
     unsigned int count = 0;
-
-
     /* 设置 PIN 脚模式 */
     rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
 
     while (1)
     {
         /* 点亮 led */
-        rt_kprintf("led on, count : %d\r\n", count);
+        rt_kprintf("led on, count : %d\n", count);
         rt_pin_write(LED_PIN, 0);
-        rt_thread_delay(RT_TICK_PER_SECOND / 2); 
+        rt_thread_delay(rt_tick_from_millisecond(500));
 
         /* 关灭 led */
-        rt_kprintf("led off\r\n");
+        rt_kprintf("led off\n");
         rt_pin_write(LED_PIN, 1);
-        rt_thread_delay(RT_TICK_PER_SECOND / 2);
+        rt_thread_delay(rt_tick_from_millisecond(500));
 
         count++;
     }
