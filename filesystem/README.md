@@ -13,6 +13,7 @@
 | opendir       | 打开目录               |
 | readdir       | 读取目录               |
 | tell_seek_dir | 保存与设置读取目录位置 |
+| untar         | 解压 tar 包到指定位置  |
 
 ## API 列表 ##
 
