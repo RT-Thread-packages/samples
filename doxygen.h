@@ -3,9 +3,9 @@
  */
 
 /**
- * @defgroup example Ê¾Àı³ÌĞò
+ * @defgroup example ç¤ºä¾‹ç¨‹åº
  *
- * @brief Ìá¹©ÄÚºË¡¢ÎÄ¼şÏµÍ³¡¢ÍøÂçºÍÍâÉèµÄÊ¹ÓÃÀı³Ì
+ * @brief æä¾›å†…æ ¸ã€æ–‡ä»¶ç³»ç»Ÿã€ç½‘ç»œå’Œå¤–è®¾çš„ä½¿ç”¨ä¾‹ç¨‹
  */
  
 /**
@@ -15,28 +15,28 @@
 /*@{*/
 
 /**
- * @defgroup kernel_example ÄÚºËÀı³Ì
+ * @defgroup kernel_example å†…æ ¸ä¾‹ç¨‹
  *
- * @brief ÄÚºË½Ó¿ÚµÄÊ¹ÓÃÀı³Ì¡£
+ * @brief å†…æ ¸æ¥å£çš„ä½¿ç”¨ä¾‹ç¨‹ã€‚
  */
  
 /**
- * @defgroup filesystem_example ÎÄ¼şÏµÍ³Àı³Ì
+ * @defgroup filesystem_example æ–‡ä»¶ç³»ç»Ÿä¾‹ç¨‹
  *
- * @brief ÎÄ¼şÏµÍ³½Ó¿ÚµÄÊ¹ÓÃÀı³Ì
+ * @brief æ–‡ä»¶ç³»ç»Ÿæ¥å£çš„ä½¿ç”¨ä¾‹ç¨‹
  */
 
 /**
- * @defgroup network_example ÍøÂçÀı³Ì
+ * @defgroup network_example ç½‘ç»œä¾‹ç¨‹
  *
- * @brief ÍøÂç½Ó¿ÚµÄÊ¹ÓÃÀı³Ì
+ * @brief ç½‘ç»œæ¥å£çš„ä½¿ç”¨ä¾‹ç¨‹
  *
  */
  
 /**
- * @defgroup peripheral-sample ÍâÉèÀı³Ì
+ * @defgroup peripheral-sample å¤–è®¾ä¾‹ç¨‹
  *
- * @brief ÍâÉè½Ó¿ÚµÄÊ¹ÓÃÀı³Ì
+ * @brief å¤–è®¾æ¥å£çš„ä½¿ç”¨ä¾‹ç¨‹
  *
  */
 
@@ -49,149 +49,149 @@
 /*@{*/
 
 /**
- * @defgroup thread_example Ïß³Ì
- * @brief ´´½¨¡¢³õÊ¼»¯/ÍÑÀëÏß³Ì
+ * @defgroup thread_example çº¿ç¨‹
+ * @brief åˆ›å»ºã€åˆå§‹åŒ–/è„±ç¦»çº¿ç¨‹
  *
- * **Ô´Âë**
+ * **æºç **
  * @include thread_sample.c
  * @example thread_sample.c
  *
  */
 
 /**
- * @defgroup timeslice_example Ê±¼äÆ¬µ÷¶È
- * @brief ÏàÍ¬ÓÅÏÈ¼¶Ïß³Ì°´ÕÕÊ±¼äÆ¬ÂÖ·¬µ÷¶È
+ * @defgroup timeslice_example æ—¶é—´ç‰‡è°ƒåº¦
+ * @brief ç›¸åŒä¼˜å…ˆçº§çº¿ç¨‹æŒ‰ç…§æ—¶é—´ç‰‡è½®ç•ªè°ƒåº¦
  *
- * **Ô´Âë**
+ * **æºç **
  * @include timeslice_sample.c
  * @example timeslice_sample.c
  */
  
 /**
- * @defgroup timer_example ¶¨Ê±Æ÷
- * @brief µ¥´Î¶¨Ê±Æ÷ºÍÖÜÆÚĞÔ¶¨Ê±Æ÷µÄÊ¹ÓÃ
+ * @defgroup timer_example å®šæ—¶å™¨
+ * @brief å•æ¬¡å®šæ—¶å™¨å’Œå‘¨æœŸæ€§å®šæ—¶å™¨çš„ä½¿ç”¨
  *
- * **Ô´Âë**
+ * **æºç **
  * @include timer_sample.c
  * @example timer_sample.c
  */
 
 /**
- * @defgroup interrupt_example ÖĞ¶Ï
- * @brief ¹Ø±ÕÖĞ¶Ï½øĞĞÈ«¾Ö±äÁ¿µÄ·ÃÎÊ
+ * @defgroup interrupt_example ä¸­æ–­
+ * @brief å…³é—­ä¸­æ–­è¿›è¡Œå…¨å±€å˜é‡çš„è®¿é—®
  *
- * **Ô´Âë**
+ * **æºç **
  * @include interrupt_sample.c
  * @example interrupt_sample.c
  */
 
 /**
- * @defgroup signal_example ĞÅºÅ
- * @brief ¸øÏß³Ì·¢ËÍĞÅºÅ
+ * @defgroup signal_example ä¿¡å·
+ * @brief ç»™çº¿ç¨‹å‘é€ä¿¡å·
  *
- * **Ô´Âë**
+ * **æºç **
  * @include signal_sample.c
  * @example signal_sample.c
  */
 
 /**
- * @defgroup dynmem_example ¶¯Ì¬ÄÚ´æ
- * @brief Ïß³Ì¶¯Ì¬ÉêÇëÄÚ´æ²¢ÊÍ·Å
+ * @defgroup dynmem_example åŠ¨æ€å†…å­˜
+ * @brief çº¿ç¨‹åŠ¨æ€ç”³è¯·å†…å­˜å¹¶é‡Šæ”¾
  *
- * **Ô´Âë**
+ * **æºç **
  * @include dynmem_sample.c
  * @example dynmem_sample.c
  */
 
 /**
- * @defgroup memp_example ÄÚ´æ³Ø
- * @brief Ïß³Ì´ÓÄÚ´æ³ØÖĞ»ñµÃÄÚ´æ¿éÓëÊÍ·ÅÄÚ´æ¿é
+ * @defgroup memp_example å†…å­˜æ± 
+ * @brief çº¿ç¨‹ä»å†…å­˜æ± ä¸­è·å¾—å†…å­˜å—ä¸é‡Šæ”¾å†…å­˜å—
  *
- * **Ô´Âë**
+ * **æºç **
  * @include memp_sample.c
  * @example memp_sample.c
  */
 
 /**
- * @defgroup idlehook_example ¿ÕÏĞÏß³Ì¹³×Óº¯Êı
- * @brief ´òÓ¡¿ÕÏĞÏß³Ì¹³×Óº¯ÊıµÄÔËĞĞ´ÎÊı
+ * @defgroup idlehook_example ç©ºé—²çº¿ç¨‹é’©å­å‡½æ•°
+ * @brief æ‰“å°ç©ºé—²çº¿ç¨‹é’©å­å‡½æ•°çš„è¿è¡Œæ¬¡æ•°
  *
- * **Ô´Âë**
+ * **æºç **
  * @include idlehook_sample.c
  * @example idlehook_sample.c
  */
  
 /**
- * @defgroup scheduler_example µ÷¶ÈÆ÷¹³×Óº¯Êı
- * @brief ÔÚµ÷¶ÈÆ÷¹³×ÓÖĞ´òÓ¡Ïß³ÌÇĞ»»ĞÅÏ¢
+ * @defgroup scheduler_example è°ƒåº¦å™¨é’©å­å‡½æ•°
+ * @brief åœ¨è°ƒåº¦å™¨é’©å­ä¸­æ‰“å°çº¿ç¨‹åˆ‡æ¢ä¿¡æ¯
  *
- * **Ô´Âë**
+ * **æºç **
  * @include scheduler_hook.c
  * @example scheduler_hook.c
  */
 
 /**
- * @defgroup semaphore_example ĞÅºÅÁ¿
- * @brief Ò»¸öÏß³Ì·¢ËÍĞÅºÅÁ¿£¬ÁíÍâÒ»¸öÏß³Ì½ÓÊÕĞÅºÅÁ¿
+ * @defgroup semaphore_example ä¿¡å·é‡
+ * @brief ä¸€ä¸ªçº¿ç¨‹å‘é€ä¿¡å·é‡ï¼Œå¦å¤–ä¸€ä¸ªçº¿ç¨‹æ¥æ”¶ä¿¡å·é‡
  *
- * **Ô´Âë**
+ * **æºç **
  * @include semaphore_sample.c
  * @example semaphore_sample.c
  *
  */
 
 /**
- * @defgroup producer_example Éú²úÕßÏû·ÑÕßÄ£ĞÍ
- * @brief Éú²úÕßÏß³ÌÓëÏû·ÑÕßÏß³ÌÊ¹ÓÃĞÅºÅÁ¿Í¬²½
+ * @defgroup producer_example ç”Ÿäº§è€…æ¶ˆè´¹è€…æ¨¡å‹
+ * @brief ç”Ÿäº§è€…çº¿ç¨‹ä¸æ¶ˆè´¹è€…çº¿ç¨‹ä½¿ç”¨ä¿¡å·é‡åŒæ­¥
  *
- * **Ô´Âë**
+ * **æºç **
  * @include producer_consumer.c
  * @example producer_consumer.c
  */
 
 /**
- * @defgroup mutex_example »¥³âÁ¿
- * @brief Ïß³ÌÊ¹ÓÃ»¥³âÁ¿±£»¤¹²Ïí×ÊÔ´
+ * @defgroup mutex_example äº’æ–¥é‡
+ * @brief çº¿ç¨‹ä½¿ç”¨äº’æ–¥é‡ä¿æŠ¤å…±äº«èµ„æº
  *
- * **Ô´Âë**
+ * **æºç **
  * @include mutex_sample.c
  * @example mutex_sample.c
  *
  */
 
 /**
- * @defgroup priority_example ÓÅÏÈ¼¶·´×ª
- * @brief »¥³âÁ¿·´ÕıÏß³ÌÓÅÏÈ¼¶·´×ª¹¦ÄÜ
+ * @defgroup priority_example ä¼˜å…ˆçº§åè½¬
+ * @brief äº’æ–¥é‡åæ­£çº¿ç¨‹ä¼˜å…ˆçº§åè½¬åŠŸèƒ½
  *
- * **Ô´Âë**
+ * **æºç **
  * @include priority_inversion.c
  * @example priority_inversion.c
  */
  
 /**
- * @defgroup event_example ÊÂ¼ş
- * @brief Ò»¸öÏß³ÌµÈ´ıÊÂ¼ş£¬ÁíÒ»¸öÏß³Ì·¢ËÍÊÂ¼ş
+ * @defgroup event_example äº‹ä»¶
+ * @brief ä¸€ä¸ªçº¿ç¨‹ç­‰å¾…äº‹ä»¶ï¼Œå¦ä¸€ä¸ªçº¿ç¨‹å‘é€äº‹ä»¶
  *
- * **Ô´Âë**
+ * **æºç **
  * @include event_sample.c
  * @example event_sample.c
  */
 
 /**
- * @defgroup mailbox_example ÓÊÏä
- * @brief Ò»¸öÏß³ÌÍùÓÊÏäÖĞ·¢ËÍÓÊ¼ş£¬ÁíÍâÒ»¸öÏß³ÌÍùÓÊÏäÖĞÊÕÈ¡ÓÊ¼ş
+ * @defgroup mailbox_example é‚®ç®±
+ * @brief ä¸€ä¸ªçº¿ç¨‹å¾€é‚®ç®±ä¸­å‘é€é‚®ä»¶ï¼Œå¦å¤–ä¸€ä¸ªçº¿ç¨‹å¾€é‚®ç®±ä¸­æ”¶å–é‚®ä»¶
  *
- * **Ô´Âë**
+ * **æºç **
  * @include mailbox_sample.c
  * @example mailbox_sample.c
  */
 
 /**
- * @defgroup msgq_example ÏûÏ¢¶ÓÁĞ
- * @brief Ò»¸öÏß³Ì»á´ÓÏûÏ¢¶ÓÁĞÖĞÊÕÈ¡ÏûÏ¢£¬ÁíÒ»¸öÏß³Ì»á¶¨Ê±¸øÏûÏ¢¶ÓÁĞ·¢ËÍÆÕÍ¨ÏûÏ¢ºÍ½ô¼±ÏûÏ¢
+ * @defgroup msgq_example æ¶ˆæ¯é˜Ÿåˆ—
+ * @brief ä¸€ä¸ªçº¿ç¨‹ä¼šä»æ¶ˆæ¯é˜Ÿåˆ—ä¸­æ”¶å–æ¶ˆæ¯ï¼Œå¦ä¸€ä¸ªçº¿ç¨‹ä¼šå®šæ—¶ç»™æ¶ˆæ¯é˜Ÿåˆ—å‘é€æ™®é€šæ¶ˆæ¯å’Œç´§æ€¥æ¶ˆæ¯
  * 
  *
- * **Ô´Âë**
+ * **æºç **
  * @include msgq_sample.c
  * @example msgq_sample.c
  */
@@ -205,64 +205,64 @@
 /*@{*/
  
 /**
- * @defgroup mkdir_example ´´½¨Ä¿Â¼
- * @brief ´´½¨Ä¿Â¼
+ * @defgroup mkdir_example åˆ›å»ºç›®å½•
+ * @brief åˆ›å»ºç›®å½•
  *
- * **Ô´Âë**
+ * **æºç **
  * @include mkdir_sample.c
  * @example mkdir_sample.c
  */
 
 /**
- * @defgroup opendir_example ´ò¿ªÄ¿Â¼
- * @brief ´ò¿ªºÍ¹Ø±ÕÄ¿Â¼
+ * @defgroup opendir_example æ‰“å¼€ç›®å½•
+ * @brief æ‰“å¼€å’Œå…³é—­ç›®å½•
  *
- * **Ô´Âë**
+ * **æºç **
  * @include opendir_sample.c
  * @example opendir_sample.c
  */
 
 /**
- * @defgroup readdir_example ¶ÁÈ¡Ä¿Â¼
- * @brief ¶ÁÈ¡Ä¿Â¼
+ * @defgroup readdir_example è¯»å–ç›®å½•
+ * @brief è¯»å–ç›®å½•
  *
- * **Ô´Âë**
+ * **æºç **
  * @include readdir_sample.c
  * @example readdir_sample.c
  */
 
 /**
- * @defgroup readwrite_example ÎÄ¼ş¶ÁĞ´
- * @brief ´ò¿ªÎÄ¼ş¼°ÎÄ¼ş¶ÁĞ´
+ * @defgroup readwrite_example æ–‡ä»¶è¯»å†™
+ * @brief æ‰“å¼€æ–‡ä»¶åŠæ–‡ä»¶è¯»å†™
  *
- * **Ô´Âë**
+ * **æºç **
  * @include readwrite_sample.c
  * @example readwrite_sample.c
  */
 
 /**
- * @defgroup rename_example ÎÄ¼şÖØÃüÃû
- * @brief ÎÄ¼şÖØÃüÃû
+ * @defgroup rename_example æ–‡ä»¶é‡å‘½å
+ * @brief æ–‡ä»¶é‡å‘½å
  *
- * **Ô´Âë**
+ * **æºç **
  * @include rename_sample.c
  * @example rename_sample.c
  */
 
 /**
- * @defgroup stat_example ÎÄ¼ş×´Ì¬
- * @brief ²é¿´ÎÄ¼ş´óĞ¡
+ * @defgroup stat_example æ–‡ä»¶çŠ¶æ€
+ * @brief æŸ¥çœ‹æ–‡ä»¶å¤§å°
  *
- * **Ô´Âë**
+ * **æºç **
  * @include stat_sample.c
  * @example stat_sample.c
  */
 
 /**
- * @defgroup tell_seek_dir_example Ä¿Â¼Î»ÖÃ²Ù×÷
- * @brief ±£´æÓëÉèÖÃ¶ÁÈ¡Ä¿Â¼Î»ÖÃ
+ * @defgroup tell_seek_dir_example ç›®å½•ä½ç½®æ“ä½œ
+ * @brief ä¿å­˜ä¸è®¾ç½®è¯»å–ç›®å½•ä½ç½®
  *
- * **Ô´Âë**
+ * **æºç **
  * @include tell_seek_dir_sample.c
  * @example tell_seek_dir_sample.c
  */
@@ -276,59 +276,59 @@
 /*@{*/
  
  /**
- * @defgroup tcpclient_sample tcp ¿Í»§¶Ë
- * @brief tcp ¿Í»§¶ËÀı³Ì
+ * @defgroup tcpclient_sample tcp å®¢æˆ·ç«¯
+ * @brief tcp å®¢æˆ·ç«¯ä¾‹ç¨‹
  *
- * **Ô´Âë**
+ * **æºç **
  * @include tcpclient_sample.c
  * @example tcpclient_sample.c
  */
 
  /**
- * @defgroup udpclient_sample udp ¿Í»§¶Ë
- * @brief udp ¿Í»§¶Ë
+ * @defgroup udpclient_sample udp å®¢æˆ·ç«¯
+ * @brief udp å®¢æˆ·ç«¯
  *
- * **Ô´Âë**
+ * **æºç **
  * @include udpclient_sample.c
  * @example udpclient_sample.c
  */
 
 
  /**
- * @defgroup httpclient_sample http ¿Í»§¶Ë
- * @brief http ¿Í»§¶Ë
+ * @defgroup httpclient_sample http å®¢æˆ·ç«¯
+ * @brief http å®¢æˆ·ç«¯
  *
- * **Ô´Âë**
+ * **æºç **
  * @include httpclient_sample.c
  * @example httpclient_sample.c
  */
 
 
  /**
- * @defgroup tcpclient_select_sample selectÊµÏÖµÄtcp¿Í»§¶Ë
- * @brief ÀûÓÃ select ÊµÏÖµÄ tcp ¿Í»§¶Ë
+ * @defgroup tcpclient_select_sample selectå®ç°çš„tcpå®¢æˆ·ç«¯
+ * @brief åˆ©ç”¨ select å®ç°çš„ tcp å®¢æˆ·ç«¯
  *
- * **Ô´Âë**
+ * **æºç **
  * @include tcpclient_select_sample.c
  * @example tcpclient_select_sample.c
  */
 
 
  /**
- * @defgroup tcpserver_sample tcp ·şÎñ¶Ë
- * @brief tcp ·şÎñ¶Ë
+ * @defgroup tcpserver_sample tcp æœåŠ¡ç«¯
+ * @brief tcp æœåŠ¡ç«¯
  *
- * **Ô´Âë**
+ * **æºç **
  * @include tcpserver_sample.c
  * @example tcpserver_sample.c
  */
  
 
  /**
- * @defgroup udpserver_sample udp ·şÎñ¶Ë
- * @brief udp ·şÎñ¶Ë
+ * @defgroup udpserver_sample udp æœåŠ¡ç«¯
+ * @brief udp æœåŠ¡ç«¯
  *
- * **Ô´Âë**
+ * **æºç **
  * @include udpserver_sample.c
  * @example udpserver_sample.c
  */
@@ -344,63 +344,63 @@
 
 /**
  * @defgroup i2c_aht10 I2C
- * @brief Í¨¹ı I2C Éè±¸¶ÁÈ¡ÎÂÊª¶È´«¸ĞÆ÷ aht10 µÄÎÂÊª¶ÈÊı¾İ
+ * @brief é€šè¿‡ I2C è®¾å¤‡è¯»å–æ¸©æ¹¿åº¦ä¼ æ„Ÿå™¨ aht10 çš„æ¸©æ¹¿åº¦æ•°æ®
  *
- * **Ô´Âë**
+ * **æºç **
  * @include i2c_aht10_sample.c
  * @example i2c_aht10_sample.c
  */
 
 /**
  * @defgroup iwdg Watchdog
- * @brief ¶ÀÁ¢¿´ÃÅ¹·Éè±¸Ê¹ÓÃ
+ * @brief ç‹¬ç«‹çœ‹é—¨ç‹—è®¾å¤‡ä½¿ç”¨
  *
- * **Ô´Âë**
+ * **æºç **
  * @include iwdg_sample.c
  * @example iwdg_sample.c
  */
 
 /**
  * @defgroup led_blink Led
- * @brief Í¨¹ıPINÉè±¸¹ÜÀí½Ó¿Ú¿ØÖÆLEDÁÁÃğ
+ * @brief é€šè¿‡PINè®¾å¤‡ç®¡ç†æ¥å£æ§åˆ¶LEDäº®ç­
  *
- * **Ô´Âë**
+ * **æºç **
  * @include led_blink_sample.c
  * @example led_blink_sample.c
  */
 
 /**
  * @defgroup pin_beep PIN
- * @brief Í¨¹ı°´¼ü¿ØÖÆ·äÃùÆ÷¶ÔÓ¦Òı½ÅµÄµçÆ½×´Ì¬½ø¶ø¿ØÖÆ·äÃùÆ÷
+ * @brief é€šè¿‡æŒ‰é”®æ§åˆ¶èœ‚é¸£å™¨å¯¹åº”å¼•è„šçš„ç”µå¹³çŠ¶æ€è¿›è€Œæ§åˆ¶èœ‚é¸£å™¨
  *
- * **Ô´Âë**
+ * **æºç **
  * @include pin_beep_sample.c
  * @example pin_beep_sample.c
  */
 
 /**
- * @defgroup sd_sample SD¿¨
- * @brief SD¿¨Éè±¸µÄÊ¹ÓÃ
+ * @defgroup sd_sample SDå¡
+ * @brief SDå¡è®¾å¤‡çš„ä½¿ç”¨
  *
- * **Ô´Âë**
+ * **æºç **
  * @include sd_sample.c
  * @example sd_sample.c
  */
 
 /**
  * @defgroup spi_w25q SPI
- * @brief Í¨¹ıSPIÉè±¸¶ÁÈ¡ w25q µÄ ID Êı¾İ
+ * @brief é€šè¿‡SPIè®¾å¤‡è¯»å– w25q çš„ ID æ•°æ®
  *
- * **Ô´Âë**
+ * **æºç **
  * @include spi_w25q_sample.c
  * @example spi_w25q_sample.c
  */
  
 /**
  * @defgroup uart_sample UART
- * @brief Í¨¹ı´®¿ÚÊä³ö×Ö·û´®"hello RT-Thread!"£¬È»ºó´íÎ»Êä³öÊäÈëµÄ×Ö·û
+ * @brief é€šè¿‡ä¸²å£è¾“å‡ºå­—ç¬¦ä¸²"hello RT-Thread!"ï¼Œç„¶åé”™ä½è¾“å‡ºè¾“å…¥çš„å­—ç¬¦
  *
- * **Ô´Âë**
+ * **æºç **
  * @include uart_sample.c
  * @example uart_sample.c
  */
