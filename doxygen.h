@@ -405,4 +405,40 @@
  * @example uart_sample.c
  */
  
+/**
+ * @defgroup adc_vol_sample ADC
+ * @brief 通过 ADC 设备采样电压值并转换为数值
+ *
+ * **源码**
+ * @include adc_vol_sample.c
+ * @example adc_vol_sample.c
+ */
+ 
+/**
+ * @defgroup hwtimer_sample HWTIMER
+ * @brief 通过硬件定时器超时回调函数周期性的打印当前 tick 值
+ *
+ * **源码**
+ * @include hwtimer_sample.c
+ * @example hwtimer_sample.c
+ */
+ 
+/**
+ * @defgroup pwm_sample PWM
+ * @brief 通过 PWM 设备控制 LED 灯的亮度实现呼吸灯效果
+ *
+ * **源码**
+ * @include pwm_led_sample.c
+ * @example pwm_led_sample.c
+ */
+
+/**
+ * @defgroup rtc_sample RTC
+ * @brief 设置RTC设备的日期和时间，延时一段时间后获取当前时间
+ *
+ * **源码**
+ * @include rtc_sample.c
+ * @example rtc_sample.c
+ */
+
 /*@}*/
